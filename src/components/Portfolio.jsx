@@ -22,7 +22,7 @@ export default function Portfolio() {
                     {project.links.production && <a className="project-link" href={project.links.production} target="_blank"><img className="project-link-icon" src={openLink} alt="Open link icon"/></a>}
                 </div>
         </div>
-    ))
+    )).reverse()
 
     return (
         <div className="section-wrapper" id="portfolio-wrapper">

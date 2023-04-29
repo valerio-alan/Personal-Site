@@ -10,7 +10,7 @@ export default {
             },
             image: 'franja-liquors.png',
             imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['first_project', 'html/css/js', 'python', 'netlify'],
+            tags: ['html/css/js', 'python', 'netlify'],
             colors: {
                 backgroundColor: '49, 50, 57',
                 textColor: '230, 225, 218'
@@ -26,7 +26,7 @@ export default {
             },
             image: 'franja-liquors.png',
             imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['first_project', 'html/css/js', 'python', 'netlify'],
+            tags: ['html/css/js', 'python', 'netlify'],
             colors: {
                 backgroundColor: '49, 50, 57',
                 textColor: '230, 225, 218'
@@ -42,7 +42,55 @@ export default {
             },
             image: 'franja-liquors.png',
             imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['first_project', 'html/css/js', 'python', 'netlify'],
+            tags: ['html/css/js', 'python', 'netlify'],
+            colors: {
+                backgroundColor: '49, 50, 57',
+                textColor: '230, 225, 218'
+            }
+        },
+        {
+            id: 4,
+            title: 'Franja Liquors',
+            description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
+            links: {
+                production: 'https://franjaliquors.com',
+                github: 'https://github.com/valerio-alan/Franja-Site'
+            },
+            image: 'franja-liquors.png',
+            imageAlt: 'Franja Liquors Website Screenshot',
+            tags: ['html/css/js', 'python', 'netlify'],
+            colors: {
+                backgroundColor: '49, 50, 57',
+                textColor: '230, 225, 218'
+            }
+        },
+        {
+            id: 5,
+            title: 'Franja Liquors',
+            description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
+            links: {
+                production: 'https://franjaliquors.com',
+                github: 'https://github.com/valerio-alan/Franja-Site'
+            },
+            image: 'franja-liquors.png',
+            imageAlt: 'Franja Liquors Website Screenshot',
+            tags: ['html/css/js', 'python', 'netlify'],
+            colors: {
+                backgroundColor: '49, 50, 57',
+                textColor: '230, 225, 218'
+            }
+        },
+        {
+            id: 6,
+            title: 'Franja Liquors',
+            description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
+            links: {
+                production: 'https://franjaliquors.com',
+                github: 'https://github.com/valerio-alan/Franja-Site'
+            },
+            image: 'franja-liquors.png',
+            imageAlt: 'Franja Liquors Website Screenshot',
+            tags: ['html/css/js', 'python', 'netlify'],
             colors: {
                 backgroundColor: '49, 50, 57',
                 textColor: '230, 225, 218'
@@ -50,10 +98,10 @@ export default {
         },
     ],
     tags: {
-        first_project: {
-            name: 'First Project',
-            color: '86, 73, 167',
-        },
+        // first_project: {
+        //     name: 'First Project',
+        //     color: '86, 73, 167',
+        // },
         netlify: {
             name: 'Netlify',
             color: '26, 96, 95',
