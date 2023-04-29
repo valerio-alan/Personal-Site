@@ -8,8 +8,8 @@ export default {
             imageAlt: 'Franja Liquors Website Screenshot',
             tags: ['first_project', 'html/css/js', 'python', 'netlify'],
             colors: {
-                backgroundColor: '#313239',
-                textColor: '#E6E1DA'
+                backgroundColor: '49, 50, 57',
+                textColor: '230, 225, 218'
             }
         }
     ],

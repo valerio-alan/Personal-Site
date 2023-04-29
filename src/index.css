@@ -29,7 +29,15 @@ body {
   height: 300%;
   mix-blend-mode: exclusion;
   background-image: url('../images/bg-texture.png');
-  animation: grain 0.75s steps(1) infinite;
+  -webkit-animation: grain 0.75s steps(1) infinite;
+          animation: grain 0.75s steps(1) infinite;
+}
+
+@-webkit-keyframes grain {
+  0%   {background-position: 0px 0px;}
+  33%  {background-position: -500px 500px;}
+  66%  {background-position: 500px -500px;}
+  100% {background-position: 1000px 1000px;}
 }
 
 @keyframes grain {
@@ -87,7 +95,93 @@ body {
   justify-content: center;
 }
 
+.project {
+  position: relative;
+  max-width: 400px;
+  padding: 15px;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.project:hover {
+  background-color: rgba(var(--project-bg-color), 0.4);
+  transform: scale(102%);
+}
+
 .project>a {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
-  color: var(--project-text-color);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.project-image {
+  width: 100%;
+  aspect-ratio: 3/2;
+  border-radius: 10px 10px 0 0;
+}
+
+.project-title {
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  background-color: rgba(var(--project-bg-color), 0.8);
+  color: rgb(var(--project-text-color));
+  padding: 8px;
+  border-radius: 0 0 10px 10px;
+}
+
+.project-description {
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgba(var(--project-text-color), 0.8);
+  padding: 8px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+  background-color: rgba(var(--project-bg-color), 0.8);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.project-tags > a {
+  text-decoration: none;
+  transition: transform 250ms ease-in-out;
+}
+
+.project-tags > a:hover {
+  transform: scale(104%);
+}
+
+.project-tag {
+  position: relative;
+  margin: 4px;
+  padding: 3px 6px;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 21px;
+  background-color: var(--tag-color);
+  color: #F5F5F5;
+  border-radius: 6px;
 }

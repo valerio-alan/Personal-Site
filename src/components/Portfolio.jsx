@@ -11,14 +11,18 @@ export default function Portfolio() {
         <div className="section-wrapper" id="portfolio-wrapper">
             <div className="section" id="portfolio-section">
                 <div className="projects">
-                    <div className="project" style={{['--project-bg-color']: '#313239', ['--project-text-color']: '#E6E1DA'}}>
+                    <div className="project" style={{['--project-bg-color']: '49, 50, 57', ['--project-text-color']: '230, 225, 218'}}>
                         <a href="https://franjaliquors.com" target="_blank">
                             <img className="project-image" src='../images/projects/franja-liquors.png'/>
-                            <h3>Franja Liquors</h3>
-                            <p>In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store\'s hours and site banner from his iPhone.</p>
+                            <h3 className="project-title">Franja Liquors</h3>
+                            <p className="project-description">In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.</p>
+                            <div className="project-links"></div>
+                            <div className="project-tags">
+                                <a className="project-tag" style={{['--tag-color']: '#AF5928'}}>HTML/CSS/JS</a>
+                                <a className="project-tag" style={{['--tag-color']: '#AF5928'}}>HTML/CSS/JS</a>
+                                <a className="project-tag" style={{['--tag-color']: '#AF5928'}}>HTML/CSS/JS</a>
+                            </div>
                         </a>
-                        <div className="project-links"></div>
-                        <div className="project-tags"></div>
                     </div>
                 </div>
             </div>
