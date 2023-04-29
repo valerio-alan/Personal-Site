@@ -1,9 +1,26 @@
-import projects from "../data/projects"
+import projectsData from "../data/projects"
+import githubLogo from "../assets/github-logo.svg"
+import openLink from "../assets/open-link.svg"
 
 export default function Portfolio() {
-    const projectEls = projects.data.map(project => (
-        <div className="project">
-            <img className="project-image" src={`../assets/images/projects/${projects.image}`} alt={project.imageAlt}/>
+    const projectEls = projectsData.data.map(project => (
+        <div key={project.id} className="project" style={{['--project-bg-color']: project.colors.backgroundColor, ['--project-text-color']: project.colors.textColor}}>
+            <a href={project.links.production} target="_blank">
+                <img className="project-image" src={`../images/projects/${project.image}`} alt={project.imageAlt}/>
+                <h3 className="project-title">{project.title}</h3>
+            </a>
+                <div className="project-tags">
+                    {project.tags.map((tag, i) => (projectsData.tags[tag].link ?
+                            <a key={i} className="project-tag unselectable" href={projectsData.tags[tag].link} target="_blank" style={{['--tag-color']: projectsData.tags[tag].color}}>{projectsData.tags[tag].name}</a> :
+                            <div key={i} className="project-tag unselectable" style={{['--tag-color']: projectsData.tags[tag].color}}>{projectsData.tags[tag].name}</div>
+                        )
+                    )}
+                </div>
+                <p className="project-description">{project.description}</p>
+                <div className="project-links">
+                    {project.links.github && <a className="project-link" href={project.links.github} target="_blank"><img className="project-link-icon" src={githubLogo} alt="Github logo"/></a>}
+                    {project.links.production && <a className="project-link" href={project.links.production} target="_blank"><img className="project-link-icon" src={openLink} alt="Open link icon"/></a>}
+                </div>
         </div>
     ))
 
@@ -11,19 +28,7 @@ export default function Portfolio() {
         <div className="section-wrapper" id="portfolio-wrapper">
             <div className="section" id="portfolio-section">
                 <div className="projects">
-                    <div className="project" style={{['--project-bg-color']: '49, 50, 57', ['--project-text-color']: '230, 225, 218'}}>
-                        <a href="https://franjaliquors.com" target="_blank">
-                            <img className="project-image" src='../images/projects/franja-liquors.png'/>
-                            <h3 className="project-title">Franja Liquors</h3>
-                            <p className="project-description">In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.</p>
-                            <div className="project-links"></div>
-                            <div className="project-tags">
-                                <a className="project-tag" style={{['--tag-color']: '#AF5928'}}>HTML/CSS/JS</a>
-                                <a className="project-tag" style={{['--tag-color']: '#AF5928'}}>HTML/CSS/JS</a>
-                                <a className="project-tag" style={{['--tag-color']: '#AF5928'}}>HTML/CSS/JS</a>
-                            </div>
-                        </a>
-                    </div>
+                    {projectEls}
                 </div>
             </div>
         </div>
