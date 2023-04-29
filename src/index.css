@@ -1,0 +1,88 @@
+:root {
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  --bg-color: #0d1117;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+}
+
+/* Grain Styling */
+
+.grain {
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.3;
+}
+
+.grain-overflow {
+  position: relative;
+  width: 300%;
+  height: 300%;
+  mix-blend-mode: exclusion;
+  background-image: url('../images/bg-texture.png');
+  animation: grain 0.75s steps(1) infinite;
+}
+
+@keyframes grain {
+  0%   {background-position: 0px 0px;}
+  33%  {background-position: -500px 500px;}
+  66%  {background-position: 500px -500px;}
+  100% {background-position: 1000px 1000px;}
+}
+
+/* Test Styling */
+
+/* .test.animate {
+  animation: slide-in 1s ease-in-out forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+} */
+
+/* General Styling */
+
+.App {
+  overflow: hidden;
+  height: 5000px;
+}
+
+.to-animate {
+  opacity: 0;
+}
+
+.animate {
+  opacity: 1;
+}
+
+.section-wrapper {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.section {
+  max-width: 1440px;
+}
+
+/* Portfolio Styling */
+
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
