@@ -36,8 +36,6 @@ export default function App() {
           el.style.setProperty('--exit-percent', `${Math.abs(rect.y) / rect.height}`)
         }
 
-        console.log(el.classList, rect.top, )
-
         if (rect.top > window.innerHeight) {
           el.setAttribute('top-percent', `0`)
           el.style.setProperty('--top-percent', '0')

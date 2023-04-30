@@ -116,9 +116,9 @@ body {
 .section-title {
   position: -webkit-sticky;
   position: sticky;
-  width: -webkit-fit-content;
+  /* width: -webkit-fit-content;
   width: -moz-fit-content;
-  width: fit-content;
+  width: fit-content; */
   top: 0;
   margin: 0;
   padding: 2vh 0 0 6vh;
@@ -129,7 +129,7 @@ body {
   color: #F5F5F5;
   z-index: 100;
   transition: opacity 100ms linear;
-  opacity: calc((var(--top-percent) * var(--top-percent) * var(--top-percent) * 0.8) * (1 - var(--exit-percent)) * (1 - var(--exit-percent)) * (1 - var(--exit-percent)));
+  opacity: calc((var(--top-percent) * var(--top-percent) * var(--top-percent) * 0.8));
 }
 
 .section-content {
