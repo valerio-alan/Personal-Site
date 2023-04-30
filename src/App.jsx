@@ -84,7 +84,7 @@ export default function App() {
       <Overlay />
       <div style={{height:'2000px'}}></div>
       <Portfolio />
-      <Section name='Test Section' content='test'/>
+      <Section name='Test Section'/>
       <div style={{height:'2000px'}}></div>
       {/* <div className="test scroll-percent to-animate" style={{height: '100dvh', backgroundColor: 'white'}}></div> */}
     </div>
