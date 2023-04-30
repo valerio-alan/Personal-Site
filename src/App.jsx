@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Overlay from './components/Overlay'
 import Header from './components/Header'
 import Intro from './components/Intro'
 import Portfolio from './components/Portfolio'
@@ -67,9 +68,7 @@ export default function App() {
 
   return (
     <div className='App'>
-      <div className="grain">
-        <div className="grain-overflow"></div>
-      </div>
+      <Overlay />
       <div style={{height:'2000px'}}></div>
       <Portfolio />
       {/* <div className="test scroll-percent to-animate" style={{height: '100dvh', backgroundColor: 'white'}}></div> */}
