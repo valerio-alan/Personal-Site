@@ -76,30 +76,9 @@ body {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 }
 
-/* Test Styling */
-
-/* .test.animate {
-  animation: slide-in 1s ease-in-out forwards;
-}
-
-@keyframes slide-in {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-} */
-
 /* General Styling */
 
-.to-animate {
-  opacity: 0;
-}
 
-.animate {
-  opacity: 1;
-}
 
 /* Section Template Styling */
 
@@ -138,7 +117,7 @@ body {
   overflow: hidden;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
   .section-title {
     padding: 1vh 3vh;
     font-size: 48px;
@@ -267,6 +246,24 @@ body {
   transition: transform 250ms ease-in-out, opacity 250ms ease-in-out, -webkit-filter 250ms ease-in-out;
   transition: transform 250ms ease-in-out, filter 250ms ease-in-out, opacity 250ms ease-in-out;
   transition: transform 250ms ease-in-out, filter 250ms ease-in-out, opacity 250ms ease-in-out, -webkit-filter 250ms ease-in-out;
+}
+
+@media screen and (max-width: 850px) {
+  .project-image {
+    border-radius: 10px;
+  }
+  
+  .project-title {
+    box-sizing: border-box;
+    margin: -23.2px auto 0;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+  }
 }
 
 /* Project Hover Effects */
