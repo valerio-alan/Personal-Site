@@ -10,7 +10,7 @@ export default {
             },
             image: 'franja-liquors.png',
             imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['html/css/js', 'python', 'netlify'],
+            tags: ['first_project', 'html/css/js', 'python', 'netlify'],
             colors: {
                 backgroundColor: '49, 50, 57',
                 textColor: '230, 225, 218'
@@ -95,13 +95,14 @@ export default {
                 backgroundColor: '49, 50, 57',
                 textColor: '230, 225, 218'
             }
-        },
+        }
     ],
     tags: {
-        // first_project: {
-        //     name: 'First Project',
-        //     color: '86, 73, 167',
-        // },
+        first_project: {
+            name: 'First Project',
+            color: '86, 73, 167',
+            glow: true
+        },
         netlify: {
             name: 'Netlify',
             color: '26, 96, 95',
@@ -109,7 +110,7 @@ export default {
         },
         ['html/css/js']: {
             name: 'HTML/CSS/JS',
-            color: '175, 89, 40',
+            color: '175, 89, 40'
         },
         react: {
             name: 'React',

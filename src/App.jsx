@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Overlay from './components/Overlay'
-import Header from './components/Header'
-import Intro from './components/Intro'
+import Section from './components/Section'
+import Hero from './components/Hero'
 import Portfolio from './components/Portfolio'
 
 export default function App() {
@@ -24,14 +24,29 @@ export default function App() {
           el.setAttribute('scroll-percent', `${elemLowerLimit / elemHigherLimit}`)
           el.style.setProperty('--scroll-percent', `${elemLowerLimit / elemHigherLimit}`)
         }
-
         
-        if (rect.top == 0) {
-          el.setAttribute('at-top', `1`)
-          el.style.setProperty('--at-top', '1')
+        if (rect.y > 0) {
+          el.setAttribute('exit-percent', `0`)
+          el.style.setProperty('--exit-percent', '0')
+        } else if (Math.abs(rect.y) >= rect.height) {
+          el.setAttribute('exit-percent', `1`)
+          el.style.setProperty('--exit-percent', '1')
         } else {
-          el.setAttribute('at-top', `0`)
-          el.style.setProperty('--at-top', '0')
+          el.setAttribute('exit-percent', `${Math.abs(rect.y) / rect.height}`)
+          el.style.setProperty('--exit-percent', `${Math.abs(rect.y) / rect.height}`)
+        }
+
+        console.log(el.classList, rect.top, )
+
+        if (rect.top > window.innerHeight) {
+          el.setAttribute('top-percent', `0`)
+          el.style.setProperty('--top-percent', '0')
+        } else if (rect.top <= 0) {
+          el.setAttribute('top-percent', `1`)
+          el.style.setProperty('--top-percent', '1')
+        } else {
+          el.setAttribute('top-percent', `${1 - (Math.abs(rect.top) / window.innerHeight)}`)
+          el.style.setProperty('--top-percent', `${1 - (Math.abs(rect.top) / window.innerHeight)}`)
         }
       })
     }
@@ -71,6 +86,8 @@ export default function App() {
       <Overlay />
       <div style={{height:'2000px'}}></div>
       <Portfolio />
+      <Section name='Test Section' content='test'/>
+      <div style={{height:'2000px'}}></div>
       {/* <div className="test scroll-percent to-animate" style={{height: '100dvh', backgroundColor: 'white'}}></div> */}
     </div>
   )
