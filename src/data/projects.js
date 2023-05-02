@@ -1,7 +1,6 @@
 export default {
     data: [
         {
-            id: 1,
             title: 'Franja Liquors',
             description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
             links: {
@@ -17,7 +16,6 @@ export default {
             }
         },
         {
-            id: 2,
             title: 'Franja Liquors',
             description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
             links: {
@@ -33,7 +31,6 @@ export default {
             }
         },
         {
-            id: 3,
             title: 'Franja Liquors',
             description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
             links: {
@@ -49,7 +46,6 @@ export default {
             }
         },
         {
-            id: 4,
             title: 'Franja Liquors',
             description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
             links: {
@@ -65,7 +61,6 @@ export default {
             }
         },
         {
-            id: 5,
             title: 'Franja Liquors',
             description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
             links: {
@@ -81,7 +76,6 @@ export default {
             }
         },
         {
-            id: 6,
             title: 'Franja Liquors',
             description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
             links: {

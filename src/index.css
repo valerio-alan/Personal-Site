@@ -1,5 +1,7 @@
 :root {
   --bg-color: #0d1117;
+  --off-white: 245, 245, 245;
+  --accent: 190, 201, 216;
 }
 
 html {
@@ -92,35 +94,58 @@ body {
   min-height: 100svh;
 }
 
-.section-title {
+.section-header {
   position: -webkit-sticky;
   position: sticky;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  top: 0;
+  padding-inline: 4vh;
+}
+
+.section-title {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  top: 0;
   margin: 0;
-  padding: 2vh 0 0 6vh;
+  padding-top: 4vh;
+  margin-right: auto;
   font-family: 'Merriweather';
   font-style: normal;
   font-weight: 700;
   font-size: 64px;
-  color: #F5F5F5;
-  z-index: 100;
+  line-height: 54px;
+  color: rgb(var(--accent));
   transition: opacity 100ms linear;
-  opacity: calc(var(--top-percent) * var(--top-percent) * var(--top-percent) * 0.6 + 0.1);
+  opacity: calc(var(--top-percent) * var(--top-percent) * var(--top-percent) * 0.65 + 0.1);
 }
 
 .section-content {
+  margin-top: 4vh;
   transition: opacity 100ms linear;
-  opacity: calc(var(--top-percent) * var(--top-percent) * var(--top-percent) * 2 + 0.1);
+  opacity: calc(var(--top-percent) * var(--top-percent) * var(--top-percent) * 3 + 0.1);
   overflow: hidden;
 }
 
 @media screen and (max-width: 850px) {
+  .section-header {
+    padding-inline: 3vh;
+  }
+
   .section-title {
-    padding: 1vh 3vh;
+    padding-top: 1.5vh;
     font-size: 48px;
+  }
+
+  .section-content {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .section-title {
+    font-size: 46px;
   }
 }
 
@@ -134,6 +159,7 @@ body {
 }
 
 .project {
+  height: min-content;
   position: relative;
   box-sizing: border-box;
   max-width: 400px;
@@ -207,7 +233,7 @@ body {
   font-weight: 700;
   font-size: 16px;
   line-height: 21px;
-  color: #F5F5F5;
+  color: rgb(var(--off-white));
   background-color: rgba(var(--tag-color), 0.6);
   border-color: rgb(var(--tag-color));
   border-width: 2px;
@@ -267,14 +293,14 @@ body {
 }
 
 /* Project Hover Effects */
-@media(hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) {
   .projects:has(.project:hover) .project:not(:hover) {
     opacity: 0.5;
     transform: scale(98%);
   }
   
   .project:hover {
-    background-color: rgba(var(--project-bg-color), 0.2);
+    background-color: rgba(var(--project-bg-color), 0.4);
     transform: scale(102%);
     box-shadow: 0px 0px 5px rgba(var(--project-bg-color), 0.4);
   }
@@ -301,8 +327,15 @@ body {
   
   .project-link-icon:hover {
     transform: scale(106%);
-    -webkit-filter: drop-shadow(0px 0px 2.5px #f5f5f580);
-            filter: drop-shadow(0px 0px 2.5px #f5f5f580);
+    -webkit-filter: drop-shadow(0px 0px 2.5px rgba(var(--off-white), .5));
+            filter: drop-shadow(0px 0px 2.5px rgba(var(--off-white), .5));
     opacity: 80%;
+  }
+}
+
+@media screen and (max-width: 850px) and (hover: hover) and (pointer: fine) {
+  .project > a:has(img):hover > .project-image,
+  .project > a:has(img):hover > .project-title {
+    border-radius: 20px;
   }
 }
