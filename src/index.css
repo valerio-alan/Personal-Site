@@ -122,7 +122,8 @@ body {
 }
 
 .section-content {
-  margin-top: 4vh;
+  padding-top: 4vh;
+  padding-bottom: 1vh;
   transition: opacity 100ms linear;
   opacity: calc(var(--top-percent) * var(--top-percent) * var(--top-percent) * 3 + 0.1);
   overflow: hidden;
