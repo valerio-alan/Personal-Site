@@ -14,6 +14,10 @@ export default function Portfolio() {
     )
 
     return (
-        <Section id='portfolio' title='Portfolio' content={content}/>
+        <Section
+            id='portfolio'
+            title='Portfolio'
+            content={content}
+        />
     )
 }

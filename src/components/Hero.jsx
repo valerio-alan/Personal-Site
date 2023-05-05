@@ -5,6 +5,10 @@ export default function Hero() {
     
 
     return (
-        <Section id='hero' title='Alan Valerio' />
+        <Section
+            id='hero'
+            title='Alan Valerio'
+            headerLink='/'
+        />
     )
 }

@@ -9,10 +9,25 @@ export default {
             },
             image: 'franja-liquors.png',
             imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['first_project', 'html/css/js', 'python', 'netlify'],
+            tags: ['html/css/js', 'python', 'netlify', 'deta-space'],
             colors: {
                 backgroundColor: '49, 50, 57',
                 textColor: '230, 225, 218'
+            }
+        },
+        {
+            title: "Jane Casto's Portfolio",
+            description: "This is the portfolio site I designed and developed for Jane Casto. It's a simple site that showcases her work and provides a way for potential clients to contact her.",
+            links: {
+                production: 'https://janecasto.com',
+                github: 'https://github.com/valerio-alan/Jane-Casto-Portfolio'
+            },
+            image: 'jane-casto.png',
+            imageAlt: "Jane Casto's Portfolio Website Screenshot",
+            tags: ['react', 'netlify', 'figma'],
+            colors: {
+                backgroundColor: '115, 74, 74',
+                textColor: '239, 231, 231'
             }
         },
         {
@@ -24,10 +39,25 @@ export default {
             },
             image: 'franja-liquors.png',
             imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['html/css/js', 'python', 'netlify'],
+            tags: ['html/css/js', 'python', 'netlify', 'deta-space'],
             colors: {
                 backgroundColor: '49, 50, 57',
                 textColor: '230, 225, 218'
+            }
+        },
+        {
+            title: "Jane Casto's Portfolio",
+            description: "This is the portfolio site I designed and developed for Jane Casto. It's a simple site that showcases her work and provides a way for potential clients to contact her.",
+            links: {
+                production: 'https://janecasto.com',
+                github: 'https://github.com/valerio-alan/Jane-Casto-Portfolio'
+            },
+            image: 'jane-casto.png',
+            imageAlt: "Jane Casto's Portfolio Website Screenshot",
+            tags: ['react', 'netlify', 'figma'],
+            colors: {
+                backgroundColor: '115, 74, 74',
+                textColor: '239, 231, 231'
             }
         },
         {
@@ -39,62 +69,32 @@ export default {
             },
             image: 'franja-liquors.png',
             imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['html/css/js', 'python', 'netlify'],
+            tags: ['html/css/js', 'python', 'netlify', 'deta-space'],
             colors: {
                 backgroundColor: '49, 50, 57',
-                textColor: '230, 225, 218'
+                textColor: 'light'
             }
         },
         {
-            title: 'Franja Liquors',
-            description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
+            title: "Jane Casto's Portfolio",
+            description: "This is the portfolio site I designed and developed for Jane Casto. It's a simple site that showcases her work and provides a way for potential clients to contact her.",
             links: {
-                production: 'https://franjaliquors.com',
-                github: 'https://github.com/valerio-alan/Franja-Site'
+                production: 'https://janecasto.com',
+                github: 'https://github.com/valerio-alan/Jane-Casto-Portfolio'
             },
-            image: 'franja-liquors.png',
-            imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['html/css/js', 'python', 'netlify'],
+            image: 'jane-casto.png',
+            imageAlt: "Jane Casto's Portfolio Website Screenshot",
+            tags: ['react', 'netlify', 'figma'],
             colors: {
-                backgroundColor: '49, 50, 57',
-                textColor: '230, 225, 218'
+                backgroundColor: '115, 74, 74',
+                textColor: 'light'
             }
         },
-        {
-            title: 'Franja Liquors',
-            description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
-            links: {
-                production: 'https://franjaliquors.com',
-                github: 'https://github.com/valerio-alan/Franja-Site'
-            },
-            image: 'franja-liquors.png',
-            imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['html/css/js', 'python', 'netlify'],
-            colors: {
-                backgroundColor: '49, 50, 57',
-                textColor: '230, 225, 218'
-            }
-        },
-        {
-            title: 'Franja Liquors',
-            description: "In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
-            links: {
-                production: 'https://franjaliquors.com',
-                github: 'https://github.com/valerio-alan/Franja-Site'
-            },
-            image: 'franja-liquors.png',
-            imageAlt: 'Franja Liquors Website Screenshot',
-            tags: ['html/css/js', 'python', 'netlify'],
-            colors: {
-                backgroundColor: '49, 50, 57',
-                textColor: '230, 225, 218'
-            }
-        }
     ],
     tags: {
         first_project: {
             name: 'First Project',
-            color: '86, 73, 167',
+            color: '27, 134, 168',
             glow: true
         },
         netlify: {
@@ -108,13 +108,23 @@ export default {
         },
         react: {
             name: 'React',
-            color: '27, 134, 168',
+            color: '86, 73, 167',
             link: 'https://react.dev'
         },
         python: {
             name: 'Python',
             color: '175, 137, 40',
             link: 'https://www.python.org'
+        },
+        ['deta-space']: {
+            name: 'Deta Space',
+            color: '247, 59, 149',
+            link: 'https://deta.space'
+        },
+        figma: {
+            name: 'Figma',
+            color: '12, 140, 233',
+            link: 'https://figma.com'
         }
     }
 }

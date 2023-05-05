@@ -64,18 +64,68 @@ export default function App() {
       })
     }
 
+    function hideTooltip() {
+      const tooltip = document.getElementsByClassName('tooltip')[0]
+      tooltip.style.opacity = 0
+    }
+
     function handleScroll() {
       animateWhenVisible()
       updateScrollPercent()
+      hideTooltip()
     }
 
     handleScroll()
+    
+    var tooltipEls = []
+    const tooltipParents = [...document.getElementsByClassName('show-tooltip')]
+    tooltipParents.forEach(el => {
+      tooltipEls.push(el),
+      [...el.children].forEach(child => {
+        child.classList.add('show-tooltip')
+        child.setAttribute('tooltip-text', el.getAttribute('tooltip-text'))
+        tooltipEls.push(child)
+      })
+    })
+
+    function setTooltipPosition(e) {
+      const overlay = document.getElementsByClassName('overlay')[0]
+      const tooltip = document.getElementsByClassName('tooltip')[0]
+      const tooltipText = document.getElementsByClassName('tooltip-text')[0]
+      const tooltipArrow = document.getElementsByClassName('tooltip-arrow')[0]
+
+      tooltipText.style.left =
+        (e.clientX + (tooltipText.clientWidth/2) + 6 < overlay.clientWidth)
+            ? `max(${(tooltipText.clientWidth/2) + 6}px, ${e.clientX}px)`
+            : (overlay.clientWidth - (tooltipText.clientWidth/2 + 6) + "px")
+            
+      tooltipText.style.top =
+        (e.clientY <= tooltipText.clientHeight + 12)
+            ? (6 + "px")
+            : (e.clientY - tooltipText.clientHeight - 6 + "px")
+
+      tooltipArrow.style.left = (e.clientX + "px")
+
+      tooltipArrow.style.top =
+        (e.clientY <= tooltipText.clientHeight + 12)
+            ? (tooltipText.clientHeight + 6 + "px")
+            : (e.clientY - tooltipArrow.clientHeight - 6 + "px")
+
+      if (e.target.classList.contains('show-tooltip')) {
+        tooltipText.textContent = e.target.getAttribute('tooltip-text')
+        tooltip.style.opacity = 0.8
+      } else {
+        tooltip.style.opacity = 0
+      }
+    }
 
     window.addEventListener('scroll', handleScroll)
     window.addEventListener('resize', handleScroll)
+    window.addEventListener('mousemove', setTooltipPosition)
     return () => {
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleScroll)
+      window.removeEventListener('mousemove', setTooltipPosition)
     }
   }, [])
 
