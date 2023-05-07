@@ -1,7 +1,9 @@
 :root {
-  --bg-color: #0d1117;
+  --bg-color: #120d17;
   --off-white: 245, 245, 245;
-  --accent: 190, 201, 216;
+  --accent: 200, 190, 216;
+  --purple: 188, 148, 255;
+  --accent-back: 37, 32, 45;
 }
 
 html {
@@ -11,13 +13,6 @@ html {
 body {
   margin: 0;
   background-color: var(--bg-color);
-}
-
-*.unselectable {
-  -moz-user-select: -moz-none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 /* Overlay Styling */
@@ -111,7 +106,34 @@ body {
 
 /* General Styling */
 
+::selection {
+  background-color: rgb(var(--purple));
+  color: var(--bg-color);
+  font-weight: bold;
+}
 
+*.unselectable {
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+*.bold {
+  font-weight: bold;
+}
+
+*.light-purple {
+  color: rgb(var(--accent));
+}
+
+*.purple {
+  color: rgb(var(--purple));
+}
+
+*.underlined {
+  text-decoration: underline;
+}
 
 /* Section Template Styling */
 
@@ -161,9 +183,9 @@ body {
 
 .section-content {
   padding-top: 4vh;
-  padding-bottom: 1vh;
+  padding-bottom: 4vh;
   transition: opacity 100ms linear;
-  opacity: calc(var(--top-percent) * var(--top-percent) * var(--top-percent) * 3 + 0.1);
+  opacity: calc(var(--top-percent) * var(--top-percent) * var(--top-percent) * 2 + 0.1);
   overflow: hidden;
 }
 
@@ -185,6 +207,175 @@ body {
 @media screen and (max-width: 400px) {
   .section-title {
     font-size: 46px;
+  }
+}
+
+/* Hero Styling */
+
+#hero-content {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  gap: 50px;
+}
+
+.hero-img {
+  position: relative;
+  width: 350px;
+  perspective: 15px;
+}
+
+.hero-img > img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 150ms linear;
+}
+
+.hero-text {
+  max-width: 525px;
+  text-align: center;
+  color: rgb(var(--off-white));
+}
+
+.hero-text > h3 {
+  margin: 0;
+  font-family: 'Merriweather';
+  font-weight: normal;
+  font-size: 32px;
+}
+
+.hero-text > p {
+  margin: 0;
+  margin-top: 32px;
+  font-family: 'Merriweather';
+  font-size: 24px;
+}
+
+.hero-link {
+  color: rgb(var(--off-white));
+  transition: text-decoration-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+.hero-btns {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.hero-btn {
+  padding: 4px 14px 6px;
+  border: 3px solid rgb(var(--purple));
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: 'Roboto Mono';
+  font-size: 28px;
+  font-weight: bold;
+  color: rgb(var(--off-white));
+  background-color: rgba(var(--purple), 0.5);
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out, border-color 250ms ease-in-out;
+}
+
+.hero-btns.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 950px) {
+  .hero-text {
+    max-width: 450px;
+  }
+
+  .hero-text > h3 {
+    font-size: 28px;
+  }
+  
+  .hero-text > p {
+    margin-top: 32px;
+    font-size: 20px;
+  }
+
+  .hero-btn {
+    padding: 4px 14px 6px;
+    border-radius: 8px;
+    font-size: 28px;
+  }
+
+  .hero-btns {
+    margin-top: 32px;
+    gap: 32px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  #hero-content {
+    flex-direction: column;
+    gap: 20px;
+    padding-inline: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .hero-img {
+    width: min(65vw, 300px);
+    margin-bottom: -38px;
+    z-index: 0;
+  }
+
+  .hero-text {
+    max-width: 350px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    background-color: rgba(var(--accent-back), 0.75);
+    z-index: 1;
+  }
+
+  .hero-text > h3 {
+    font-size: 20px;
+  }
+  
+  .hero-text > p {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .hero-btn {
+    padding: 4px 14px 6px;
+    border-radius: 8px;
+    font-size: 20px;
+  }
+
+  .hero-btns {
+    margin-top: 0px;
+    gap: 20px;
+  }
+
+  .hero-btns.desktop {
+    display: none;
+  }
+
+  .hero-btns.mobile {
+    display: flex;
+  }
+}
+
+/* Hero Hover Effects */
+@media (hover: hover) and (pointer: fine) {
+  .hero-link:hover {
+    text-decoration-color: rgb(var(--purple));
+    color: rgb(var(--purple));
+  }
+
+  .hero-btn:hover {
+    background-color: rgb(var(--purple));
+    border-color: rgb(var(--purple));
+    color: var(--bg-color);
   }
 }
 
@@ -266,7 +457,7 @@ body {
   box-sizing: border-box;
   position: relative;
   margin: 0 8px 8px 0;
-  padding: 1px 4px;
+  padding: 1px 5px;
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 700;
