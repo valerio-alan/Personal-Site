@@ -2,8 +2,8 @@
   --bg-color: #120d17;
   --off-white: 245, 245, 245;
   --accent: 200, 190, 216;
-  --purple: 188, 148, 255;
-  --accent-back: 37, 32, 45;
+  --purple: 162, 147, 255;
+  --accent-back: 34, 32, 45;
 }
 
 html {
@@ -213,6 +213,7 @@ body {
 /* Hero Styling */
 
 #hero-content {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -226,6 +227,7 @@ body {
   position: relative;
   width: 350px;
   perspective: 15px;
+  z-index: 3;
 }
 
 .hero-img > img {
@@ -237,9 +239,11 @@ body {
 }
 
 .hero-text {
+  position: relative;
   max-width: 525px;
   text-align: center;
   color: rgb(var(--off-white));
+  z-index: 2;
 }
 
 .hero-text > h3 {
@@ -286,6 +290,19 @@ body {
   display: none;
 }
 
+.hero-bubble {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: rgba(var(--accent-back), 0.75);
+  z-index: -1;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.hero-bubble.mobile {
+  display: none;
+}
+
 @media screen and (max-width: 950px) {
   .hero-text {
     max-width: 450px;
@@ -324,7 +341,7 @@ body {
   .hero-img {
     width: min(65vw, 300px);
     margin-bottom: -38px;
-    z-index: 0;
+    z-index: 1;
   }
 
   .hero-text {
@@ -332,7 +349,6 @@ body {
     padding: 18px 20px;
     border-radius: 16px;
     background-color: rgba(var(--accent-back), 0.75);
-    z-index: 1;
   }
 
   .hero-text > h3 {
@@ -354,6 +370,7 @@ body {
   .hero-btns {
     margin-top: 0px;
     gap: 20px;
+    z-index: 2;
   }
 
   .hero-btns.desktop {
@@ -362,6 +379,15 @@ body {
 
   .hero-btns.mobile {
     display: flex;
+  }
+
+  .hero-bubble.desktop {
+    display: none;
+  }
+
+  .hero-bubble.mobile {
+    display: block;
+    z-index: -5;
   }
 }
 

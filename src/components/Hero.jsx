@@ -59,12 +59,29 @@ export default function Hero() {
         }
     }, [])
 
+    const desktopBubbles = (
+        <>
+            <div className='hero-bubble desktop' style={{width: '250px'}}></div>
+            <div className='hero-bubble desktop' style={{width: '210px', left: '100%', top: '200px'}}></div>
+            <div className='hero-bubble desktop' style={{width: '195px', left: '100px', top: '100%'}}></div>
+        </>
+    )
+    
+    const mobileBubbles = (
+        <>
+        </>
+    )
+
     const content = (
         <>
+            <div className='hero-bubble mobile' style={{width: '150px', left: '50px', top: '100%'}}></div>
             <div className='hero-img unselectable' id='perspective-wrap'>
+                <div className='hero-bubble mobile' style={{width: '200px', top: '75px', left: '75px'}}></div>
                 <img src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective'/>
             </div>
             <div className='hero-text'>
+                <div className='hero-bubble mobile' style={{width: '175px', left: '70%', top: '100%'}}></div>
+                {desktopBubbles}
                 <h3>Hello! My name is <span className='bold purple'>Alan Valerio</span>.</h3>
                 <p>I’m a <span className='bold purple'>self-taught web developer</span> with a focus on <span className='bold purple'>front-end</span> and an eye for <span className='bold purple'>design</span>.</p>
                 <p>I’ve had the honor of working with <a className='hero-link' href="#portfolio">many clients</a>, and have gained further experience through my own personal projects.</p>
@@ -75,8 +92,8 @@ export default function Hero() {
                 </div>
             </div>
             <div className='hero-btns mobile'>
-                <a className='hero-btn show-tooltip' tooltip-text="Come see what I can do!" href='#portfolio'>Projects</a>
-                <a className='hero-btn show-tooltip' tooltip-text='Hire me? ;)' href='#contact'>Contact</a>
+                <a className='hero-btn' href='#portfolio'>Projects</a>
+                <a className='hero-btn' href='#contact'>Contact</a>
             </div>
         </>
     )
