@@ -59,6 +59,37 @@ export default function Hero() {
         }
     }, [])
 
+    useEffect(() => {
+        const heroEl = document.querySelector('#hero')
+        const heroElProps = heroEl.getBoundingClientRect()
+        const nameTitleEl = document.querySelector('.name-title')
+        if (heroElProps.top !== 0) {
+            document.querySelector('.hero-intro').style.display = 'none'
+            nameTitleEl.style.opacity = 1
+        } else {
+            const heroIntroTextEl = document.querySelector('.hero-intro-text')
+            const titleElProps = nameTitleEl.getBoundingClientRect()
+            console.log(titleElProps)
+
+            const introTextSize = window.getComputedStyle(nameTitleEl).getPropertyValue('font-size')
+            const introTextTop = titleElProps.top + (titleElProps.height / 2)
+            const introTextLeft = titleElProps.left + (titleElProps.width / 2)
+
+            nameTitleEl.classList.add('animate')
+            setTimeout(() => {
+                heroIntroTextEl.style.fontSize = introTextSize
+                heroIntroTextEl.style.top = `${introTextTop}px`
+                heroIntroTextEl.style.left = `${introTextLeft}px`
+            }, 500)
+        }
+    }, [])
+
+    const introAnimation = (
+        <div className='hero-intro to-animate unselectable'>
+            <h3 className='hero-intro-text bold purple'>Alan Valerio</h3>
+        </div>
+    )
+
     const desktopBubbles = (
         <>
             <div className='hero-bubble desktop' style={{width: '250px'}}></div>
@@ -66,14 +97,10 @@ export default function Hero() {
             <div className='hero-bubble desktop' style={{width: '195px', left: '100px', top: '100%'}}></div>
         </>
     )
-    
-    const mobileBubbles = (
-        <>
-        </>
-    )
 
     const content = (
         <>
+            {introAnimation}
             <div className='hero-bubble mobile' style={{width: '150px', left: '50px', top: '100%'}}></div>
             <div className='hero-img unselectable' id='perspective-wrap'>
                 <div className='hero-bubble mobile' style={{width: '200px', top: '75px', left: '75px'}}></div>
@@ -82,7 +109,7 @@ export default function Hero() {
             <div className='hero-text'>
                 <div className='hero-bubble mobile' style={{width: '175px', left: '70%', top: '100%'}}></div>
                 {desktopBubbles}
-                <h3>Hello! My name is <span className='bold purple'>Alan Valerio</span>.</h3>
+                <h3>Hello! My name is <span className='bold purple name-title'>Alan Valerio</span>.</h3>
                 <p>I’m a <span className='bold purple'>self-taught web developer</span> with a focus on <span className='bold purple'>front-end</span> and an eye for <span className='bold purple'>design</span>.</p>
                 <p>I’ve had the honor of working with <a className='hero-link' href="#portfolio">many clients</a>, and have gained further experience through my own personal projects.</p>
                 {/* <p>I look forward to working with you!</p> */}
