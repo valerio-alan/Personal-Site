@@ -16,7 +16,7 @@ export default {
             }
         },
         {
-            title: "Jane Casto's Portfolio",
+            title: "Jane Casto",
             description: "This is the portfolio site I designed and developed for Jane Casto. Jane is a policy and data analyst and this simple site showcases her work and provides a way for potential clients to contact her.",
             links: {
                 production: 'https://janecasto.com',
