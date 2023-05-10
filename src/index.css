@@ -702,6 +702,10 @@ body {
 }
 
 @media screen and (max-width: 850px) {
+  .projects {
+    padding-inline: 0;
+  }
+
   .project-image {
     border-radius: 10px;
   }
