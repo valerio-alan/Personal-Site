@@ -67,14 +67,17 @@ export default function Intro() {
             document.querySelector('.intro-intro').style.display = 'none'
             nameTitleEl.style.opacity = 1
         } else {
-            nameTitleEl.classList.add('animate')
             setTimeout(() => {
+                nameTitleEl.classList.add('animate')
                 const introIntroTextEl = document.querySelector('.intro-intro-text')
+                const introTextProps = introIntroTextEl.getBoundingClientRect()
                 const titleElProps = nameTitleEl.getBoundingClientRect()
-                const introTextSize = window.getComputedStyle(nameTitleEl).getPropertyValue('font-size')
-                const introTextTop = titleElProps.y
+
+                const introScale = titleElProps.width / introTextProps.width
+                const introTextTop = titleElProps.y + (titleElProps.height / 2)
                 const introTextLeft = titleElProps.x + (titleElProps.width / 2)
-                introIntroTextEl.style.fontSize = introTextSize
+
+                introIntroTextEl.style.transform = `translateX(-50%) translateY(-50%) scale(${introScale})`
                 introIntroTextEl.style.top = `${introTextTop}px`
                 introIntroTextEl.style.left = `${introTextLeft}px`
             }, 500)
