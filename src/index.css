@@ -413,6 +413,7 @@ body {
   font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 10vw;
   color: rgb(var(--off-white));
+  opacity: 0.8;
   transform: translateX(-50%) translateY(-50%) scale(1);
   transition: top 0.75s ease-in-out, left 0.75s ease-in-out, transform 0.75s ease-in-out;
   -webkit-animation: intro-text-fade-out 1s 1.75s ease-in-out forwards;
@@ -422,7 +423,7 @@ body {
 @-webkit-keyframes intro-text-fade-out {
   0% {
     color: rgb(var(--off-white));
-    opacity: 1;
+    opacity: 0.8;
   }
   100% {
     color: rgb(var(--purple));
@@ -433,7 +434,7 @@ body {
 @keyframes intro-text-fade-out {
   0% {
     color: rgb(var(--off-white));
-    opacity: 1;
+    opacity: 0.8;
   }
   100% {
     color: rgb(var(--purple));
