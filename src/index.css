@@ -1,5 +1,6 @@
 :root {
   --bg-color: #120d17;
+  --bg-color-rgb: 18, 13, 23;
   --off-white: 245, 245, 245;
   --accent: 200, 190, 216;
   --purple: 162, 147, 255;
@@ -139,6 +140,12 @@ body {
 
 *.underlined {
   text-decoration: underline;
+}
+
+.bounce-char {
+  position: relative;
+  bottom: 0;
+  cursor: grab;
 }
 
 /* Section Template Styling */
@@ -310,11 +317,6 @@ body {
   font-size: 24px;
 }
 
-.bounce-char {
-  position: relative;
-  bottom: 0;
-}
-
 .intro-link {
   color: rgb(var(--off-white));
   transition: color 250ms ease-in-out, -webkit-text-decoration-color 250ms ease-in-out;
@@ -367,30 +369,34 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: rgb(var(--accent-back));
   z-index: 5;
 }
 
-.intro-intro.animate {
-  -webkit-animation: intro-intro 1s 0.15s ease-in-out forwards;
-          animation: intro-intro 1s 0.15s ease-in-out forwards;
+.intro-intro-back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(var(--bg-color-rgb),1) 0%, rgba(var(--accent-back),1) 50%, rgba(var(--bg-color-rgb),1) 100%);
+  opacity: 1;
+  -webkit-animation: intro-back 1s 0.35s ease-in-out forwards;
+          animation: intro-back 1s 0.35s ease-in-out forwards;
 }
 
-@-webkit-keyframes intro-intro {
+@-webkit-keyframes intro-back {
   0% {
-    background-color: rgba(var(--accent-back), 1);
+    opacity: 1;
   }
   100% {
-    background-color: rgba(var(--accent-back), 0);
+    opacity: 0;
   }
 }
 
-@keyframes intro-intro {
+@keyframes intro-back {
   0% {
-    background-color: rgba(var(--accent-back), 1);
+    opacity: 1;
   }
   100% {
-    background-color: rgba(var(--accent-back), 0);
+    opacity: 0;
   }
 }
 
@@ -409,11 +415,11 @@ body {
   color: rgb(var(--off-white));
   transform: translateX(-50%) translateY(-50%) scale(1);
   transition: top 0.75s ease-in-out, left 0.75s ease-in-out, transform 0.75s ease-in-out;
-  -webkit-animation: intro-intro-text 1s 1.5s ease-in-out forwards;
-          animation: intro-intro-text 1s 1.5s ease-in-out forwards;
+  -webkit-animation: intro-text-fade-out 1s 1.75s ease-in-out forwards;
+          animation: intro-text-fade-out 1s 1.75s ease-in-out forwards;
 }
 
-@-webkit-keyframes intro-intro-text {
+@-webkit-keyframes intro-text-fade-out {
   0% {
     color: rgb(var(--off-white));
     opacity: 1;
@@ -424,7 +430,7 @@ body {
   }
 }
 
-@keyframes intro-intro-text {
+@keyframes intro-text-fade-out {
   0% {
     color: rgb(var(--off-white));
     opacity: 1;

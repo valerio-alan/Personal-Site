@@ -74,18 +74,19 @@ export default function Intro() {
                 const titleElProps = nameTitleEl.getBoundingClientRect()
 
                 const introScale = titleElProps.width / introTextProps.width
-                const introTextTop = titleElProps.y + (titleElProps.height / 2)
-                const introTextLeft = titleElProps.x + (titleElProps.width / 2)
+                const introTextTop = titleElProps.top + (titleElProps.height / 2) - introEl.getBoundingClientRect().top
+                const introTextLeft = titleElProps.left + (titleElProps.width / 2)
 
                 introIntroTextEl.style.transform = `translateX(-50%) translateY(-50%) scale(${introScale})`
                 introIntroTextEl.style.top = `${introTextTop}px`
                 introIntroTextEl.style.left = `${introTextLeft}px`
-            }, 500)
+            }, 750)
         }
     }, [])
 
     const introAnimation = (
-        <div className='intro-intro to-animate unselectable'>
+        <div className='intro-intro unselectable'>
+            <div className='intro-intro-back'></div>
             <h3 className='intro-intro-text bold purple'>Alan Valerio</h3>
         </div>
     )
@@ -113,14 +114,14 @@ export default function Intro() {
                 <p>I’m a <BounceText classes='bold purple' text='self-taught web developer'/> with a focus on <BounceText classes='bold purple' text='front-end'/> and an eye for <BounceText classes='bold purple' text='design'/>.</p>
                 <p>I’ve had the honor of working with <a className='intro-link' href="#portfolio">many clients</a>, and have gained further experience through my own personal projects.</p>
                 {/* <p>I look forward to working with you!</p> */}
-                <div className='intro-btns desktop'>
+                <div className='unselectable intro-btns desktop'>
                     <a className='intro-btn show-tooltip' tooltip-text="Come see what I can do!" href='#portfolio'>Projects</a>
                     <a className='intro-btn show-tooltip' tooltip-text='Hire me? ;)' href='#contact'>Contact</a>
                 </div>
             </div>
             <div className='intro-btns mobile'>
-                <a className='intro-btn' href='#portfolio'>Projects</a>
-                <a className='intro-btn' href='#contact'>Contact</a>
+                <a className='intro-btn unselectable' href='#portfolio'>Projects</a>
+                <a className='intro-btn unselectable' href='#contact'>Contact</a>
             </div>
         </>
     )
