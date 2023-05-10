@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import Section from "./Section"
 import AVPortrait from "../assets/images/AlanValerio.jpg"
+import BounceText from "./BounceText"
 
 export default function Intro() {
     useEffect(() => {
@@ -66,15 +67,13 @@ export default function Intro() {
             document.querySelector('.intro-intro').style.display = 'none'
             nameTitleEl.style.opacity = 1
         } else {
-            const introIntroTextEl = document.querySelector('.intro-intro-text')
-            const titleElProps = nameTitleEl.getBoundingClientRect()
-
-            const introTextSize = window.getComputedStyle(nameTitleEl).getPropertyValue('font-size')
-            const introTextTop = titleElProps.y + (titleElProps.height / 2)
-            const introTextLeft = titleElProps.x + (titleElProps.width / 2)
-
             nameTitleEl.classList.add('animate')
             setTimeout(() => {
+                const introIntroTextEl = document.querySelector('.intro-intro-text')
+                const titleElProps = nameTitleEl.getBoundingClientRect()
+                const introTextSize = window.getComputedStyle(nameTitleEl).getPropertyValue('font-size')
+                const introTextTop = titleElProps.y
+                const introTextLeft = titleElProps.x + (titleElProps.width / 2)
                 introIntroTextEl.style.fontSize = introTextSize
                 introIntroTextEl.style.top = `${introTextTop}px`
                 introIntroTextEl.style.left = `${introTextLeft}px`
@@ -96,86 +95,6 @@ export default function Intro() {
         </>
     )
 
-    useEffect(() => {
-        const bounceText = [...document.getElementsByClassName('bounce-text')]
-        bounceText.forEach(el => {
-            if (!el.getAttribute('bounced')) {
-                let chars = [...el.textContent].map((char, i) => (`<span key=${i} className="bounce-char" charnum=${i}>${char}</span>`))
-                el.innerHTML = ''
-                chars.forEach(char => {
-                    el.innerHTML += char
-                })
-                el.setAttribute('bounced', 'true')
-            }
-        })
-        const bounceCharEls = [...document.getElementsByClassName('bounce-char')]
-        
-        function hoverChar(event) {
-            console.log("hovered ", event.target)
-            let char = event.target
-            let charParent = event.target.parentElement
-            let charNum = charParent.indexOf(char)
-            
-            char.style = 'transition: bottom 100ms ease-out; bottom: 10px'
-            char.setAttribute('chartype', 'primary')
-
-            if (charParent[charNum - 1]) {
-                charParent[charNum - 1].style = 'transition: bottom 100ms 25ms ease-out; bottom: 5px'
-                charParent[charNum - 1].setAttribute('chartype', 'secondary')
-            }
-
-            if (charParent[charNum + 1]) {
-                charParent[charNum + 1].style = 'transition: bottom 100ms 25ms ease-out; bottom: 5px'
-                charParent[charNum + 1].setAttribute('chartype', 'secondary')
-            }
-            setTimeout(() => {
-                if (char.getAttribute('chartype') == 'primary') {leaveChar(event)}
-            }, 175)
-        }
-
-        function leaveChar(event) {
-            let char = event.target
-            let charParent = event.target.parentElement
-            let charNum = charParent.indexOf(char)
-            let charList = [char]
-
-            if (charParent[charNum - 1]) {
-                charList.push(charParent[charNum - 1])
-            }
-
-            if (charParent[charNum + 1]) {
-                charList.push(charParent[charNum + 1])
-            }
-
-            charList.forEach(el => {
-                el.setAttribute('chartype', '')
-                el.style = 'transition: bottom 500ms ease-in; bottom: 0'
-            })
-        }
-
-        function leaveWord(event) {
-            [...event.target.children].forEach(el => {
-                el.setAttribute('chartype', '')
-                el.style = 'transition: bottom 500ms ease-in'
-            })
-        }
-
-        bounceText.forEach(el => el.addEventListener('mouseleave', (event) => {leaveWord(event)}))
-        bounceCharEls.forEach(el => {
-            el.addEventListener('mouseenter', (event) => {hoverChar(event)})
-            el.addEventListener('click', (event) => {hoverChar(event)})
-            el.addEventListener('mouseleave', (event) => {leaveChar(event)})
-        })
-        return (() => {
-            bounceText.forEach(el => el.removeEventListener('mouseleave', (event) => {leaveWord(event)}))
-            bounceCharEls.forEach(el => {
-                el.removeEventListener('mouseenter', (event) => {hoverChar(event)})
-                el.removeEventListener('click', (event) => {hoverChar(event)})
-                el.removeEventListener('mouseleave', (event) => {leaveChar(event)})
-            })
-        })
-    }, [])
-
     const content = (
         <>
             {introAnimation}
@@ -187,8 +106,8 @@ export default function Intro() {
             <div className='intro-text'>
                 <div className='intro-bubble mobile' style={{width: '175px', left: '70%', top: '100%'}}></div>
                 {desktopBubbles}
-                <h3>Hello! My name is <span className='bold purple name-title bounce-text'>Alan Valerio</span>.</h3>
-                <p>I’m a <span className='bold purple'>self-taught web developer</span> with a focus on <span className='bold purple'>front-end</span> and an eye for <span className='bold purple'>design</span>.</p>
+                <h3>Hello! My name is <BounceText classes='bold purple name-title' text='Alan Valerio'/>.</h3>
+                <p>I’m a <BounceText classes='bold purple' text='self-taught web developer'/> with a focus on <BounceText classes='bold purple' text='front-end'/> and an eye for <BounceText classes='bold purple' text='design'/>.</p>
                 <p>I’ve had the honor of working with <a className='intro-link' href="#portfolio">many clients</a>, and have gained further experience through my own personal projects.</p>
                 {/* <p>I look forward to working with you!</p> */}
                 <div className='intro-btns desktop'>

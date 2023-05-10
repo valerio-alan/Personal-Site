@@ -1,6 +1,6 @@
 export default function Overlay() {
     return (
-        <div className="overlay">
+        <div className="overlay unselectable">
             <div className="tooltip">
                 <h3 className="tooltip-text">Click for more</h3>
                 <div className="tooltip-arrow"></div>

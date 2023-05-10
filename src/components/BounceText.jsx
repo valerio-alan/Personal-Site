@@ -1,0 +1,80 @@
+import { useEffect } from "react"
+
+export default function BounceText(props) {
+    const bounceId = Math.floor(Math.random() * 999999)
+    const bounceTextId = props.text.replace(' ', '-').toLowerCase() + '-bounce-text' + bounceId
+    const bounceCharId = props.text.replace(' ', '-').toLowerCase() + '-bounce-char' + bounceId
+
+    useEffect(() => {
+        const bounceText = document.getElementsByClassName(bounceTextId)[0]
+        const bounceCharEls = [...document.getElementsByClassName(bounceCharId)]
+        const fontSize = window.getComputedStyle(bounceText).getPropertyValue('font-size').replace('px', '')
+
+        function hoverChar(event) {
+            let char = event.target
+            let charNum = [...bounceText.children].indexOf(char)
+            
+            char.style = `transition: bottom 100ms ease-out; bottom: ${fontSize/2}px`
+            char.setAttribute('chartype', 'primary')
+
+            if (bounceText.children[charNum - 1]) {
+                bounceText.children[charNum - 1].style = `transition: bottom 100ms 25ms ease-out; bottom: ${fontSize/4}px`
+                bounceText.children[charNum - 1].setAttribute('chartype', 'secondary')
+            }
+
+            if (bounceText.children[charNum + 1]) {
+                bounceText.children[charNum + 1].style = `transition: bottom 100ms 25ms ease-out; bottom: ${fontSize/4}px`
+                bounceText.children[charNum + 1].setAttribute('chartype', 'secondary')
+            }
+            setTimeout(() => {
+                if (char.getAttribute('chartype') == 'primary') {leaveChar(event)}
+            }, 500)
+        }
+
+        function leaveChar(event) {
+            let char = event.target
+            let charNum = [...bounceText.children].indexOf(char)
+            let charList = [char]
+
+            if (bounceText.children[charNum - 1]) {
+                charList.push(bounceText.children[charNum - 1])
+            }
+
+            if (bounceText.children[charNum + 1]) {
+                charList.push(bounceText.children[charNum + 1])
+            }
+
+            charList.forEach(el => {
+                el.setAttribute('chartype', '')
+                el.style = 'transition: bottom 500ms ease-in; bottom: 0'
+            })
+        }
+
+        function leaveWord(event) {
+            [...event.target.children].forEach(el => {
+                el.setAttribute('chartype', '')
+                el.style = 'transition: bottom 500ms ease-in'
+            })
+        }
+
+        bounceText.addEventListener('mouseleave', (event) => {leaveWord(event)})
+        bounceCharEls.forEach(el => {
+            el.addEventListener('mouseenter', (event) => {hoverChar(event)})
+            el.addEventListener('click', (event) => {hoverChar(event)})
+            el.addEventListener('mouseleave', (event) => {leaveChar(event)})
+        })
+        return (() => {
+            bounceText.removeEventListener('mouseleave', (event) => {leaveWord(event)})
+            bounceCharEls.forEach(el => {
+                el.removeEventListener('mouseenter', (event) => {hoverChar(event)})
+                el.removeEventListener('click', (event) => {hoverChar(event)})
+                el.removeEventListener('mouseleave', (event) => {leaveChar(event)})
+            })
+        })
+    }, [])
+
+    let chars = [...props.text].map((char, i) => (<span key={i} className={`bounce-char ${bounceCharId}`} charnum={i}>{char}</span>))
+    return (
+        <span className={props.classes ? props.classes + ` bounce-text ${bounceTextId}` : `bounce-text ${bounceTextId}`} id={props.id ? props.id : ''}>{chars}</span>
+    )
+}
