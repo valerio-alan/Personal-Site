@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
 import Overlay from './components/Overlay'
 import Section from './components/Section'
-import Hero from './components/Hero'
+import Intro from './components/Intro'
 import Portfolio from './components/Portfolio'
 
 export default function App() {
   useEffect(() => {
+    // Setting section header offsets
+    const sectionHeaders = [...document.getElementsByClassName('section-header')]
+    sectionHeaders.forEach(el => {
+        el.parentElement.style.setProperty('--header-offset', '-' + el.clientHeight + 'px')
+    })
+
+    // Scroll percent
     function updateScrollPercent() {
       const elsToUpdate = [...document.getElementsByClassName('scroll-percent')]
       elsToUpdate.forEach(el => {
@@ -49,6 +56,7 @@ export default function App() {
       })
     }
 
+    // Animate when visible
     function animateWhenVisible() {
       const elsToAnimate = [...document.getElementsByClassName('to-animate')]
       elsToAnimate.forEach(el => {
@@ -64,6 +72,7 @@ export default function App() {
       })
     }
 
+    // Hide tooltip on scroll
     function hideTooltip() {
       const tooltip = document.getElementsByClassName('tooltip')[0]
       tooltip.style.opacity = 0
@@ -132,11 +141,10 @@ export default function App() {
   return (
     <div className='App'>
       <Overlay />
-      <Hero />
+      <Intro />
       <Portfolio />
       <Section title='Test Section'/>
       <div style={{height:'2000px'}}></div>
-      {/* <div className="test scroll-percent to-animate" style={{height: '100dvh', backgroundColor: 'white'}}></div> */}
     </div>
   )
 }

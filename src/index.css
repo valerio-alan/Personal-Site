@@ -37,7 +37,7 @@ body {
   color: white;
   margin: 0;
   z-index: 100;
-  font-family: 'Roboto Mono';
+  font-family: 'Roboto Mono', monospace;
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -106,6 +106,12 @@ body {
 
 /* General Styling */
 
+::-moz-selection {
+  background-color: rgb(var(--purple));
+  color: var(--bg-color);
+  font-weight: bold;
+}
+
 ::selection {
   background-color: rgb(var(--purple));
   color: var(--bg-color);
@@ -168,7 +174,7 @@ body {
   width: fit-content;
   margin: 0;
   padding-top: 4vh;
-  font-family: 'Merriweather';
+  font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-style: normal;
   font-weight: 700;
   font-size: 64px;
@@ -216,6 +222,47 @@ body {
 #hero-content {
   position: relative;
   box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.hero-text {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 10vw;
+  font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+  white-space: nowrap;
+  color: rgba(var(--purple), 0.75);
+  animation: pulse 15s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Hero Hover Effects */
+@media (hover: hover) and (pointer: fine) {
+
+}
+
+/* Intro Styling */
+
+#intro-content {
+  margin-top: var(--header-offset);
+  position: relative;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -224,22 +271,23 @@ body {
   gap: 50px;
 }
 
-.hero-img {
+.intro-img {
   position: relative;
   width: 350px;
   perspective: 15px;
   z-index: 3;
 }
 
-.hero-img > img {
+.intro-img > img {
   width: 100%;
   aspect-ratio: 1;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 50%;
   transition: transform 150ms linear;
 }
 
-.hero-text {
+.intro-text {
   position: relative;
   max-width: 525px;
   text-align: center;
@@ -247,27 +295,34 @@ body {
   z-index: 2;
 }
 
-.hero-text > h3 {
+.intro-text > h3 {
   --font-size: 32px;
   margin: 0;
-  font-family: 'Merriweather';
+  font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-weight: normal;
   font-size: var(--font-size);
 }
 
-.hero-text > p {
+.intro-text > p {
   margin: 0;
   margin-top: 32px;
-  font-family: 'Merriweather';
+  font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 24px;
 }
 
-.hero-link {
-  color: rgb(var(--off-white));
-  transition: text-decoration-color 250ms ease-in-out, color 250ms ease-in-out;
+.bounce-char {
+  position: relative;
+  bottom: 0;
 }
 
-.hero-btns {
+.intro-link {
+  color: rgb(var(--off-white));
+  transition: color 250ms ease-in-out, -webkit-text-decoration-color 250ms ease-in-out;
+  transition: text-decoration-color 250ms ease-in-out, color 250ms ease-in-out;
+  transition: text-decoration-color 250ms ease-in-out, color 250ms ease-in-out, -webkit-text-decoration-color 250ms ease-in-out;
+}
+
+.intro-btns {
   margin-top: 32px;
   display: flex;
   flex-wrap: wrap;
@@ -275,12 +330,12 @@ body {
   gap: 32px;
 }
 
-.hero-btn {
+.intro-btn {
   padding: 4px 14px 6px;
   border: 3px solid rgb(var(--purple));
   border-radius: 8px;
   text-decoration: none;
-  font-family: 'Roboto Mono';
+  font-family: 'Roboto Mono', monospace;
   font-size: 28px;
   font-weight: bold;
   color: rgb(var(--off-white));
@@ -288,25 +343,26 @@ body {
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out, border-color 250ms ease-in-out;
 }
 
-.hero-btns.mobile {
+.intro-btns.mobile {
   display: none;
 }
 
-.hero-bubble {
+.intro-bubble {
   position: absolute;
   aspect-ratio: 1;
   border-radius: 50%;
   background-color: rgba(var(--accent-back), 0.75);
   z-index: -1;
-  filter: blur(2px);
+  -webkit-filter: blur(2px);
+          filter: blur(2px);
   transform: translateX(-50%) translateY(-50%);
 }
 
-.hero-bubble.mobile {
+.intro-bubble.mobile {
   display: none;
 }
 
-.hero-intro {
+.intro-intro {
   pointer-events: none; 
   position: absolute;
   height: 100%;
@@ -315,11 +371,12 @@ body {
   z-index: 5;
 }
 
-.hero-intro.animate {
-  animation: hero-intro 1s 0.15s ease-in-out forwards;
+.intro-intro.animate {
+  -webkit-animation: intro-intro 1s 0.15s ease-in-out forwards;
+          animation: intro-intro 1s 0.15s ease-in-out forwards;
 }
 
-@keyframes hero-intro {
+@-webkit-keyframes intro-intro {
   0% {
     background-color: rgba(var(--accent-back), 1);
   }
@@ -328,23 +385,46 @@ body {
   }
 }
 
-.hero-intro-text {
+@keyframes intro-intro {
+  0% {
+    background-color: rgba(var(--accent-back), 1);
+  }
+  100% {
+    background-color: rgba(var(--accent-back), 0);
+  }
+}
+
+.intro-intro-text {
   position: relative;
+  width: -webkit-min-content;
+  width: -moz-min-content;
   width: min-content;
   top: 50%;
   left: 50%;
   margin: 0;
   z-index: 10;
   white-space: nowrap;
-  font-family: 'Merriweather';
+  font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 10vw;
   color: rgb(var(--off-white));
   transform: translateX(-50%) translateY(-50%);
   transition: top 0.75s ease-in-out, left 0.75s ease-in-out, font-size 0.75s ease-in-out;
-  animation: hero-intro-text 1s 1.5s ease-in-out forwards;
+  -webkit-animation: intro-intro-text 1s 1.5s ease-in-out forwards;
+          animation: intro-intro-text 1s 1.5s ease-in-out forwards;
 }
 
-@keyframes hero-intro-text {
+@-webkit-keyframes intro-intro-text {
+  0% {
+    color: rgb(var(--off-white));
+    opacity: 1;
+  }
+  100% {
+    color: rgb(var(--purple));
+    opacity: 0;
+  }
+}
+
+@keyframes intro-intro-text {
   0% {
     color: rgb(var(--off-white));
     opacity: 1;
@@ -361,7 +441,17 @@ body {
 }
 
 .name-title.animate {
-  animation: fade-in 1s 1.5s ease-in-out forwards;
+  -webkit-animation: fade-in 1s 1.5s ease-in-out forwards;
+          animation: fade-in 1s 1.5s ease-in-out forwards;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes fade-in {
@@ -374,46 +464,46 @@ body {
 }
 
 @media screen and (max-width: 950px) {
-  .hero-text {
+  .intro-text {
     max-width: 450px;
   }
 
-  .hero-text > h3 {
+  .intro-text > h3 {
     --font-size: 28px;
   }
   
-  .hero-text > p {
+  .intro-text > p {
     margin-top: 32px;
     font-size: 20px;
   }
 
-  .hero-btn {
+  .intro-btn {
     padding: 4px 14px 6px;
     border-radius: 8px;
     font-size: 28px;
   }
 
-  .hero-btns {
+  .intro-btns {
     margin-top: 32px;
     gap: 32px;
   }
 }
 
 @media screen and (max-width: 850px) {
-  #hero-content {
+  #intro-content {
     flex-direction: column;
     gap: 20px;
     padding-inline: 20px;
     margin: 0 auto;
   }
 
-  .hero-img {
+  .intro-img {
     width: min(65vw, 300px);
     margin-bottom: -38px;
     z-index: 1;
   }
 
-  .hero-text {
+  .intro-text {
     box-sizing: border-box;
     max-width: 350px;
     padding: 18px 20px;
@@ -421,54 +511,55 @@ body {
     background-color: rgba(var(--accent-back), 0.75);
   }
 
-  .hero-text > h3 {
+  .intro-text > h3 {
     --font-size: 20px;
   }
   
-  .hero-text > p {
+  .intro-text > p {
     margin-top: 20px;
     font-size: 16px;
     line-height: 24px;
   }
 
-  .hero-btn {
+  .intro-btn {
     padding: 4px 14px 6px;
     border-radius: 8px;
     font-size: 20px;
   }
 
-  .hero-btns {
+  .intro-btns {
     margin-top: 0px;
     gap: 20px;
     z-index: 2;
   }
 
-  .hero-btns.desktop {
+  .intro-btns.desktop {
     display: none;
   }
 
-  .hero-btns.mobile {
+  .intro-btns.mobile {
     display: flex;
   }
 
-  .hero-bubble.desktop {
+  .intro-bubble.desktop {
     display: none;
   }
 
-  .hero-bubble.mobile {
+  .intro-bubble.mobile {
     display: block;
     z-index: -5;
   }
 }
 
-/* Hero Hover Effects */
+/* Intro Hover Effects */
 @media (hover: hover) and (pointer: fine) {
-  .hero-link:hover {
-    text-decoration-color: rgb(var(--purple));
+  .intro-link:hover {
+    -webkit-text-decoration-color: rgb(var(--purple));
+            text-decoration-color: rgb(var(--purple));
     color: rgb(var(--purple));
   }
 
-  .hero-btn:hover {
+  .intro-btn:hover {
     background-color: rgb(var(--purple));
     border-color: rgb(var(--purple));
     color: var(--bg-color);
@@ -485,6 +576,8 @@ body {
 }
 
 .project {
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
   position: relative;
   box-sizing: border-box;
@@ -523,7 +616,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  font-family: 'Merriweather';
+  font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
@@ -554,7 +647,7 @@ body {
   position: relative;
   margin: 0 8px 8px 0;
   padding: 1px 5px;
-  font-family: 'Roboto Mono';
+  font-family: 'Roboto Mono', monospace;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -571,11 +664,11 @@ body {
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  font-family: 'Merriweather';
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 22px;
+  line-height: 20px;
   color: rgba(var(--project-text-color), 0.8);
   padding: 4px 8px 0 8px;
 }
