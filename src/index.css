@@ -5,6 +5,7 @@
   --accent: 200, 190, 216;
   --purple: 162, 147, 255;
   --accent-back: 34, 32, 45;
+  --tooltip-text-color: white;
 }
 
 html {
@@ -36,7 +37,7 @@ body {
 
 .tooltip-text {
   position: absolute;
-  color: white;
+  color: var(--tooltip-text-color);
   margin: 0;
   z-index: 100;
   font-family: 'Roboto Mono', monospace;
@@ -164,6 +165,7 @@ body {
 .bounce-char {
   position: relative;
   bottom: 0;
+  cursor: -webkit-grab;
   cursor: grab;
 }
 
@@ -268,6 +270,7 @@ body {
   width: 350px;
   perspective: 15px;
   z-index: 3;
+  cursor: -webkit-grab;
   cursor: grab;
 }
 
@@ -454,6 +457,7 @@ body {
   color: rgb(var(--off-white));
   opacity: 0.8;
   transform: translateX(-50%) translateY(-50%) scale(1);
+  will-change: top, left, transform;
   transition: top 0.75s ease-in-out, left 0.75s ease-in-out, transform 0.75s ease-in-out;
   -webkit-animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2.5s ease-in-out forwards;
           animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2.5s ease-in-out forwards;
@@ -809,7 +813,6 @@ body {
     width: -moz-fit-content;
     width: fit-content;
     max-width: calc(100% - 30px);
-    /* width: calc(100% - 30px); */
     padding: 8px 24px;
     border-radius: 10px;
     -webkit-backdrop-filter: blur(2px);
