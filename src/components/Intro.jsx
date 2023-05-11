@@ -2,6 +2,9 @@ import { useEffect } from "react"
 import Section from "./Section"
 import AVPortrait from "../assets/images/AlanValerio.jpg"
 import BounceText from "./BounceText"
+import githubLogo from "../assets/images/github-logo.svg"
+import linkedinLogo from "../assets/images/linkedin-logo.svg"
+import emailLogo from "../assets/images/email-logo.svg"
 
 export default function Intro() {
     useEffect(() => {
@@ -38,10 +41,11 @@ export default function Intro() {
         var inner = document.getElementById('perspective')
 
         function init() {
-            container.setAttribute('_x', container.offsetLeft + Math.floor(container.offsetWidth/2))
-            container.setAttribute('_y', container.offsetTop + Math.floor(container.offsetHeight/2))
-            inner.setAttribute('_x', container.offsetLeft + Math.floor(container.offsetWidth/2))
-            inner.setAttribute('_y', container.offsetTop + Math.floor(container.offsetHeight/2))
+            let containerProps = container.getBoundingClientRect()
+            container.setAttribute('_x', containerProps.left + Math.floor(containerProps.width/2))
+            container.setAttribute('_y', containerProps.top + Math.floor(containerProps.height/2))
+            inner.setAttribute('_x', containerProps.left + Math.floor(containerProps.width/2))
+            inner.setAttribute('_y', containerProps.top + Math.floor(containerProps.height/2))
         }
           
         var updateTransformStyle = function(x, y) {
@@ -54,6 +58,7 @@ export default function Intro() {
         }
 
         var update = function(event) {
+            init()
             var e = event || window.event
             updateTransformStyle(
                 (((e.clientY - e.target.getAttribute('_y')) * -1) / inner.offsetHeight/2).toFixed(2),
@@ -66,7 +71,7 @@ export default function Intro() {
         // Intro image scale effect
         const introImgEl = document.querySelector('.intro-img')
         function scaleOnClick() {
-            introImgEl.style = 'transform: scale(1.1); transition: transform 100ms ease-out'
+            introImgEl.style = 'transform: scale(1.1); transition: transform 100ms ease-out; cursor: grabbing'
             setTimeout(() => {
                 introImgEl.style = 'transform: scale(1); transition: transform 300ms ease-in'
             }, 100)
@@ -115,8 +120,13 @@ export default function Intro() {
             {introAnimationEl}
             <div className='intro-bubble mobile' style={{width: '150px', left: '50px', top: '100%'}}></div>
                 <div className='intro-bubble mobile' style={{width: '200px', top: '120px', left: '10%'}}></div>
-            <div className='intro-img unselectable' id='perspective-wrap'>
-                <img className='unselectable' src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective'/>
+            <div className='intro-img-wrapper'>
+                <div className='intro-img unselectable' id='perspective-wrap'>
+                    <img className='unselectable' src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective'/>
+                </div>
+                <a className='social-bubble github-bubble show-tooltip' tooltip-text='Visit my Github profile' href="https://github.com/valerio-alan" target="_blank"><img src={githubLogo} alt='Github logo'/></a>
+                <a className='social-bubble linkedin-bubble show-tooltip' tooltip-text='Visit my LinkedIn profile' href="https://www.linkedin.com/in/alan-valerio-277507276/" target="_blank"><img src={linkedinLogo} alt='Linkedin logo'/></a>
+                <a className='social-bubble email-bubble show-tooltip' tooltip-text='Get in touch :)' href="mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B" target="_blank"><img src={emailLogo} alt='Email icon'/></a>
             </div>
             <div className='intro-text'>
                 <div className='intro-bubble mobile' style={{width: '175px', left: '70%', top: '100%'}}></div>

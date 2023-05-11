@@ -28,7 +28,8 @@ body {
 }
 
 .tooltip {
-  /* position: absolute; */
+  z-index: -1;
+  display: none;
   opacity: 0;
   transition: opacity 250ms ease-in-out;
 }
@@ -105,6 +106,12 @@ body {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .tooltip {
+    display: block;
+  }
+}
+
 /* General Styling */
 
 ::-moz-selection {
@@ -158,6 +165,7 @@ body {
 }
 
 .section {
+  margin-bottom: 1.5vh;
   min-height: 100vh;
   min-height: 100svh;
 }
@@ -240,20 +248,79 @@ body {
   gap: 50px;
 }
 
+.intro-img-wrapper {
+  position: relative;
+  aspect-ratio: 1;
+}
+
 .intro-img {
   position: relative;
   width: 350px;
   perspective: 15px;
   z-index: 3;
+  cursor: grab;
 }
 
 .intro-img > img {
+  display: block;
   width: 100%;
   aspect-ratio: 1;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 50%;
   transition: transform 150ms linear;
+}
+
+.social-bubble {
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: rgba(var(--accent-back), 0.75);
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 0 0 2px rgba(var(--accent), 0.5);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, background-color 150ms ease-out;
+}
+
+.social-bubble:hover {
+  background-color: rgba(var(--accent-back), 1);
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: inset 0 0 0 2px rgba(var(--purple), 1);
+}
+
+.social-bubble:hover > img {
+  opacity: 1;
+}
+
+.social-bubble > img{
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 50%;
+  left: 50%;
+  opacity: 0.75;
+  transform: translate(-50%, -50%);
+  transition: opacity 150ms ease-out;
+  cursor: pointer;
+}
+
+.github-bubble {
+  top: 95%;
+  left: 25%;
+}
+
+.linkedin-bubble {
+  top: 100%;
+  left: 50%;
+}
+
+.email-bubble {
+  top: 95%;
+  right: 5%;
 }
 
 .intro-text {
@@ -331,7 +398,7 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 5;
+  z-index: 10;
 }
 
 .intro-animation-back {
@@ -488,11 +555,31 @@ body {
     margin: 0 auto;
   }
 
-  .intro-img {
+  .intro-img-wrapper {
     position: relative;
     width: min(65vw, 300px);
     margin-bottom: -38px;
+  }
+
+  .intro-img {
+    position: relative;
+    width: min(65vw, 300px);
     z-index: 1;
+  }
+
+  .github-bubble {
+    top: 25%;
+    left: 95%;
+  }
+  
+  .linkedin-bubble {
+    top: 50%;
+    left: 100%;
+  }
+  
+  .email-bubble {
+    top: 75%;
+    left: 95%;
   }
 
   .intro-text {
