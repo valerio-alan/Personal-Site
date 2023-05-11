@@ -124,6 +124,8 @@ body {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none; 
 }
 
 *.bold {
@@ -222,59 +224,6 @@ body {
   .section-title {
     font-size: 46px;
   }
-}
-
-/* Hero Styling */
-
-#hero-content {
-  position: relative;
-  box-sizing: border-box;
-  min-height: 100vh;
-  min-height: 100svh;
-}
-
-.hero-text {
-  position: absolute;
-  margin: 0;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  font-size: 10vw;
-  font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-weight: bold;
-  white-space: nowrap;
-  color: rgba(var(--purple), 0.75);
-  -webkit-animation: pulse 15s ease-in-out infinite;
-          animation: pulse 15s ease-in-out infinite;
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Hero Hover Effects */
-@media (hover: hover) and (pointer: fine) {
-
 }
 
 /* Intro Styling */
@@ -391,8 +340,8 @@ body {
   width: 100%;
   background: linear-gradient(180deg, rgba(var(--bg-color-rgb),1) 0%, rgba(var(--accent-back),1) 50%, rgba(var(--bg-color-rgb),1) 100%);
   opacity: 1;
-  -webkit-animation: intro-back 1s 0.35s ease-in-out forwards;
-          animation: intro-back 1s 0.35s ease-in-out forwards;
+  -webkit-animation: intro-back 1s 1s ease-in-out forwards;
+          animation: intro-back 1s 1s ease-in-out forwards;
 }
 
 @-webkit-keyframes intro-back {
@@ -429,8 +378,8 @@ body {
   opacity: 0.8;
   transform: translateX(-50%) translateY(-50%) scale(1);
   transition: top 0.75s ease-in-out, left 0.75s ease-in-out, transform 0.75s ease-in-out;
-  -webkit-animation: intro-text-fade-in 0.5s ease-out, intro-text-fade-out 1s 1.75s ease-in-out forwards;
-          animation: intro-text-fade-in 0.5s ease-out, intro-text-fade-out 1s 1.75s ease-in-out forwards;
+  -webkit-animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2.5s ease-in-out forwards;
+          animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2.5s ease-in-out forwards;
 }
 
 @-webkit-keyframes intro-text-fade-out {
@@ -483,8 +432,8 @@ body {
 }
 
 .name-title.animate {
-  -webkit-animation: fade-in 1s 1s ease-in-out forwards;
-          animation: fade-in 1s 1s ease-in-out forwards;
+  -webkit-animation: fade-in 1s 0.75s ease-in-out forwards;
+          animation: fade-in 1s 0.75s ease-in-out forwards;
 }
 
 @-webkit-keyframes fade-in {

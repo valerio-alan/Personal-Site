@@ -26,7 +26,7 @@ export default function Intro() {
                 introIntroTextEl.style.transform = `translateX(-50%) translateY(-50%) scale(${introScale})`
                 introIntroTextEl.style.top = `${introTextTop}px`
                 introIntroTextEl.style.left = `${introTextLeft}px`
-            }, 750)
+            }, 1500)
         }
 
         // Modified perspective tilt effect from https://css-tricks.com/animate-a-container-on-mouse-over-using-perspective-and-transform/
@@ -63,6 +63,16 @@ export default function Intro() {
 
         init()
 
+        // Intro image scale effect
+        const introImgEl = document.querySelector('.intro-img')
+        function scaleOnClick() {
+            introImgEl.style = 'transform: scale(1.1); transition: transform 100ms ease-out'
+            setTimeout(() => {
+                introImgEl.style = 'transform: scale(1); transition: transform 300ms ease-in'
+            }, 100)
+        }
+
+        introImgEl.addEventListener('click', scaleOnClick)
         container.addEventListener('mouseenter', (event) => (update(event)))
         container.addEventListener('mouseleave', () => (inner.style = ""))
         container.addEventListener('mousemove', (event) => {
@@ -72,6 +82,7 @@ export default function Intro() {
         })
         window.addEventListener('resize', init)
         return () => {
+            introImgEl.removeEventListener('click', scaleOnClick)
             container.removeEventListener('mouseenter', (event) => (update(event)))
             container.removeEventListener('mouseleave', () => (inner.style = ""))
             container.removeEventListener('mousemove', (event) => {
@@ -103,9 +114,9 @@ export default function Intro() {
         <>
             {introAnimationEl}
             <div className='intro-bubble mobile' style={{width: '150px', left: '50px', top: '100%'}}></div>
+                <div className='intro-bubble mobile' style={{width: '200px', top: '120px', left: '10%'}}></div>
             <div className='intro-img unselectable' id='perspective-wrap'>
-                <div className='intro-bubble mobile' style={{width: '200px', top: '75px', left: '75px'}}></div>
-                <img src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective'/>
+                <img className='unselectable' src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective'/>
             </div>
             <div className='intro-text'>
                 <div className='intro-bubble mobile' style={{width: '175px', left: '70%', top: '100%'}}></div>

@@ -109,16 +109,16 @@ export default function App() {
             : (overlay.clientWidth - (tooltipText.clientWidth/2 + 6) + "px")
             
       tooltipText.style.top =
-        (e.clientY <= tooltipText.clientHeight + 12)
+        (e.clientY <= tooltipText.clientHeight + 15)
             ? (6 + "px")
-            : (e.clientY - tooltipText.clientHeight - 6 + "px")
+            : (e.clientY - tooltipText.clientHeight - 9 + "px")
 
       tooltipArrow.style.left = (e.clientX + "px")
 
       tooltipArrow.style.top =
-        (e.clientY <= tooltipText.clientHeight + 12)
+        (e.clientY <= tooltipText.clientHeight + 15)
             ? (tooltipText.clientHeight + 6 + "px")
-            : (e.clientY - tooltipArrow.clientHeight - 6 + "px")
+            : (e.clientY - tooltipArrow.clientHeight - 9 + "px")
 
       if (e.target.classList.contains('show-tooltip')) {
         tooltipText.textContent = e.target.getAttribute('tooltip-text')

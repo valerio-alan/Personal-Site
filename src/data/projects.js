@@ -104,7 +104,8 @@ export default {
         },
         ['html/css/js']: {
             name: 'HTML/CSS/JS',
-            color: '175, 89, 40'
+            color: '175, 89, 40',
+            link: 'https://www.freecodecamp.org/news/html-css-and-javascript-explained-for-beginners/'
         },
         react: {
             name: 'React',
