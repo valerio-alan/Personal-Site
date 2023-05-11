@@ -144,7 +144,6 @@ export default function App() {
       <Intro />
       <Portfolio />
       <Section title='Test Section'/>
-      <div style={{height:'2000px'}}></div>
     </div>
   )
 }

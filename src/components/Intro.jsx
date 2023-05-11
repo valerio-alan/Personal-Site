@@ -5,6 +5,30 @@ import BounceText from "./BounceText"
 
 export default function Intro() {
     useEffect(() => {
+        // Intro animation
+        const introEl = document.querySelector('#intro')
+        const introElProps = introEl.getBoundingClientRect()
+        const nameTitleEl = document.querySelector('.name-title')
+        if (introElProps.top !== 0) {
+            document.querySelector('.intro-animation').style.display = 'none'
+            nameTitleEl.style.opacity = 1
+        } else {
+            setTimeout(() => {
+                nameTitleEl.classList.add('animate')
+                const introIntroTextEl = document.querySelector('.intro-animation-text')
+                const introTextProps = introIntroTextEl.getBoundingClientRect()
+                const titleElProps = nameTitleEl.getBoundingClientRect()
+
+                const introScale = titleElProps.width / introTextProps.width
+                const introTextTop = titleElProps.top + (titleElProps.height / 2) - introEl.getBoundingClientRect().top
+                const introTextLeft = titleElProps.left + (titleElProps.width / 2)
+
+                introIntroTextEl.style.transform = `translateX(-50%) translateY(-50%) scale(${introScale})`
+                introIntroTextEl.style.top = `${introTextTop}px`
+                introIntroTextEl.style.left = `${introTextLeft}px`
+            }, 750)
+        }
+
         // Modified perspective tilt effect from https://css-tricks.com/animate-a-container-on-mouse-over-using-perspective-and-transform/
         var counter = 0
         var updateRate = 5
@@ -59,39 +83,15 @@ export default function Intro() {
         }
     }, [])
 
-    useEffect(() => {
-        const introEl = document.querySelector('#intro')
-        const introElProps = introEl.getBoundingClientRect()
-        const nameTitleEl = document.querySelector('.name-title')
-        if (introElProps.top !== 0) {
-            document.querySelector('.intro-intro').style.display = 'none'
-            nameTitleEl.style.opacity = 1
-        } else {
-            setTimeout(() => {
-                nameTitleEl.classList.add('animate')
-                const introIntroTextEl = document.querySelector('.intro-intro-text')
-                const introTextProps = introIntroTextEl.getBoundingClientRect()
-                const titleElProps = nameTitleEl.getBoundingClientRect()
-
-                const introScale = titleElProps.width / introTextProps.width
-                const introTextTop = titleElProps.top + (titleElProps.height / 2) - introEl.getBoundingClientRect().top
-                const introTextLeft = titleElProps.left + (titleElProps.width / 2)
-
-                introIntroTextEl.style.transform = `translateX(-50%) translateY(-50%) scale(${introScale})`
-                introIntroTextEl.style.top = `${introTextTop}px`
-                introIntroTextEl.style.left = `${introTextLeft}px`
-            }, 750)
-        }
-    }, [])
-
-    const introAnimation = (
-        <div className='intro-intro unselectable'>
-            <div className='intro-intro-back'></div>
-            <h3 className='intro-intro-text bold purple'>Alan Valerio</h3>
+    const introAnimationEl = (
+        <div className='intro-animation unselectable'>
+            <div className='intro-animation-back'></div>
+            <h3 className='intro-animation-text bold purple'>Alan Valerio</h3>
+            <div className='intro-animation-logo'></div>
         </div>
     )
 
-    const desktopBubbles = (
+    const desktopBubblesEls = (
         <>
             <div className='intro-bubble desktop' style={{width: '250px'}}></div>
             <div className='intro-bubble desktop' style={{width: '210px', left: '100%', top: '200px'}}></div>
@@ -101,7 +101,7 @@ export default function Intro() {
 
     const content = (
         <>
-            {introAnimation}
+            {introAnimationEl}
             <div className='intro-bubble mobile' style={{width: '150px', left: '50px', top: '100%'}}></div>
             <div className='intro-img unselectable' id='perspective-wrap'>
                 <div className='intro-bubble mobile' style={{width: '200px', top: '75px', left: '75px'}}></div>
@@ -109,7 +109,7 @@ export default function Intro() {
             </div>
             <div className='intro-text'>
                 <div className='intro-bubble mobile' style={{width: '175px', left: '70%', top: '100%'}}></div>
-                {desktopBubbles}
+                {desktopBubblesEls}
                 <h3>Hello! My name is <BounceText classes='bold purple name-title' text='Alan Valerio'/>.</h3>
                 <p>I’m a <BounceText classes='bold purple' text='self-taught web developer'/> with a focus on <BounceText classes='bold purple' text='front-end'/> and an eye for <BounceText classes='bold purple' text='design'/>.</p>
                 <p>I’ve had the honor of working with <a className='intro-link' href="#portfolio">many clients</a>, and have gained further experience through my own personal projects.</p>

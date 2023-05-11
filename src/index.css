@@ -364,7 +364,7 @@ body {
   display: none;
 }
 
-.intro-intro {
+.intro-animation {
   pointer-events: none; 
   position: absolute;
   height: 100%;
@@ -372,7 +372,7 @@ body {
   z-index: 5;
 }
 
-.intro-intro-back {
+.intro-animation-back {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -400,7 +400,7 @@ body {
   }
 }
 
-.intro-intro-text {
+.intro-animation-text {
   position: relative;
   width: -webkit-min-content;
   width: -moz-min-content;
@@ -416,8 +416,8 @@ body {
   opacity: 0.8;
   transform: translateX(-50%) translateY(-50%) scale(1);
   transition: top 0.75s ease-in-out, left 0.75s ease-in-out, transform 0.75s ease-in-out;
-  -webkit-animation: intro-text-fade-out 1s 1.75s ease-in-out forwards;
-          animation: intro-text-fade-out 1s 1.75s ease-in-out forwards;
+  -webkit-animation: intro-text-fade-in 0.5s ease-out, intro-text-fade-out 1s 1.75s ease-in-out forwards;
+          animation: intro-text-fade-in 0.5s ease-out, intro-text-fade-out 1s 1.75s ease-in-out forwards;
 }
 
 @-webkit-keyframes intro-text-fade-out {
@@ -439,6 +439,28 @@ body {
   100% {
     color: rgb(var(--purple));
     opacity: 0;
+  }
+}
+
+@-webkit-keyframes intro-text-fade-in {
+  0% {
+    transform: translateX(-50%) translateY(-50%) scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes intro-text-fade-in {
+  0% {
+    transform: translateX(-50%) translateY(-50%) scale(0.8);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 0.8;
   }
 }
 
@@ -505,6 +527,7 @@ body {
   }
 
   .intro-img {
+    position: relative;
     width: min(65vw, 300px);
     margin-bottom: -38px;
     z-index: 1;
