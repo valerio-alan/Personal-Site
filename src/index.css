@@ -628,6 +628,7 @@ body {
 
   .intro-btns.mobile {
     display: flex;
+    z-index: 3;
   }
 
   .intro-bubble.desktop {

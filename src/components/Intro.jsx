@@ -119,7 +119,8 @@ export default function Intro() {
         <>
             {introAnimationEl}
             <div className='intro-bubble mobile' style={{width: '150px', left: '50px', top: '100%'}}></div>
-                <div className='intro-bubble mobile' style={{width: '200px', top: '120px', left: '10%'}}></div>
+            <div className='intro-bubble mobile' style={{width: '200px', top: '120px', left: '10%'}}></div>
+            <div className='intro-bubble mobile' style={{width: '175px', left: '80%', top: '80%'}}></div>
             <div className='intro-img-wrapper'>
                 <div className='intro-img unselectable' id='perspective-wrap'>
                     <img className='unselectable' src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective'/>
@@ -129,7 +130,6 @@ export default function Intro() {
                 <a className='social-bubble email-bubble show-tooltip' tooltip-text='Get in touch :)' href="mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B" target="_blank"><img src={emailLogo} alt='Email icon'/></a>
             </div>
             <div className='intro-text'>
-                <div className='intro-bubble mobile' style={{width: '175px', left: '70%', top: '100%'}}></div>
                 {desktopBubblesEls}
                 <h3>Hello! My name is <BounceText classes='bold purple name-title' text='Alan Valerio'/>.</h3>
                 <p>I’m a <BounceText classes='bold purple' text='self-taught web developer'/> with a focus on <BounceText classes='bold purple' text='front-end'/> and an eye for <BounceText classes='bold purple' text='design'/>.</p>
