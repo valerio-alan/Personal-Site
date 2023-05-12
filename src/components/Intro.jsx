@@ -115,8 +115,8 @@ export default function Intro() {
         </>
     )
 
-    const content = (
-        <>
+    return (
+        <Section header={false} id='intro'>
             {introAnimationEl}
             <div className='intro-bubble mobile' style={{width: '150px', left: '50px', top: '100%'}}></div>
             <div className='intro-bubble mobile' style={{width: '200px', top: '120px', left: '10%'}}></div>
@@ -144,14 +144,6 @@ export default function Intro() {
                 <a className='intro-btn unselectable' href='#portfolio'>Projects</a>
                 <a className='intro-btn unselectable' href='#contact'>Contact</a>
             </div>
-        </>
-    )
-
-    return (
-        <Section
-            header={false}
-            id='intro'
-            content={content}
-        />
+        </Section>
     )
 }

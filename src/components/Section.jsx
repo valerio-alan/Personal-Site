@@ -20,7 +20,9 @@ export default function Section(props) {
                     {props.headerRight && <div className="section-header-right" id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-header-right`}>{props.headerRight}</div>}
                 
                 </div>) : <></>}
-                {props.content && <div className="section-content" id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-content`}>{props.content}</div>}
+                <div className="section-content" id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-content`}>
+                    {props.children}
+                </div>
             </div>
         </div>
     )

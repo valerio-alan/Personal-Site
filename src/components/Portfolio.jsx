@@ -7,17 +7,11 @@ export default function Portfolio() {
         <Project key={i} data={project} />
     )).reverse()
 
-    const content = (
-        <div className="projects">
-            {projectEls}
-        </div>
-    )
-
     return (
-        <Section
-            id='portfolio'
-            title='Projects'
-            content={content}
-        />
+        <Section id='portfolio' title='Projects'>
+            <div className="projects">
+                {projectEls}
+            </div>
+        </Section>
     )
 }
