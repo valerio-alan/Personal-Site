@@ -161,7 +161,7 @@ export default function Intro() {
 					<a className='intro-btn show-tooltip' tooltip-text='Come see what I can do!' href='#portfolio'>
 						Projects
 					</a>
-					<a className='intro-btn show-tooltip' tooltip-text='Hire me? ;)' href='#contact'>
+					<a className='intro-btn show-tooltip' tooltip-text='Hire me? ;)' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
 						Contact
 					</a>
 				</div>
@@ -170,7 +170,7 @@ export default function Intro() {
 				<a className='intro-btn unselectable' href='#portfolio'>
 					Projects
 				</a>
-				<a className='intro-btn unselectable' href='#contact'>
+				<a className='intro-btn unselectable' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
 					Contact
 				</a>
 			</div>
