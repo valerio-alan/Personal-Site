@@ -137,7 +137,7 @@ export default function App() {
 			<Overlay />
 			<Intro />
 			<Portfolio />
-			<Section title='Test Section' />
+			<Section title='Coming Soon...' />
 		</div>
 	)
 }
