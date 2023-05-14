@@ -1,32 +1,35 @@
 import { useEffect } from 'react'
 
 export default function Section(props) {
+	const sectionId = props.id ? props.id : props.title.toLowerCase().replace(' ', '-')
+
 	useEffect(() => {
 		if (props.header !== false) {
-			const sectionHeader = document.getElementById(`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-header`)
+			const sectionHeader = document.getElementById(`${sectionId}-header`)
 			sectionHeader.parentElement.style.setProperty('--header-offset', '-' + sectionHeader.clientHeight + 'px')
+			sectionHeader.parentElement.style.setProperty('--header-height', sectionHeader.clientHeight + 'px')
 		}
 	}, [])
 
 	return (
-		<div className='section-wrapper' id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}`}>
-			<div className='section scroll-percent' id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-section`}>
+		<div className='section-wrapper' id={`${sectionId}`}>
+			<div className='section scroll-percent' id={`${sectionId}-section`}>
 				{props.header !== false ? (
-					<div className='section-header' id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-header`}>
+					<div className='section-header' id={`${sectionId}-header`}>
 						{props.headerLink ? (
 							<a className='section-link' href={props.headerLink}>
-								<h2 className='section-title unselectable' id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-title`}>
+								<h2 className='section-title unselectable' id={`${sectionId}-title`}>
 									{props.title}
 								</h2>
 							</a>
 						) : (
-							<h2 className='section-title unselectable' id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-title`}>
-								{props.title ? props.title : `${props.id[0].toUpperCase()}${props.id.slice(1)}`}
+							<h2 className='section-title unselectable' id={`${sectionId}-title`}>
+								{props.title ? props.title : `${sectionId[0].toUpperCase()}${sectionId.slice(1)}`}
 							</h2>
 						)}
 
 						{props.headerRight && (
-							<div className='section-header-right' id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-header-right`}>
+							<div className='section-header-right' id={`${sectionId}-header-right`}>
 								{props.headerRight}
 							</div>
 						)}
@@ -34,7 +37,7 @@ export default function Section(props) {
 				) : (
 					<></>
 				)}
-				<div className='section-content' id={`${props.id ? props.id : props.title.toLowerCase().replace(' ', '-')}-content`}>
+				<div className='section-content' id={`${sectionId}-content`}>
 					{props.children}
 				</div>
 			</div>

@@ -3,9 +3,16 @@ import githubLogo from '../assets/images/github-logo.svg'
 import openLink from '../assets/images/open-link.svg'
 
 export default function Project(props) {
+	console.log(props.data.links.production)
 	return (
-		<div className='project' style={{ ['--project-bg-color']: props.data.colors.backgroundColor, ['--project-text-color']: 'var(--off-white)' }}>
-			<a className='project-top' href={props.data.links.production} target='_blank' rel='noopener'>
+		<div
+			className='project'
+			style={{
+				['--project-bg-color']: props.data.color ? props.data.color : 'var(--accent-back)',
+				['--project-text-color']: 'var(--off-white)',
+			}}
+		>
+			<a className='project-top' href={props.data.links.production} target={props.data.links.production == '/' ? '' : '_blank'} rel='noopener'>
 				<img className='project-image unselectable' src={`../images/projects/${props.data.image}`} alt={props.data.imageAlt} />
 				<h3 className='project-title'>{props.data.title}</h3>
 			</a>
@@ -30,7 +37,7 @@ export default function Project(props) {
 					)
 				)}
 			</div>
-			<a href={props.data.links.production} target='_blank' rel='noopener'>
+			<a href={props.data.links.production} target={props.data.links.production == '/' ? '' : '_blank'} rel='noopener'>
 				<p className='project-description'>{props.data.description}</p>
 			</a>
 			<div className='project-links unselectable'>
@@ -40,7 +47,13 @@ export default function Project(props) {
 					</a>
 				)}
 				{props.data.links.production && (
-					<a className='project-link show-tooltip' tooltip-text='View the project' href={props.data.links.production} target='_blank' rel='noopener'>
+					<a
+						className='project-link show-tooltip'
+						tooltip-text='View the project'
+						href={props.data.links.production}
+						target={props.data.links.production == '/' ? '' : '_blank'}
+						rel='noopener'
+					>
 						<img className='project-link-icon' src={openLink} alt='Open link icon' />
 					</a>
 				)}

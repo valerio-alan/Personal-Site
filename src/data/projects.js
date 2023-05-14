@@ -1,9 +1,9 @@
 export default {
 	data: [
 		{
-			title: 'Franja Liquors',
+			title: 'Franja Liquors Website',
 			description:
-				"In addition to designing and developing this website for a liquor store in Ridgewood, NY. This project included creating an iOS shortcut that allows the business owner to update the store's hours and site banner from his iPhone.",
+				"I designed and developed a clean and user-friendly website for a liquor store in Ridgewood, NY as my first website development project. I also created an iOS shortcut for easy updates to the site's information, providing a solution to a real problem for the business owner. This project was a great learning experience for me.",
 			links: {
 				production: 'https://franjaliquors.com',
 				github: 'https://github.com/valerio-alan/Franja-Site',
@@ -11,15 +11,12 @@ export default {
 			image: 'franja-liquors.png',
 			imageAlt: 'Franja Liquors Website Screenshot',
 			tags: ['html/css/js', 'python', 'netlify', 'deta-space'],
-			colors: {
-				backgroundColor: '49, 50, 57',
-				textColor: '230, 225, 218',
-			},
+			colors: '49, 50, 57',
 		},
 		{
-			title: 'Jane Casto',
+			title: "Jane Casto's Portfolio",
 			description:
-				'This is the portfolio site I designed and developed for Jane Casto. Jane is a policy and data analyst and this simple site showcases her work and provides a way for potential clients to contact her.',
+				'I designed and developed this clean and effective portfolio site for policy and data analyst Jane Casto. With a focus on clean design and user-friendly functionality, this site showcases her work and skills while making it easy for potential clients to contact her.',
 			links: {
 				production: 'https://janecasto.com',
 				github: 'https://github.com/valerio-alan/Jane-Casto-Portfolio',
@@ -27,10 +24,18 @@ export default {
 			image: 'jane-casto.png',
 			imageAlt: "Jane Casto's Portfolio Website Screenshot",
 			tags: ['react', 'netlify', 'figma'],
-			colors: {
-				backgroundColor: '115, 74, 74',
-				textColor: '239, 231, 231',
+			color: '45, 32, 32',
+		},
+		{
+			title: 'My Portfolio',
+			description:
+				'My portfolio is a visually appealing and user-friendly website that showcases my work, skills, and background. Designed and developed by me, it reflects my commitment to delivering high-quality work and creating a strong online presence.',
+			links: {
+				production: '/',
 			},
+			image: 'my-portfolio.png',
+			imageAlt: "Alan Valerio's Portfolio Website Screenshot",
+			tags: ['react', 'netlify', 'figma', 'illustrator'],
 		},
 	],
 	tags: {
@@ -46,7 +51,7 @@ export default {
 		},
 		['html/css/js']: {
 			name: 'HTML/CSS/JS',
-			color: '175, 89, 40',
+			color: '76, 194, 114',
 			link: 'https://www.freecodecamp.org/news/html-css-and-javascript-explained-for-beginners/',
 		},
 		react: {
@@ -56,7 +61,7 @@ export default {
 		},
 		python: {
 			name: 'Python',
-			color: '175, 137, 40',
+			color: '197, 144, 26',
 			link: 'https://www.python.org',
 		},
 		['deta-space']: {
@@ -68,6 +73,11 @@ export default {
 			name: 'Figma',
 			color: '12, 140, 233',
 			link: 'https://figma.com',
+		},
+		illustrator: {
+			name: 'Illustrator',
+			color: '229, 102, 0',
+			link: 'https://www.adobe.com/products/illustrator.html',
 		},
 	},
 }
