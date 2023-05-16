@@ -159,20 +159,20 @@ export default function Intro() {
 				{/* <p>I look forward to working with you!</p> */}
 				<div className='unselectable intro-btns desktop'>
 					<a className='intro-btn show-tooltip' tooltip-text='Come see what I can do!' href='#portfolio'>
-						Projects
+						View my Projects
 					</a>
-					<a className='intro-btn show-tooltip' tooltip-text='Hire me? ;)' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
+					{/* <a className='intro-btn show-tooltip' tooltip-text='Hire me? ;)' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
 						Contact
-					</a>
+					</a> */}
 				</div>
 			</div>
 			<div className='intro-btns mobile'>
 				<a className='intro-btn unselectable' href='#portfolio'>
-					Projects
+					View my Projects
 				</a>
-				<a className='intro-btn unselectable' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
+				{/* <a className='intro-btn unselectable' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
 					Contact
-				</a>
+				</a> */}
 			</div>
 		</Section>
 	)
