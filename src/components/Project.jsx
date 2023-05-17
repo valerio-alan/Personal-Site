@@ -3,7 +3,6 @@ import githubLogo from '../assets/images/github-logo.svg'
 import openLink from '../assets/images/open-link.svg'
 
 export default function Project(props) {
-	console.log(props.data.links.production)
 	return (
 		<div
 			className='project'
