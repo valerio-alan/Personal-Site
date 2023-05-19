@@ -18,17 +18,18 @@ export default function Intro() {
 		} else {
 			setTimeout(() => {
 				nameTitleEl.classList.add('animate')
+				const introElProps = introEl.getBoundingClientRect()
 				const introIntroTextEl = document.querySelector('.intro-animation-text')
 				const introTextProps = introIntroTextEl.getBoundingClientRect()
 				const titleElProps = nameTitleEl.getBoundingClientRect()
 
 				const introScale = titleElProps.width / introTextProps.width
-				const introTextTop = titleElProps.top + titleElProps.height / 2 - introEl.getBoundingClientRect().top
-				const introTextLeft = titleElProps.left + titleElProps.width / 2
+				let introTextTop = (introTextProps.height + introTextProps.top - titleElProps.top - titleElProps.height / 2) * -1
+				let introTextLeft = (introTextProps.width + introTextProps.left - titleElProps.left - titleElProps.width / 2) * -1
 
-				introIntroTextEl.style.transform = `translateX(-50%) translateY(-50%) scale(${introScale})`
-				introIntroTextEl.style.top = `${introTextTop}px`
-				introIntroTextEl.style.left = `${introTextLeft}px`
+				console.log(introTextProps.top, titleElProps.top, introTextProps.height, introTextTop)
+
+				introIntroTextEl.style = `transform: translateX(${introTextLeft}px) translateY(${introTextTop}px) scale(${introScale})`
 			}, 1500)
 		}
 
