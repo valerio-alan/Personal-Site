@@ -32,6 +32,7 @@ export default {
 				'My portfolio is a visually appealing and user-friendly website that showcases my work, skills, and background. Designed and developed by me, it reflects my commitment to delivering high-quality work and creating a strong online presence.',
 			links: {
 				production: '/',
+				github: 'https://github.com/valerio-alan/Personal-Site',
 			},
 			image: 'my-portfolio.png',
 			imageAlt: "Alan Valerio's Portfolio Website Screenshot",
