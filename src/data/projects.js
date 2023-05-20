@@ -37,6 +37,16 @@ export default {
 			imageAlt: "Alan Valerio's Portfolio Website Screenshot",
 			tags: ['react', 'netlify', 'figma', 'illustrator'],
 		},
+		{
+			title: 'Family Cart',
+			description:
+				"This is a simple shopping list app that I created for my family. It gives us a shared shopping list that updates in real-time, and it has been a great help to us. I created this app as a way to learn firebase's realtime database and make life a little easier.",
+			links: { demo: '/demo/family-cart' },
+			image: 'family-cart.png',
+			imageAlt: 'Family Cart app Screenshot',
+			tags: ['react', 'firebase', 'netlify', 'illustrator'],
+			color: '27, 50, 53',
+		},
 	],
 	tags: {
 		first_project: {
@@ -78,6 +88,11 @@ export default {
 			name: 'Illustrator',
 			color: '229, 102, 0',
 			link: 'https://www.adobe.com/products/illustrator.html',
+		},
+		firebase: {
+			name: 'Firebase',
+			color: '255, 170, 10',
+			link: 'https://firebase.google.com',
 		},
 	},
 }

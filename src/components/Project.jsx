@@ -3,6 +3,8 @@ import githubLogo from '../assets/images/github-logo.svg'
 import openLink from '../assets/images/open-link.svg'
 
 export default function Project(props) {
+	const projectLink = props.data.links.production || props.data.links.demo || props.data.links.github
+
 	return (
 		<div
 			className='project'
@@ -11,7 +13,7 @@ export default function Project(props) {
 				['--project-text-color']: 'var(--off-white)',
 			}}
 		>
-			<a className='project-top' href={props.data.links.production} target={props.data.links.production == '/' ? '' : '_blank'} rel='noopener'>
+			<a className='project-top' href={projectLink} target={projectLink == '/' ? '' : '_blank'} rel='noopener'>
 				<img className='project-image unselectable' src={`../images/projects/${props.data.image}`} alt={props.data.imageAlt} />
 				<h3 className='project-title'>{props.data.title}</h3>
 			</a>
@@ -36,13 +38,18 @@ export default function Project(props) {
 					)
 				)}
 			</div>
-			<a href={props.data.links.production} target={props.data.links.production == '/' ? '' : '_blank'} rel='noopener'>
+			<a href={projectLink} target={projectLink == '/' ? '' : '_blank'} rel='noopener'>
 				<p className='project-description'>{props.data.description}</p>
 			</a>
 			<div className='project-links unselectable'>
 				{props.data.links.github && (
 					<a className='project-link show-tooltip' tooltip-text='View the source code' href={props.data.links.github} target='_blank' rel='noopener'>
 						<img className='project-link-icon' src={githubLogo} alt='Github logo' />
+					</a>
+				)}
+				{props.data.links.demo && (
+					<a className='project-link show-tooltip' tooltip-text='Try the demo' href={props.data.links.demo} target='_blank' rel='noopener'>
+						<img className='project-link-icon' src={openLink} alt='Open link icon' />
 					</a>
 				)}
 				{props.data.links.production && (

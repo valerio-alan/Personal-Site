@@ -1,0 +1,11 @@
+{
+	"name": "FamilyCart",
+	"short_name": "FamilyCart",
+	"icons": [
+		{ "src": "/demo/family-cart/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+		{ "src": "/demo/family-cart/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+	],
+	"theme_color": "#1b3235",
+	"background_color": "#1b3235",
+	"display": "standalone"
+}
