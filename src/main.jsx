@@ -8,3 +8,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 		<App />
 	</React.StrictMode>
 )
+
+console.info('{AV} // Welcome to my portfolio! I hope you enjoy your stay!')

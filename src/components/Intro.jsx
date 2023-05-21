@@ -27,8 +27,6 @@ export default function Intro() {
 				let introTextTop = (introTextProps.height + introTextProps.top - titleElProps.top - titleElProps.height / 2) * -1
 				let introTextLeft = (introTextProps.width + introTextProps.left - titleElProps.left - titleElProps.width / 2) * -1
 
-				console.log(introTextProps.top, titleElProps.top, introTextProps.height, introTextTop)
-
 				introIntroTextEl.style = `transform: translateX(${introTextLeft}px) translateY(${introTextTop}px) scale(${introScale})`
 			}, 1500)
 		}

@@ -23,7 +23,7 @@ export default {
 			},
 			image: 'jane-casto.png',
 			imageAlt: "Jane Casto's Portfolio Website Screenshot",
-			tags: ['react', 'netlify', 'figma'],
+			tags: ['react', 'vite', 'netlify', 'figma'],
 			color: '45, 32, 32',
 		},
 		{
@@ -36,7 +36,7 @@ export default {
 			},
 			image: 'my-portfolio.png',
 			imageAlt: "Alan Valerio's Portfolio Website Screenshot",
-			tags: ['react', 'netlify', 'figma', 'illustrator'],
+			tags: ['react', 'vite', 'netlify', 'figma', 'illustrator'],
 		},
 		{
 			title: 'Family Cart',
@@ -45,14 +45,14 @@ export default {
 			links: { demo: '/demo/family-cart' },
 			image: 'family-cart.png',
 			imageAlt: 'Family Cart app Screenshot',
-			tags: ['react', 'firebase', 'netlify', 'illustrator'],
+			tags: ['react', 'vite', 'firebase', 'netlify', 'illustrator'],
 			color: '27, 50, 53',
 		},
 	],
 	tags: {
 		first_project: {
 			name: 'First Project',
-			color: '27, 134, 168',
+			color: '86, 73, 167',
 			glow: true,
 		},
 		netlify: {
@@ -67,7 +67,7 @@ export default {
 		},
 		react: {
 			name: 'React',
-			color: '86, 73, 167',
+			color: '13, 109, 140',
 			link: 'https://react.dev',
 		},
 		python: {
@@ -94,6 +94,11 @@ export default {
 			name: 'Firebase',
 			color: '255, 170, 10',
 			link: 'https://firebase.google.com',
+		},
+		vite: {
+			name: 'Vite',
+			color: '166, 81, 254',
+			link: 'https://vitejs.dev',
 		},
 	},
 }
