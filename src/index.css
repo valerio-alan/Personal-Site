@@ -716,12 +716,13 @@ body {
 }
 
 .skill-group {
-	width: min(800px, 85vw);
+	width: 840px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: flex-start;
 	gap: min(20px, 3vw);
+	column-gap: 5%;
 }
 
 /* .skill-group-wrapper:not(:first-child)::before {
@@ -736,17 +737,18 @@ body {
 } */
 
 .skill {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 20%;
 	text-decoration: none;
 	margin-bottom: min(40px, 4vw);
-	width: 22%;
+	width: min(168px, 22%);
 }
 
 .skill > img {
 	width: 95%;
+	z-index: 1;
 }
 
 .skill::after {
@@ -755,8 +757,52 @@ body {
 	display: block;
 	text-align: center;
 	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-	font-size: min(32px, 3.2vw);
+	font-size: min(30px, 3.2vw);
 	color: rgba(var(--off-white), 0.75);
+}
+
+@media screen and (max-width: 850px) {
+	.skill-group {
+		width: 90vw;
+		column-gap: min(20px, 3vw);
+	}
+
+	.skill {
+		margin-inline: 0;
+	}
+}
+
+/* Skills Hover Effects */
+
+@media not ((hover: hover) and (pointer: fine)) {
+	.skill > img:last-child {
+		display: none;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.skill > img:last-child {
+		position: absolute;
+		z-index: 0;
+		filter: blur(0px);
+		opacity: 0;
+		transition: opacity 0.25s ease-in-out, filter 0.25s ease-in-out;
+	}
+
+	.skill:hover > img:last-child {
+		filter: blur(20px);
+		opacity: 0.75;
+	}
+
+	.skill {
+		transition: transform 0.25s ease-in-out, filter 0.25s ease-in-out, opacity 0.25s ease-in-out;
+	}
+
+	#skills-content:has(.skill:hover) .skill:not(:hover) {
+		filter: blur(0.8px);
+		opacity: 0.5;
+		transform: scale(98%);
+	}
 }
 
 /* Portfolio Styling */
@@ -788,7 +834,7 @@ body {
 	padding: 15px;
 	border-radius: 24px;
 	overflow: hidden;
-	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear;
+	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, filter 250ms ease-in-out;
 }
 
 .project > a {
@@ -932,6 +978,7 @@ body {
 /* Project Hover Effects */
 @media (hover: hover) and (pointer: fine) {
 	.projects:has(.project:hover) .project:not(:hover) {
+		filter: blur(0.8px);
 		opacity: 0.5;
 		transform: scale(98%);
 	}
