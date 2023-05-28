@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Overlay from './components/Overlay'
 import Section from './components/Section'
 import Intro from './components/Intro'
+import Skills from './components/Skills'
 import Portfolio from './components/Portfolio'
 
 export default function App() {
@@ -133,11 +134,12 @@ export default function App() {
 	}, [])
 
 	return (
-		<div className='App'>
+		<>
 			<Overlay />
 			<Intro />
+			<Skills />
 			<Portfolio />
 			<Section title='Coming Soon...' />
-		</div>
+		</>
 	)
 }

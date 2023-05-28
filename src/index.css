@@ -199,8 +199,6 @@ body {
 
 .section {
 	margin-bottom: 1.5vh;
-	min-height: 100vh;
-	min-height: 100svh;
 }
 
 .section-header {
@@ -686,11 +684,86 @@ body {
 	}
 }
 
+/* Skills Styling */
+
+#skills-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.skill-group-wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.skill-group-wrapper:not(:first-child) {
+	margin-top: min(100px, 10vw);
+}
+
+.skill-group-title {
+	margin: 0;
+	margin-bottom: min(50px, 5vw);
+	text-align: center;
+	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-weight: 600;
+	font-size: clamp(25px, 7vw, 60px);
+	color: rgba(var(--off-white), 0.8);
+}
+
+.skill-group {
+	width: min(800px, 85vw);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	gap: min(20px, 3vw);
+}
+
+/* .skill-group-wrapper:not(:first-child)::before {
+	content: '';
+	display: block;
+	width: 90%;
+	height: min(20px, 2vw);
+	background: linear-gradient(to right, rgb(var(--bg-color-rgb)), rgb(var(--accent-back)), rgb(var(--bg-color-rgb)));
+	border-radius: 100%;
+	filter: blur(min(2px, 0.2vw));
+	margin: 20px 0;
+} */
+
+.skill {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 20%;
+	text-decoration: none;
+	margin-bottom: min(40px, 4vw);
+	width: 22%;
+}
+
+.skill > img {
+	width: 95%;
+}
+
+.skill::after {
+	content: attr(skillname);
+	margin-top: min(20px, 2vw);
+	display: block;
+	text-align: center;
+	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-size: min(32px, 3.2vw);
+	color: rgba(var(--off-white), 0.75);
+}
+
 /* Portfolio Styling */
 
 #portfolio-content {
 	box-sizing: border-box;
-	min-height: calc(100vh - (var(--header-height) * 2));
+	min-height: calc(100vh - (var(--header-height)));
 	display: flex;
 	flex-direction: column;
 	align-items: center;
