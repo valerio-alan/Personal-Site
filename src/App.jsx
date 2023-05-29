@@ -139,7 +139,6 @@ export default function App() {
 			<Intro />
 			<Skills />
 			<Portfolio />
-			<Section title='Coming Soon...' />
 		</>
 	)
 }
