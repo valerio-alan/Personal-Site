@@ -518,29 +518,7 @@ body {
 .name-title {
 	white-space: nowrap;
 	opacity: 0;
-}
-
-.name-title.animate {
-	-webkit-animation: fade-in 1s 0.75s ease-in-out forwards;
-	animation: fade-in 1s 0.75s ease-in-out forwards;
-}
-
-@-webkit-keyframes fade-in {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
-@keyframes fade-in {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+	transition: opacity 1s 0.75s ease-in-out;
 }
 
 @media screen and (max-width: 950px) {
@@ -725,17 +703,6 @@ body {
 	-moz-column-gap: 5%;
 	column-gap: 5%;
 }
-
-/* .skill-group-wrapper:not(:first-child)::before {
-	content: '';
-	display: block;
-	width: 90%;
-	height: min(20px, 2vw);
-	background: linear-gradient(to right, rgb(var(--bg-color-rgb)), rgb(var(--accent-back)), rgb(var(--bg-color-rgb)));
-	border-radius: 100%;
-	filter: blur(min(2px, 0.2vw));
-	margin: 20px 0;
-} */
 
 .skill {
 	position: relative;

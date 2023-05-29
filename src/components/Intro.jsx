@@ -1,12 +1,15 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Section from './Section'
 import AVPortrait from '../assets/images/AlanValerio.jpg'
+import DaisyPortrait from '../assets/images/DaisyPortrait.jpg'
 import BounceText from './BounceText'
 import githubLogo from '../assets/images/github-logo.svg'
 import linkedinLogo from '../assets/images/linkedin-logo.svg'
 import emailLogo from '../assets/images/email-logo.svg'
 
 export default function Intro() {
+	const [portrait, setPortrait] = useState(AVPortrait)
+
 	useEffect(() => {
 		// Intro animation
 		const introEl = document.querySelector('#intro')
@@ -17,8 +20,7 @@ export default function Intro() {
 			nameTitleEl.style.opacity = 1
 		} else {
 			setTimeout(() => {
-				nameTitleEl.classList.add('animate')
-				const introElProps = introEl.getBoundingClientRect()
+				nameTitleEl.style.opacity = 1
 				const introIntroTextEl = document.querySelector('.intro-animation-text')
 				const introTextProps = introIntroTextEl.getBoundingClientRect()
 				const titleElProps = nameTitleEl.getBoundingClientRect()
@@ -73,6 +75,7 @@ export default function Intro() {
 			introImgEl.style = 'transform: scale(1.1); transition: transform 100ms ease-out; cursor: grabbing'
 			setTimeout(() => {
 				introImgEl.style = 'transform: scale(1); transition: transform 300ms ease-in'
+				// setPortrait((prev) => (prev === AVPortrait ? DaisyPortrait : AVPortrait))
 			}, 100)
 		}
 
@@ -122,7 +125,7 @@ export default function Intro() {
 			<div className='intro-bubble mobile' style={{ width: '175px', left: '80%', top: '80%' }}></div>
 			<div className='intro-img-wrapper'>
 				<div className='intro-img unselectable' id='perspective-wrap'>
-					<img className='unselectable' src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective' />
+					<img className='unselectable' src={portrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective' />
 				</div>
 				<a className='social-bubble github-bubble show-tooltip' tooltip-text='Visit my Github profile' href='https://github.com/valerio-alan' target='_blank'>
 					<img src={githubLogo} alt='Github logo' />
@@ -155,23 +158,16 @@ export default function Intro() {
 					</a>
 					, and have gained further experience through my own personal projects.
 				</p>
-				{/* <p>I look forward to working with you!</p> */}
 				<div className='unselectable intro-btns desktop'>
 					<a className='intro-btn show-tooltip' tooltip-text='Come see what I can do!' href='#portfolio'>
 						View my Projects
 					</a>
-					{/* <a className='intro-btn show-tooltip' tooltip-text='Hire me? ;)' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
-						Contact
-					</a> */}
 				</div>
 			</div>
 			<div className='intro-btns mobile'>
 				<a className='intro-btn unselectable' href='#portfolio'>
 					View my Projects
 				</a>
-				{/* <a className='intro-btn unselectable' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
-					Contact
-				</a> */}
 			</div>
 		</Section>
 	)

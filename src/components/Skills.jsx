@@ -28,9 +28,11 @@ export default function Skills() {
 			rotateEls(event)
 		})
 
-		document.removeEventListener('mousemove', (event) => {
-			rotateEls(event)
-		})
+		return () => {
+			document.removeEventListener('mousemove', (event) => {
+				rotateEls(event)
+			})
+		}
 	}, [])
 
 	let skillsEls = []

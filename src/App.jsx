@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Overlay from './components/Overlay'
-import Section from './components/Section'
 import Intro from './components/Intro'
 import Skills from './components/Skills'
 import Portfolio from './components/Portfolio'
