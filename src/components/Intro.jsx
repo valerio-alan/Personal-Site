@@ -123,9 +123,9 @@ export default function Intro() {
 			<div className='intro-bubble mobile' style={{ width: '150px', left: '50px', top: '100%' }}></div>
 			<div className='intro-bubble mobile' style={{ width: '200px', top: '120px', left: '10%' }}></div>
 			<div className='intro-bubble mobile' style={{ width: '175px', left: '80%', top: '80%' }}></div>
-			<div className='intro-img-wrapper'>
-				<div className='intro-img unselectable' id='perspective-wrap'>
-					<img className='unselectable' src={portrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective' />
+			<div className='intro-img-wrapper unselectable'>
+				<div className='intro-img' id='perspective-wrap'>
+					<img src={portrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective' />
 				</div>
 				<a className='social-bubble github-bubble show-tooltip' tooltip-text='Visit my Github profile' href='https://github.com/valerio-alan' target='_blank'>
 					<img src={githubLogo} alt='Github logo' />

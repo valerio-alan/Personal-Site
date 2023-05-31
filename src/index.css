@@ -301,6 +301,8 @@ body {
 	object-fit: cover;
 	border-radius: 50%;
 	transition: transform 150ms linear;
+	-webkit-user-drag: none;
+	user-drag: none;
 }
 
 .social-bubble {
@@ -328,6 +330,8 @@ body {
 	transform: translate(-50%, -50%);
 	transition: opacity 150ms ease-out;
 	cursor: pointer;
+	-webkit-user-drag: none;
+	user-drag: none;
 }
 
 .github-bubble {
@@ -725,6 +729,8 @@ body {
 .skill-images > img {
 	width: 100%;
 	z-index: 1;
+	-webkit-user-drag: none;
+	user-drag: none;
 }
 
 .skill-name {
@@ -773,9 +779,9 @@ body {
 	}
 
 	.skill {
-		transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out, -webkit-filter 0.25s ease-in-out;
-		transition: transform 0.25s ease-in-out, filter 0.25s ease-in-out, opacity 0.25s ease-in-out;
-		transition: transform 0.25s ease-in-out, filter 0.25s ease-in-out, opacity 0.25s ease-in-out, -webkit-filter 0.25s ease-in-out;
+		transition: transform 0.25s ease-in-out, opacity 0.5s ease-in-out, -webkit-filter 0.25s ease-in-out;
+		transition: transform 0.25s ease-in-out, filter 0.25s ease-in-out, opacity 0.5s ease-in-out;
+		transition: transform 0.25s ease-in-out, filter 0.25s ease-in-out, opacity 0.5s ease-in-out, -webkit-filter 0.25s ease-in-out;
 	}
 
 	#skills-content:has(.skill:hover) .skill:not(:hover) {
@@ -787,14 +793,6 @@ body {
 	.skill-images {
 		transform-style: preserve-3d;
 		transform: perspective(1000px) rotateX(var(--rotateX)) rotateY(var(--rotateY));
-	}
-
-	.skill:hover > .skill-images {
-		/* transform: perspective(5000px) rotateX(0deg) rotateY(0deg) !important; */
-		/* transition: transform 0.25s ease-in-out; */
-	}
-
-	.skill-images > .skill-perspective {
 	}
 
 	.skill-images > .skill-perspective:nth-child(2n) {
