@@ -55,7 +55,7 @@ export default function Skills() {
 									>
 										<div className='skill-images unselectable'>
 											<img className='skill-perspective' src={`/images/skills/${skill.name.toLowerCase()}.svg`} alt={`${skill.name} logo`} />
-											<img className='skill-perspective' src={`/images/skills/${skill.name.toLowerCase()}.svg`} />
+											<img className='skill-perspective desktop' src={`/images/skills/${skill.name.toLowerCase()}.svg`} />
 										</div>
 										<div className='skill-name'>{skill.name}</div>
 									</a>
