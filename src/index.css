@@ -748,6 +748,10 @@ body {
 	.skill {
 		margin-inline: 0;
 	}
+	
+	.skill-images > img:last-child {
+		display: none;
+	}
 }
 
 /* Skills Hover Effects */
