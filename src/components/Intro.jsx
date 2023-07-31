@@ -1,15 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Section from './Section'
 import AVPortrait from '../assets/images/AlanValerio.jpg'
-import DaisyPortrait from '../assets/images/DaisyPortrait.jpg'
 import BounceText from './BounceText'
 import githubLogo from '../assets/images/github-logo.svg'
 import linkedinLogo from '../assets/images/linkedin-logo.svg'
 import emailLogo from '../assets/images/email-logo.svg'
 
 export default function Intro() {
-	const [portrait, setPortrait] = useState(AVPortrait)
-
 	useEffect(() => {
 		// Intro animation
 		const introEl = document.querySelector('#intro')
@@ -75,7 +72,6 @@ export default function Intro() {
 			introImgEl.style = 'transform: scale(1.1); transition: transform 100ms ease-out; cursor: grabbing'
 			setTimeout(() => {
 				introImgEl.style = 'transform: scale(1); transition: transform 300ms ease-in'
-				// setPortrait((prev) => (prev === AVPortrait ? DaisyPortrait : AVPortrait))
 			}, 100)
 		}
 
@@ -125,7 +121,7 @@ export default function Intro() {
 			<div className='intro-bubble mobile' style={{ width: '175px', left: '80%', top: '80%' }}></div>
 			<div className='intro-img-wrapper unselectable'>
 				<div className='intro-img' id='perspective-wrap'>
-					<img src={portrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective' />
+					<img src={AVPortrait} alt='A portrait image of Alan Valerio looking to the side' id='perspective' />
 				</div>
 				<a className='social-bubble github-bubble show-tooltip' tooltip-text='Visit my Github profile' href='https://github.com/valerio-alan' target='_blank'>
 					<img src={githubLogo} alt='Github logo' />
