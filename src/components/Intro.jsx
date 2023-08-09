@@ -129,7 +129,7 @@ export default function Intro() {
 				<a
 					className='social-bubble linkedin-bubble show-tooltip'
 					tooltip-text='Visit my LinkedIn profile'
-					href='https://www.linkedin.com/in/alan-valerio-277507276/'
+					href='https://www.linkedin.com/in/alan-valerio/'
 					target='_blank'
 				>
 					<img src={linkedinLogo} alt='Linkedin logo' />
