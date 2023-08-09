@@ -146,18 +146,6 @@ body {
 
 /* General Styling */
 
-::-moz-selection {
-	background-color: rgb(var(--purple));
-	color: var(--bg-color);
-	font-weight: bold;
-}
-
-::selection {
-	background-color: rgb(var(--purple));
-	color: var(--bg-color);
-	font-weight: bold;
-}
-
 *.unselectable {
 	-moz-user-select: -moz-none;
 	-webkit-user-select: none;
@@ -831,6 +819,7 @@ body {
 	overflow: hidden;
 	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, -webkit-filter 250ms ease-in-out;
 	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, filter 250ms ease-in-out;
+	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, filter 250ms ease-in-out, -webkit-filter 250ms ease-in-out;
 	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, filter 250ms ease-in-out,
 		-webkit-filter 250ms ease-in-out;
 }
