@@ -417,8 +417,8 @@ body {
 	width: 100%;
 	background: linear-gradient(180deg, rgba(var(--bg-color-rgb), 1) 0%, rgba(var(--accent-back), 1) 50%, rgba(var(--bg-color-rgb), 1) 100%);
 	opacity: 1;
-	-webkit-animation: intro-back 1s 1s ease-in-out forwards;
-	animation: intro-back 1s 1s ease-in-out forwards;
+	-webkit-animation: intro-back 1.75s 1s ease-in-out forwards;
+	animation: intro-back 1.75s 1s ease-in-out forwards;
 }
 
 @-webkit-keyframes intro-back {
@@ -455,8 +455,8 @@ body {
 	opacity: 0.8;
 	transform: translateX(-50%) translateY(-50%) scale(1);
 	transition: transform 0.75s ease-in-out;
-	-webkit-animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2.5s ease-in-out forwards;
-	animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2.5s ease-in-out forwards;
+	-webkit-animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2s ease-in-out forwards;
+	animation: intro-text-fade-in 0.75s ease-out, intro-text-fade-out 1s 2s ease-in-out forwards;
 }
 
 @-webkit-keyframes intro-text-fade-out {

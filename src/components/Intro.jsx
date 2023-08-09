@@ -27,7 +27,7 @@ export default function Intro() {
 				let introTextLeft = (introTextProps.width + introTextProps.left - titleElProps.left - titleElProps.width / 2) * -1
 
 				introIntroTextEl.style = `transform: translateX(${introTextLeft}px) translateY(${introTextTop}px) scale(${introScale})`
-			}, 1500)
+			}, 1250)
 		}
 
 		// Modified perspective tilt effect from https://css-tricks.com/animate-a-container-on-mouse-over-using-perspective-and-transform/
