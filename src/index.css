@@ -908,7 +908,9 @@ body {
 	font-size: 20px;
 	font-weight: 400;
 	border-width: 0;
-	background-color: rgba(var(--tag-color), 1);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+	background-color: rgba(var(--tag-color), 0.8);
 }
 
 .project-description {
