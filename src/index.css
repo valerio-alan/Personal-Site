@@ -805,6 +805,7 @@ body {
 	justify-content: center;
 	gap: 20px;
 	padding-inline: 40px;
+	max-width: 1250px;
 }
 
 .project {
@@ -838,7 +839,8 @@ body {
 }
 
 .project-image,
-.project-title {
+.project-title,
+.project-label {
 	transition: border-radius 250ms ease-in-out;
 }
 
@@ -895,6 +897,18 @@ body {
 	border-width: 2px;
 	border-style: solid;
 	border-radius: 6px;
+}
+
+.project-label {
+  position: absolute;
+  max-width: calc(100% - 10px);
+  top: 4px;
+  left: 4px;
+	padding: 7px 10px;
+	font-size: 20px;
+	font-weight: 400;
+	border-width: 0;
+	background-color: rgba(var(--tag-color), 1);
 }
 
 .project-description {
@@ -991,7 +1005,11 @@ body {
 		border-radius: 0 0 15px 15px;
 	}
 
-	.project-tag:hover {
+	.project > a:has(img):hover > .project-label {
+		border-radius: 12px 6px 6px 6px;
+	}
+
+	a.project-tag:hover {
 		transform: scale(105%);
 		background-color: rgb(var(--tag-color));
 		box-shadow: 0px 0px 5px rgba(var(--tag-color), 0.5);

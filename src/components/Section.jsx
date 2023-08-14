@@ -18,14 +18,14 @@ export default function Section(props) {
 					<div className='section-header' id={`${sectionId}-header`}>
 						{props.headerLink ? (
 							<a className='section-link' href={props.headerLink}>
-								<h2 className='section-title unselectable' id={`${sectionId}-title`}>
+								<header className='section-title unselectable' id={`${sectionId}-title`}>
 									{props.title}
-								</h2>
+								</header>
 							</a>
 						) : (
-							<h2 className='section-title unselectable' id={`${sectionId}-title`}>
+							<header className='section-title unselectable' id={`${sectionId}-title`}>
 								{props.title ? props.title : `${sectionId[0].toUpperCase()}${sectionId.slice(1)}`}
-							</h2>
+							</header>
 						)}
 
 						{props.headerRight && (

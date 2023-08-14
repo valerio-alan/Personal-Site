@@ -10,7 +10,7 @@ export default {
 			},
 			image: 'franja-liquors.png',
 			imageAlt: 'Franja Liquors Website Screenshot',
-			tags: ['html/css/js', 'python', 'netlify', 'deta-space'],
+			tags: ['html/css/js', 'python', 'netlify', 'deta-space', 'fullstack'],
 			colors: '49, 50, 57',
 		},
 		{
@@ -23,7 +23,7 @@ export default {
 			},
 			image: 'jane-casto.png',
 			imageAlt: "Jane Casto's Portfolio Website Screenshot",
-			tags: ['react', 'vite', 'netlify', 'figma'],
+			tags: ['react', 'vite', 'netlify', 'figma', 'frontend'],
 			color: '45, 32, 32',
 		},
 		{
@@ -36,7 +36,7 @@ export default {
 			},
 			image: 'my-portfolio.png',
 			imageAlt: "Alan Valerio's Portfolio Website Screenshot",
-			tags: ['react', 'vite', 'netlify', 'figma', 'illustrator'],
+			tags: ['react', 'vite', 'netlify', 'figma', 'illustrator', 'frontend'],
 		},
 		{
 			title: 'Family Cart',
@@ -45,8 +45,19 @@ export default {
 			links: { demo: '/demo/family-cart' },
 			image: 'family-cart.png',
 			imageAlt: 'Family Cart app Screenshot',
-			tags: ['react', 'vite', 'firebase', 'netlify', 'illustrator'],
+			tags: ['react', 'vite', 'firebase', 'netlify', 'illustrator', 'fullstack'],
 			color: '27, 50, 53',
+		},
+		{
+			title: 'The Quizzler',
+      label: 'Work In Progress',
+			description:
+				"This twist on a classic childhood game has become a passion project of mine. I've always wanted to create interactive and challenging experiences for anybody to enjoy, and I believe this game achieves that. This project also allowed me to work with serverless functions to build a secure backend.",
+			links: { production: 'https://the-quizzler.netlify.app' },
+			image: 'the-quizzler.png',
+			imageAlt: 'The Quizzler game Screenshot',
+			tags: ['react', 'vite', 'netlify', 'illustrator', 'fullstack'],
+			color: '36, 40, 58',
 		},
 	],
 	tags: {
@@ -99,6 +110,18 @@ export default {
 			name: 'Vite',
 			color: '166, 81, 254',
 			link: 'https://vitejs.dev',
+		},
+		fullstack: {
+			name: 'Fullstack',
+			color: '40, 37, 54',
+		},
+		frontend: {
+			name: 'Frontend',
+			color: '40, 37, 54',
+		},
+		backend: {
+			name: 'Backend',
+			color: '40, 37, 54',
 		},
 	},
 }

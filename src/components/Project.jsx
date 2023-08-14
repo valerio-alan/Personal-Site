@@ -16,6 +16,7 @@ export default function Project(props) {
 			<a className='project-top' href={projectLink} target={projectLink == '/' ? '' : '_blank'} rel='noopener'>
 				<img className='project-image unselectable' src={`../images/projects/${props.data.image}`} alt={props.data.imageAlt} />
 				<h3 className='project-title'>{props.data.title}</h3>
+        {props.data.label ? <div className='project-tag project-label unselectable' style={{ ['--tag-color']: props.data.color }}>{props.data.label}</div> : <></>}
 			</a>
 			<div className='project-tags'>
 				{props.data.tags.map((tag, i) =>
