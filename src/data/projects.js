@@ -52,7 +52,7 @@ export default {
 			title: 'The Quizzler',
       label: 'Work In Progress',
 			description:
-				"This twist on a classic childhood game has become a passion project of mine. I've always wanted to create interactive and challenging experiences for anybody to enjoy, and I believe this game achieves that. This project also allowed me to work with serverless functions to build a secure backend.",
+				"This twist on a classic childhood game has become a passion project of mine. I've always wanted to create interactive and challenging experiences for anybody to enjoy, and I believe this game achieves that. This project also allowed me to learn about serverless functions and build a secure backend.",
 			links: { production: 'https://the-quizzler.netlify.app' },
 			image: 'the-quizzler.png',
 			imageAlt: 'The Quizzler game Screenshot',
