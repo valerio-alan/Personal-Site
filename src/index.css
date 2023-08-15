@@ -818,6 +818,7 @@ body {
 	padding: 15px;
 	border-radius: 24px;
 	overflow: hidden;
+  background-color: rgba(var(--project-bg-color), 0.25);
 	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, -webkit-filter 250ms ease-in-out;
 	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, filter 250ms ease-in-out;
 	transition: background-color 250ms ease-in-out, transform 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms linear, filter 250ms ease-in-out, -webkit-filter 250ms ease-in-out;
