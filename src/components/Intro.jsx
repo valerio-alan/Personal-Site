@@ -134,7 +134,7 @@ export default function Intro() {
 				>
 					<img src={linkedinLogo} alt='Linkedin logo' />
 				</a>
-				<a className='social-bubble email-bubble show-tooltip' tooltip-text='Get in touch :)' href='mailto:hello@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
+				<a className='social-bubble email-bubble show-tooltip' tooltip-text='Get in touch :)' href='mailto:contact@alanvalerio.com?subject=%F0%9F%91%8B' target='_blank'>
 					<img src={emailLogo} alt='Email icon' />
 				</a>
 			</div>
