@@ -23,7 +23,7 @@ export default {
 			},
 			image: 'jane-casto.png',
 			imageAlt: "Jane Casto's Portfolio Website Screenshot",
-			tags: ['react', 'vite', 'netlify', 'figma', 'frontend'],
+			tags: ['react', 'netlify', 'figma', 'frontend'],
 			color: '45, 32, 32',
 		},
 		{
@@ -36,7 +36,7 @@ export default {
 			},
 			image: 'my-portfolio.png',
 			imageAlt: "Alan Valerio's Portfolio Website Screenshot",
-			tags: ['react', 'vite', 'netlify', 'figma', 'illustrator', 'frontend'],
+			tags: ['react', 'netlify', 'figma', 'illustrator', 'frontend'],
 		},
 		{
 			title: 'Family Cart',
@@ -45,7 +45,7 @@ export default {
 			links: { demo: '/demo/family-cart' },
 			image: 'family-cart.png',
 			imageAlt: 'Family Cart app Screenshot',
-			tags: ['react', 'vite', 'firebase', 'netlify', 'illustrator', 'fullstack'],
+			tags: ['react', 'firebase', 'netlify', 'illustrator', 'fullstack'],
 			color: '27, 50, 53',
 		},
 		{
@@ -56,9 +56,19 @@ export default {
 			links: { production: 'https://the-quizzler.netlify.app' },
 			image: 'the-quizzler.png',
 			imageAlt: 'The Quizzler game Screenshot',
-			tags: ['react', 'vite', 'netlify', 'illustrator', 'fullstack'],
+			tags: ['react', 'netlify', 'illustrator', 'fullstack'],
 			color: '36, 40, 58',
 		},
+		{
+			title: 'Product Scraping Tool',
+			description:
+				"Created for a small family-owned business in New York, this is a tool to collect product information from a large collection of sources. Automating the collection of this information has saved hours of valuable time for this business, and streamlined the process of maintaining a catolog of over 15,000 products",
+			// links: { },
+			image: 'product-scraper.png',
+			imageAlt: 'Screenshot of product information scraping tool',
+			tags: ['python', 'html/css/js', 'backend'],
+			color: '10, 64, 60',
+		}
 	],
 	tags: {
 		first_project: {
