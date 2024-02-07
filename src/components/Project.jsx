@@ -4,9 +4,9 @@ import openLink from '../assets/images/open-link.svg'
 
 export default function Project(props) {
 	if (props.data.links) {
-		const projectLink = props.data.links.production || props.data.links.demo || props.data.links.github
+		var projectLink = props.data.links.production || props.data.links.demo || props.data.links.github
 	} else {
-		const projectLink = "#"
+		var projectLink = ""
 	}
 
 	return (
@@ -17,7 +17,7 @@ export default function Project(props) {
 				['--project-text-color']: 'var(--off-white)',
 			}}
 		>
-			<a className='project-top' href={projectLink} target={projectLink == '/' || projectLink == '#' ? '' : '_blank'} rel='noopener'>
+			<a className='project-top' href={projectLink != '' ? projectLink : 'javascript:void(0);'} target={projectLink == '/' || projectLink == '' ? '' : '_blank'} rel='noopener'>
 				<img className='project-image unselectable' src={`../images/projects/${props.data.image}`} alt={props.data.imageAlt} />
 				<h3 className='project-title'>{props.data.title}</h3>
         {props.data.label ? <div className='project-tag project-label unselectable' style={{ ['--tag-color']: props.data.color }}>{props.data.label}</div> : <></>}
@@ -43,21 +43,21 @@ export default function Project(props) {
 					)
 				)}
 			</div>
-			<a href={projectLink} target={projectLink == '/' ? '' : '_blank'} rel='noopener'>
+			<a href={projectLink != '' ? projectLink : 'javascript:void(0);'} target={projectLink == '/' || projectLink == '' ? '' : '_blank'} rel='noopener'>
 				<p className='project-description'>{props.data.description}</p>
 			</a>
 			<div className='project-links unselectable'>
-				{props.data.links.github && (
+				{props.data.links && props.data.links.github && (
 					<a className='project-link show-tooltip' tooltip-text='View the source code' href={props.data.links.github} target='_blank' rel='noopener'>
 						<img className='project-link-icon' src={githubLogo} alt='Github logo' />
 					</a>
 				)}
-				{props.data.links.demo && (
+				{props.data.links && props.data.links.demo && (
 					<a className='project-link show-tooltip' tooltip-text='Try the demo' href={props.data.links.demo} target='_blank' rel='noopener'>
 						<img className='project-link-icon' src={openLink} alt='Open link icon' />
 					</a>
 				)}
-				{props.data.links.production && (
+				{props.data.links && props.data.links.production && (
 					<a
 						className='project-link show-tooltip'
 						tooltip-text='View the project'
