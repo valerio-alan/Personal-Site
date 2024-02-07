@@ -3,7 +3,11 @@ import githubLogo from '../assets/images/github-logo.svg'
 import openLink from '../assets/images/open-link.svg'
 
 export default function Project(props) {
-	const projectLink = props.data.links.production || props.data.links.demo || props.data.links.github
+	if (props.data.links) {
+		const projectLink = props.data.links.production || props.data.links.demo || props.data.links.github
+	} else {
+		const projectLink = "#"
+	}
 
 	return (
 		<div
@@ -13,7 +17,7 @@ export default function Project(props) {
 				['--project-text-color']: 'var(--off-white)',
 			}}
 		>
-			<a className='project-top' href={projectLink} target={projectLink == '/' ? '' : '_blank'} rel='noopener'>
+			<a className='project-top' href={projectLink} target={projectLink == '/' || projectLink == '#' ? '' : '_blank'} rel='noopener'>
 				<img className='project-image unselectable' src={`../images/projects/${props.data.image}`} alt={props.data.imageAlt} />
 				<h3 className='project-title'>{props.data.title}</h3>
         {props.data.label ? <div className='project-tag project-label unselectable' style={{ ['--tag-color']: props.data.color }}>{props.data.label}</div> : <></>}
