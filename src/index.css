@@ -830,7 +830,7 @@ body {
 	text-decoration: none;
 }
 
-.project > a:has(img) {
+.project > .project-top {
 	position: relative;
 	display: flex;
 	flex-direction: column;

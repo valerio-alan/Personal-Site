@@ -63,7 +63,7 @@ export default {
 			title: 'Product Scraping Tool',
 			description:
 				"Created for a small family-owned business in New York, this tool collects relevant product information from a large collection of sources. Automating the collection of this information has saved hours of valuable time for this business, and streamlined the process of maintaining a catolog of over 15,000 products",
-			// links: { },
+			links: { },
 			image: 'product-scraper.png',
 			imageAlt: 'Screenshot of product information scraping tool',
 			tags: ['python', 'html/css/js', 'backend'],

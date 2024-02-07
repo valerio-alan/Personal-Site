@@ -3,11 +3,7 @@ import githubLogo from '../assets/images/github-logo.svg'
 import openLink from '../assets/images/open-link.svg'
 
 export default function Project(props) {
-	if (props.data.links) {
-		var projectLink = props.data.links.production || props.data.links.demo || props.data.links.github
-	} else {
-		var projectLink = ""
-	}
+	var projectLink = props.data.links.production || props.data.links.demo || props.data.links.github || ''
 
 	return (
 		<div
@@ -47,17 +43,17 @@ export default function Project(props) {
 				<p className='project-description'>{props.data.description}</p>
 			</a>
 			<div className='project-links unselectable'>
-				{props.data.links && props.data.links.github && (
+				{props.data.links.github && (
 					<a className='project-link show-tooltip' tooltip-text='View the source code' href={props.data.links.github} target='_blank' rel='noopener'>
 						<img className='project-link-icon' src={githubLogo} alt='Github logo' />
 					</a>
 				)}
-				{props.data.links && props.data.links.demo && (
+				{props.data.links.demo && (
 					<a className='project-link show-tooltip' tooltip-text='Try the demo' href={props.data.links.demo} target='_blank' rel='noopener'>
 						<img className='project-link-icon' src={openLink} alt='Open link icon' />
 					</a>
 				)}
-				{props.data.links && props.data.links.production && (
+				{props.data.links.production && (
 					<a
 						className='project-link show-tooltip'
 						tooltip-text='View the project'
