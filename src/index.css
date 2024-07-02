@@ -60,10 +60,10 @@ body {
 	transform: translateX(-50%);
 }
 
-.tooltip-text,
+/* .tooltip-text,
 .tooltip-arrow {
 	transition: top 75ms ease-out, left 75ms ease-out;
-}
+} */
 
 .grain {
 	position: relative;
