@@ -3,7 +3,7 @@ export default {
 		{
 			title: 'Franja Liquors Website',
 			description:
-				"I designed and developed a clean and user-friendly website for a liquor store in Ridgewood, NY as my first website development project. I also created an iOS shortcut for easy updates to the site's information, providing a solution to a real problem for the business owner. This project was a great learning experience for me.",
+				"I designed and developed a clean and user-friendly website for a liquor store in Ridgewood, NY, as my first website development project. Additionally, I created an iOS shortcut for easy updates to the site's information, providing a practical solution to a real problem for the business owner. This project was a significant learning experience for me.",
 			links: {
 				production: 'https://franjaliquors.com',
 				github: 'https://github.com/valerio-alan/Franja-Site',
@@ -25,6 +25,17 @@ export default {
 			imageAlt: "Jane Casto's Portfolio Website Screenshot",
 			tags: ['react', 'netlify', 'figma', 'frontend'],
 			color: '45, 32, 32',
+		},
+		{
+			title: "Heartstrings",
+			label: 'Private Commission',
+			description:
+				'Designed for long-distance couples, Heartstrings is an iOS widget that allows you to send real-time messages to stay connected. Created to bridge the gap for my partner and I, this widget ensures that we can share thoughts and updates, keeping our relationship vibrant despite the distance.',
+			links: { },
+			image: 'ttapi.png',
+			imageAlt: "Heartstrings Widget Screenshot",
+			tags: ['javascript', 'python', 'deta-space', 'fullstack'],
+			color: '54, 35, 30',
 		},
 		{
 			title: 'My Portfolio',
@@ -50,7 +61,7 @@ export default {
 		},
 		{
 			title: 'The Quizzler',
-      label: 'Work In Progress',
+      label: 'Early Access',
 			description:
 				"This twist on a classic childhood game has become a passion project of mine. I've always wanted to create interactive and challenging experiences for anybody to enjoy, and I believe this game achieves that. This project also allowed me to learn about serverless functions and build a secure backend.",
 			links: { production: 'https://the-quizzler.netlify.app' },
@@ -61,8 +72,9 @@ export default {
 		},
 		{
 			title: 'Product Scraping Tool',
+			label: 'Private Commission',
 			description:
-				"Created for a small family-owned business in New York, this tool collects relevant product information from a large collection of sources. Automating the collection of this information has saved hours of valuable time for this business, and streamlined the process of maintaining a catolog of over 15,000 products",
+				"Created for a small family-owned business in New York, this tool collects relevant product information from a large collection of sources. Automating the collection of this information has saved hours of valuable time for this business, and streamlined the process of maintaining a catalog of over 15,000 products",
 			links: { },
 			image: 'product-scraper.png',
 			imageAlt: 'Screenshot of product information scraping tool',
