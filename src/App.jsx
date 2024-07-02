@@ -86,15 +86,21 @@ export default function App() {
 
 		handleScroll()
 
-		var tooltipEls = []
-		const tooltipParents = [...document.getElementsByClassName('show-tooltip')]
-		tooltipParents.forEach((el) => {
-			tooltipEls.push(el),
+		function setTooltipChildren(el) {
+			if ([...el.children].length > 0) {
 				[...el.children].forEach((child) => {
 					child.classList.add('show-tooltip')
 					child.setAttribute('tooltip-text', el.getAttribute('tooltip-text'))
-					tooltipEls.push(child)
+					setTooltipChildren(child)
 				})
+			} else {
+				return
+			}
+		}
+
+		const tooltipParents = [...document.getElementsByClassName('show-tooltip')]
+		tooltipParents.forEach((el) => {
+			setTooltipChildren(el)
 		})
 
 		function setTooltipPosition(e) {
