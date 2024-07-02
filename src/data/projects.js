@@ -33,7 +33,7 @@ export default {
 				'Designed for long-distance couples, Heartstrings is an iOS widget that allows you to send real-time messages to stay connected. Created to bridge the gap for my partner and I, this widget ensures that we can share thoughts and updates, keeping our relationship vibrant despite the distance.',
 			links: { },
 			image: 'ttapi.png',
-			imageAlt: "Heartstrings Widget Screenshot",
+			imageAlt: "Heartstrings Widget Examples",
 			tags: ['javascript', 'python', 'deta-space', 'fullstack'],
 			color: '54, 35, 30',
 		},
