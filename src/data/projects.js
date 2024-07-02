@@ -86,6 +86,11 @@ export default {
 			color: '76, 194, 114',
 			link: 'https://www.freecodecamp.org/news/html-css-and-javascript-explained-for-beginners/',
 		},
+		javascript: {
+			name: 'Javascript',
+			color: '76, 194, 114',
+			link: 'https://en.wikipedia.org/wiki/JavaScript'
+		},
 		react: {
 			name: 'React',
 			color: '13, 109, 140',
