@@ -89,9 +89,11 @@ export default function App() {
 		function setTooltipChildren(el) {
 			if ([...el.children].length > 0) {
 				[...el.children].forEach((child) => {
-					child.classList.add('show-tooltip')
-					child.setAttribute('tooltip-text', el.getAttribute('tooltip-text'))
-					setTooltipChildren(child)
+					if (!child.classList.contains('show-tooltip')) {
+						child.classList.add('show-tooltip')
+						child.setAttribute('tooltip-text', el.getAttribute('tooltip-text'))
+						setTooltipChildren(child)
+					}
 				})
 			} else {
 				return
