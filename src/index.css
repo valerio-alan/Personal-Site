@@ -948,7 +948,7 @@ body {
 	position: relative;
 	height: 38px;
 	width: 38px;
-	opacity: 50%;
+	opacity: 75%;
 	transition: transform 250ms ease-in-out, opacity 250ms ease-in-out, -webkit-filter 250ms ease-in-out;
 	transition: transform 250ms ease-in-out, filter 250ms ease-in-out, opacity 250ms ease-in-out;
 	transition: transform 250ms ease-in-out, filter 250ms ease-in-out, opacity 250ms ease-in-out, -webkit-filter 250ms ease-in-out;
