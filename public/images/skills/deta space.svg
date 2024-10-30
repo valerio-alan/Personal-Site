@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="a" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <circle cx="256" cy="256" r="242.91" fill="#f73b95"/>
-  <circle cx="256" cy="256" r="197.31" fill="#bd399c"/>
-  <circle cx="256" cy="256" r="154.12" fill="#93388e"/>
-  <circle cx="256" cy="256" r="116.45" fill="#6030a2"/>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #6030a2;
+      }
+
+      .cls-2 {
+        fill: #bd399c;
+      }
+
+      .cls-3 {
+        fill: #93388e;
+      }
+
+      .cls-4 {
+        fill: #f73b95;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.2, SVG Export Plug-In . SVG Version: 1.2.0 Build 154)  -->
+  <g>
+    <g id="a">
+      <circle class="cls-4" cx="256" cy="256" r="242.9"/>
+      <circle class="cls-2" cx="256" cy="256" r="197.3"/>
+      <circle class="cls-3" cx="256" cy="256" r="154.1"/>
+      <circle class="cls-1" cx="256" cy="256" r="116.5"/>
+    </g>
+  </g>
 </svg>
