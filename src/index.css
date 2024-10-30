@@ -6,6 +6,9 @@
 	--purple: 162, 147, 255;
 	--accent-back: 34, 32, 45;
 	--tooltip-text-color: white;
+
+	--main-font: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	--mono-font: 'Roboto Mono', monospace;
 }
 
 html {
@@ -40,7 +43,7 @@ body {
 	color: var(--tooltip-text-color);
 	margin: 0;
 	z-index: 100;
-	font-family: 'Roboto Mono', monospace;
+	font-family: var(--mono-font);
 	font-style: normal;
 	font-weight: 700;
 	font-size: 18px;
@@ -206,7 +209,7 @@ body {
 	width: fit-content;
 	margin: 0;
 	padding-top: 4vh;
-	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: var(--main-font);
 	font-style: normal;
 	font-weight: 700;
 	font-size: 64px;
@@ -344,7 +347,7 @@ body {
 .intro-text > h3 {
 	--font-size: 32px;
 	margin: 0;
-	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: var(--main-font);
 	font-weight: normal;
 	font-size: var(--font-size);
 }
@@ -352,7 +355,7 @@ body {
 .intro-text > p {
 	margin: 0;
 	margin-top: 32px;
-	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: var(--main-font);
 	font-size: 24px;
 }
 
@@ -376,7 +379,7 @@ body {
 	box-shadow: inset 0 0 0 3px rgba(var(--accent), 0.5);
 	border-radius: 8px;
 	text-decoration: none;
-	font-family: 'Roboto Mono', monospace;
+	font-family: var(--mono-font);
 	font-size: 28px;
 	font-weight: bold;
 	color: rgba(var(--off-white), 0.75);
@@ -449,7 +452,7 @@ body {
 	margin: 0;
 	z-index: 10;
 	white-space: nowrap;
-	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: var(--main-font);
 	font-size: 10vw;
 	color: rgb(var(--off-white));
 	opacity: 0.8;
@@ -675,7 +678,7 @@ body {
 	margin: 0;
 	margin-bottom: min(50px, 5vw);
 	text-align: center;
-	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: var(--main-font);
 	font-weight: 600;
 	font-size: clamp(25px, 7vw, 60px);
 	color: rgba(var(--off-white), 0.8);
@@ -721,7 +724,7 @@ body {
 	margin-top: min(20px, 2vw);
 	display: block;
 	text-align: center;
-	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: var(--main-font);
 	font-size: min(30px, 3.2vw);
 	color: rgba(var(--off-white), 0.75);
 }
@@ -855,7 +858,7 @@ body {
 	box-sizing: border-box;
 	margin: 0;
 	width: 100%;
-	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: var(--main-font);
 	font-style: normal;
 	font-weight: 700;
 	font-size: 24px;
@@ -887,7 +890,7 @@ body {
 	box-sizing: border-box;
 	position: relative;
 	padding: 1px 5px;
-	font-family: 'Roboto Mono', monospace;
+	font-family: var(--mono-font);
 	font-style: normal;
 	font-weight: 700;
 	font-size: 16px;
