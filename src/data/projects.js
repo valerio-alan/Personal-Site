@@ -1,6 +1,36 @@
 export default {
   data: [
     {
+      title: 'My Portfolio',
+      description: 'My portfolio is a visually appealing and user-friendly website that showcases my work, skills, and background. Designed and developed by me, it reflects my commitment to delivering high-quality work and creating a strong online presence.',
+      links: {
+        production: '/',
+        github: 'https://github.com/valerio-alan/Personal-Site',
+      },
+      image: 'my-portfolio.png',
+      imageAlt: "Alan Valerio's Portfolio Website Screenshot",
+      tags: ['react', 'netlify', 'figma', 'illustrator', 'frontend'],
+    },
+    {
+      title: 'Family Cart',
+      description: "This is a simple shopping list app that I created for my family. It gives us a shared shopping list that updates in real-time, and it has been a great help to us. I created this app as a way to learn firebase's realtime database and make life a little easier.",
+      links: { demo: '/demo/family-cart' },
+      image: 'family-cart.png',
+      imageAlt: 'Family Cart app Screenshot',
+      tags: ['react', 'firebase', 'netlify', 'illustrator', 'fullstack'],
+      color: '27, 50, 53',
+    },
+    {
+      title: 'Heartstrings',
+      label: 'Private Commission',
+      description: 'Designed for long-distance couples, Heartstrings is an iOS widget that allows you to send real-time messages to stay connected. Created to bridge the gap for my partner and I, this widget ensures that we can share thoughts and updates, keeping our relationship vibrant despite the distance.',
+      links: {},
+      image: 'ttapi.png',
+      imageAlt: 'Heartstrings Widget Examples',
+      tags: ['javascript', 'python', 'mongodb', 'fullstack'],
+      color: '54, 35, 30',
+    },
+    {
       title: 'Franja Liquors Website',
       description: "I designed and developed a clean and user-friendly website for a liquor store in Ridgewood, NY, as my first website development project. Additionally, I created an iOS shortcut for easy updates to the site's information, providing a practical solution to a real problem for the business owner. This project was a significant learning experience for me.",
       links: {
@@ -23,36 +53,6 @@ export default {
       imageAlt: "Jane Casto's Portfolio Website Screenshot",
       tags: ['react', 'netlify', 'figma', 'frontend'],
       color: '45, 32, 32',
-    },
-    {
-      title: 'Heartstrings',
-      label: 'Private Commission',
-      description: 'Designed for long-distance couples, Heartstrings is an iOS widget that allows you to send real-time messages to stay connected. Created to bridge the gap for my partner and I, this widget ensures that we can share thoughts and updates, keeping our relationship vibrant despite the distance.',
-      links: {},
-      image: 'ttapi.png',
-      imageAlt: 'Heartstrings Widget Examples',
-      tags: ['javascript', 'python', 'mongodb', 'fullstack'],
-      color: '54, 35, 30',
-    },
-    {
-      title: 'My Portfolio',
-      description: 'My portfolio is a visually appealing and user-friendly website that showcases my work, skills, and background. Designed and developed by me, it reflects my commitment to delivering high-quality work and creating a strong online presence.',
-      links: {
-        production: '/',
-        github: 'https://github.com/valerio-alan/Personal-Site',
-      },
-      image: 'my-portfolio.png',
-      imageAlt: "Alan Valerio's Portfolio Website Screenshot",
-      tags: ['react', 'netlify', 'figma', 'illustrator', 'frontend'],
-    },
-    {
-      title: 'Family Cart',
-      description: "This is a simple shopping list app that I created for my family. It gives us a shared shopping list that updates in real-time, and it has been a great help to us. I created this app as a way to learn firebase's realtime database and make life a little easier.",
-      links: { demo: '/demo/family-cart' },
-      image: 'family-cart.png',
-      imageAlt: 'Family Cart app Screenshot',
-      tags: ['react', 'firebase', 'netlify', 'illustrator', 'fullstack'],
-      color: '27, 50, 53',
     },
     {
       title: 'The Quizzler',
