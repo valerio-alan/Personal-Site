@@ -1,3 +1,15 @@
+// ==UserScript==
+// @name         Subject Lesson Data Viewer for Dev
+// @namespace    https://alanvalerio.com/
+// @version      1.0
+// @description  Log current lesson's data onto the page in Dev
+// @author       Alan Valerio
+// @match        https://dev.app.subject.com/*
+// @grant        none
+// @updateURL    https://yourserver.com/yourprivatepath/example-userscript.js
+// @downloadURL  https://yourserver.com/yourprivatepath/example-userscript.js
+// ==/UserScript==
+
 ;(function () {
 	'use strict'
 
@@ -342,15 +354,15 @@
         </div>
       `
 
-      if (data.type === 'video') {
-        elementHTML += `
+			if (data.type === 'video') {
+				elementHTML += `
           <h3>Video Data</h3>
           <div class="outline">
             <pre copyVal="${data.assessment.thumbnailUrl}">Video Thumbnail:</pre>
             <img class="pad" copyVal="${data.assessment.thumbnailUrl}" src="${data.assessment.thumbnailUrl}" width="100%" height="500px" />
           </div>
         `
-      }
+			}
 
 			if (data.assessment.blocks.length > 0) {
 				elementHTML += `
@@ -401,28 +413,28 @@
             `
 					})
 
-          if (q.metadata.document) {
-            let pdfUrl;
-            elementHTML += `
+					if (q.metadata.document) {
+						let pdfUrl
+						elementHTML += `
               <pre>Document:</pre>
               <embed class="pad" data-from="${q.metadata.document}" type="application/pdf" width="100%" height="500px" />
-            ` 
+            `
 
-            fetch(q.metadata.document)
-              .then(response => response.blob())
-              .then(blob => {
-                const newBlob = new Blob([blob], { type: 'application/pdf' });
-                pdfUrl = URL.createObjectURL(newBlob);
-                console.log(pdfUrl);
-                waitForElm(`embed[data-from="${q.metadata.document}"]`).then(() => {
-                  document.querySelector(`embed[data-from="${q.metadata.document}"]`).src = pdfUrl;
-                })
-              })
-              .catch(error => {
-                // Handle any errors
-                console.error('Error fetching the PDF:', error);
-              });
-          }
+						fetch(q.metadata.document)
+							.then((response) => response.blob())
+							.then((blob) => {
+								const newBlob = new Blob([blob], { type: 'application/pdf' })
+								pdfUrl = URL.createObjectURL(newBlob)
+								console.log(pdfUrl)
+								waitForElm(`embed[data-from="${q.metadata.document}"]`).then(() => {
+									document.querySelector(`embed[data-from="${q.metadata.document}"]`).src = pdfUrl
+								})
+							})
+							.catch((error) => {
+								// Handle any errors
+								console.error('Error fetching the PDF:', error)
+							})
+					}
 
 					elementHTML += `
               ${q.answers.length > 0 ? `<pre>Answers:</pre>` : ''}
@@ -436,12 +448,12 @@
                 <pre ${answer.correct ? 'class="accent-text"' : ''} copyVal="${answer.correct}">Correct: <span>${answer.correct}</span></pre>
             `
 
-            if (answer.metadata.blocks.length === 1 && answer.metadata.blocks[0].id == 'text') {
-              elementHTML += `<pre class="accent-text" copyVal="${answer.metadata.blocks[0].value}">Text: <span>${answer.metadata.blocks[0].value}</span></pre>`
-            } else if (answer.metadata.blocks.length > 0) {
-              elementHTML += `<pre>Answer Blocks:</pre>`
-              answer.metadata.blocks?.forEach((block, k) => {
-                elementHTML += `
+						if (answer.metadata.blocks.length === 1 && answer.metadata.blocks[0].id == 'text') {
+							elementHTML += `<pre class="accent-text" copyVal="${answer.metadata.blocks[0].value}">Text: <span>${answer.metadata.blocks[0].value}</span></pre>`
+						} else if (answer.metadata.blocks.length > 0) {
+							elementHTML += `<pre>Answer Blocks:</pre>`
+							answer.metadata.blocks?.forEach((block, k) => {
+								elementHTML += `
                   <div class="pad-btm-big outline">
                     <pre class="pad-btm-big"><span>Answer Block ${k + 1}</span></pre>
                     <pre class="accent-text" copyVal="${block.id}">AnswerBlock ID: <span>${block.id}</span></pre>
@@ -449,8 +461,8 @@
                     ${getBlockValueHTML(block)}
                   </div>
                 `
-              })
-            }
+							})
+						}
 
 						elementHTML += `
                 <pre class="accent-text" copyVal="${answer.feedback}">Feedback: <span>${answer.feedback}</span></pre>
@@ -479,19 +491,19 @@
 				element.style.cursor = 'pointer'
 			})
 
-      document.querySelectorAll('[toggleValue]').forEach((element) => {
-        element.addEventListener('click', () => {
-          const valueId = element.getAttribute('toggleValue')
-          const valueElement = document.querySelector(`.hidden-value[valueId="${valueId}"]`)
-          if (valueElement.classList.contains('active')) {
-            valueElement.classList.remove('active')
-            element.textContent = 'See Value'
-          } else {
-            valueElement.classList.add('active')
-            element.textContent = 'Hide Value'
-          }
-        })
-      })
+			document.querySelectorAll('[toggleValue]').forEach((element) => {
+				element.addEventListener('click', () => {
+					const valueId = element.getAttribute('toggleValue')
+					const valueElement = document.querySelector(`.hidden-value[valueId="${valueId}"]`)
+					if (valueElement.classList.contains('active')) {
+						valueElement.classList.remove('active')
+						element.textContent = 'See Value'
+					} else {
+						valueElement.classList.add('active')
+						element.textContent = 'Hide Value'
+					}
+				})
+			})
 		})
 	}
 
