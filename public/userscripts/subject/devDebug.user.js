@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1
+// @version      1.2
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -445,7 +445,7 @@
               <div class="pad-btm-big outline ${answer.correct ? 'correct-ac' : 'incorrect-ac'}">
                 <pre class="pad-btm-big"><span>Answer Choice ${j + 1}</span></pre>
                 <pre class="accent-text" copyVal="${answer.id}">Answer Choice ID: <span>${answer.id}</span></pre>
-                <pre ${answer.correct ? 'class="accent-text"' : ''} copyVal="${answer.correct}">Correct: <span>${answer.correct}</span></pre>
+                <pre copyVal="${answer.correct}">Correct: <span>${answer.correct}</span></pre>
             `
 
 						if (answer.metadata.blocks.length === 1 && answer.metadata.blocks[0].id == 'text') {
