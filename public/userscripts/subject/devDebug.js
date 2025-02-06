@@ -6,8 +6,8 @@
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
 // @grant        none
-// @updateURL    https://yourserver.com/yourprivatepath/example-userscript.js
-// @downloadURL  https://yourserver.com/yourprivatepath/example-userscript.js
+// @updateURL    https://www.alanvalerio.com/userscripts/subject/devDebug.js
+// @downloadURL  https://www.alanvalerio.com/userscripts/subject/devDebug.js
 // ==/UserScript==
 
 ;(function () {
