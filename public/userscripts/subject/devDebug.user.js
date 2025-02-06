@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.0
+// @version      1.1
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -402,7 +402,7 @@
               ${q.metadata.blocks.length > 0 ? `<pre>Question Blocks:</pre>` : ''}
           `
 
-					q.metadata.blocks?.forEach((block, j) => {
+					q.metadata.blocks.forEach((block, j) => {
 						elementHTML += `
               <div class="pad-btm-big outline">
                 <pre class="pad-btm-big"><span>Question Block ${j + 1}</span></pre>
@@ -452,7 +452,7 @@
 							elementHTML += `<pre class="accent-text" copyVal="${answer.metadata.blocks[0].value}">Value: <span>${answer.metadata.blocks[0].value}</span></pre>`
 						} else if (answer.metadata.blocks.length > 0) {
 							elementHTML += `<pre>Answer Blocks:</pre>`
-							answer.metadata.blocks?.forEach((block, k) => {
+							answer.metadata.blocks.forEach((block, k) => {
 								elementHTML += `
                   <div class="pad-btm-big outline">
                     <pre class="pad-btm-big"><span>Answer Block ${k + 1}</span></pre>
