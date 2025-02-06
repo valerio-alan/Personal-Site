@@ -449,7 +449,7 @@
             `
 
 						if (answer.metadata.blocks.length === 1 && answer.metadata.blocks[0].id == 'text') {
-							elementHTML += `<pre class="accent-text" copyVal="${answer.metadata.blocks[0].value}">Text: <span>${answer.metadata.blocks[0].value}</span></pre>`
+							elementHTML += `<pre class="accent-text" copyVal="${answer.metadata.blocks[0].value}">Value: <span>${answer.metadata.blocks[0].value}</span></pre>`
 						} else if (answer.metadata.blocks.length > 0) {
 							elementHTML += `<pre>Answer Blocks:</pre>`
 							answer.metadata.blocks?.forEach((block, k) => {
