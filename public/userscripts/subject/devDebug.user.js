@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1.1
+// @version      1.1.2
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -179,6 +179,10 @@
           margin-inline-start: var(--chakra-space-3);
           overflow: auto;
           z-index: 1;
+        }
+
+        #lessonData > .outline {
+          z-index: 0;
         }
 
         .truncate {
