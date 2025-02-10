@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.0.2
+// @version      1.1.0
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -101,6 +101,13 @@
         <pre class="hidden-value" copyVal="${block.value}" valueId="${block.id}"><span class="pad">${block.value}</span></pre>
         <pre class="accent-text">Preview:</pre>
         <embed class="pad" src="${block.value}" type="application/pdf" width="100%" height="500px" />
+      `
+		} else if (block.type === 'embed') {
+			return `
+        <pre>Value: <span toggleValue="${block.id}">See Value</span></pre>
+        <pre class="hidden-value" copyVal="${block.value}" valueId="${block.id}"><span class="pad">${block.value}</span></pre>
+        <pre class="accent-text">Preview:</pre>
+        <embed class="pad" src="${block.value}" type="text/html" width="100%" height="500px" />
       `
 		} else if (block.type === 'image') {
 			return `
