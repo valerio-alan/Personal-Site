@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1.0
+// @version      1.1.1
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -406,19 +406,24 @@
               <pre class="accent-text" copyVal="${q.id}">Question ID: <span>${q.id}</span></pre>
               <pre copyVal="${q.types.join(', ')}">Type${q.types.length > 1 ? 's' : ''}: <span>${q.types.join(', ')}</span></pre>
               ${q.text ? `<pre copyVal="${q.text}">Text: <span>${q.text}</span></pre>` : ''}
-              ${q.metadata.blocks.length > 0 ? `<pre>Question Blocks:</pre>` : ''}
           `
 
-					q.metadata.blocks.forEach((block, j) => {
-						elementHTML += `
-              <div class="pad-btm-big outline">
-                <pre class="pad-btm-big"><span>Question Block ${j + 1}</span></pre>
-                <pre class="accent-text" copyVal="${block.id}">QuestionBlock ID: <span>${block.id}</span></pre>
-                <pre copyVal="${block.type}">Type: <span>${block.type}</span></pre>
-                ${getBlockValueHTML(block)}
-              </div>
-            `
-					})
+
+          if (q.metadata.blocks.length === 1 && q.metadata.blocks[0].id == 'text') {
+            elementHTML += `<pre class="accent-text" copyVal="${q.metadata.blocks[0].value}">Question Text: <span>${q.metadata.blocks[0].value}</span></pre>`
+          } else if (q.metadata.blocks.length > 0) {
+            elementHTML += `<pre>Question Blocks:</pre>`
+            q.metadata.blocks.forEach((block, j) => {
+              elementHTML += `
+                <div class="pad-btm-big outline">
+                  <pre class="pad-btm-big"><span>Question Block ${j + 1}</span></pre>
+                  <pre class="accent-text" copyVal="${block.id}">QuestionBlock ID: <span>${block.id}</span></pre>
+                  <pre copyVal="${block.type}">Type: <span>${block.type}</span></pre>
+                  ${getBlockValueHTML(block)}
+                </div>
+              `
+            })
+          }
 
 					if (q.metadata.document) {
 						let pdfUrl
