@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1.5
+// @version      1.1.6
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -92,7 +92,7 @@
         <pre>Value: <span toggleValue="${block.id}">See Value</span></pre>
         <pre class="hidden-value" copyVal="${escapeHtml(block.value)}" valueId="${block.id}"><span class="pad">${escapeHtml(block.value)}</span></pre>
         <pre class="accent-text">Preview:</pre>
-        <div class="pad">${block.value}</div>
+        <div class="pad" style="position: relative;">${block.value}</div>
       `
 		} else if (block.type === 'pdf') {
 			return `
@@ -485,7 +485,7 @@
 
 						elementHTML += `
                 <pre class="accent-text" copyVal="${escapeHtml(answer.feedback)}">Feedback:</pre>
-                <div class="pad" copyVal="${escapeHtml(answer.feedback)}">${answer.feedback}</div>
+                <div class="pad" copyVal="${escapeHtml(answer.feedback)}" style="position: relative;">${answer.feedback}</div>
               </div>
             `
 					})
