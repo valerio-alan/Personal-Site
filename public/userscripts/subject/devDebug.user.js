@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1.2
+// @version      1.1.3
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -481,7 +481,8 @@
 						}
 
 						elementHTML += `
-                <pre class="accent-text" copyVal="${answer.feedback}">Feedback: <span>${answer.feedback}</span></pre>
+                <pre class="accent-text" copyVal="${answer.feedback}">Feedback:</pre>
+                <div class="pad" copyVal="${answer.feedback}">${answer.feedback}</div>
               </div>
             `
 					})
