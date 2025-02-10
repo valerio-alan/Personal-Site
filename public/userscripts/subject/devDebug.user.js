@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1.4
+// @version      1.1.5
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -403,11 +403,14 @@
           <div>
         `
 
-				data.assessment.questions.forEach((q, i) => {
+				data.assessment.questions.filter((q) => {
+          return !(q.types.length == 1 && q.types[0] == 'group' && q.types.length == 1)
+        }).forEach((q, i) => {
 					elementHTML += `
             <div class="pad-btm-big outline">
               <pre class="pad-btm-big"><span>Question ${i + 1}</span></pre>
               <pre class="accent-text" copyVal="${q.id}">Question ID: <span>${q.id}</span></pre>
+              ${q?.parentId ? `<pre copyVal="${q.parentId}">Question Group Id: <span>${q.parentId}</span></pre>` : ''}
               <pre copyVal="${q.types.join(', ')}">Type${q.types.length > 1 ? 's' : ''}: <span>${q.types.join(', ')}</span></pre>
               ${q.text ? `<pre copyVal="${q.text}">Text: <span>${q.text}</span></pre>` : ''}
           `
