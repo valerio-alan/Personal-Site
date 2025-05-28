@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1.7
+// @version      1.1.8
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
