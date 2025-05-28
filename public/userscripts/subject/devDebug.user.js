@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subject Lesson Data Viewer for Dev
 // @namespace    https://alanvalerio.com/
-// @version      1.1.8
+// @version      1.2.0
 // @description  Log current lesson's data onto the page in Dev
 // @author       Alan Valerio
 // @match        https://dev.app.subject.com/*
@@ -411,9 +411,9 @@
             <div class="pad-btm-big outline">
               <pre class="pad-btm-big"><span>Question ${i + 1}</span></pre>
               <pre class="accent-text" copyVal="${q.id}">Question ID: <span>${q.id}</span></pre>
-              <pre copyVal="${q.totalPointsPossible}">Point Value: <span>${q.totalPointsPossible}</span></pre>
               ${q?.parentId ? `<pre copyVal="${q.parentId}">Question Group Id: <span>${q.parentId}</span></pre>` : ''}
               <pre copyVal="${q.types.join(', ')}">Type${q.types.length > 1 ? 's' : ''}: <span>${q.types.join(', ')}</span></pre>
+              <pre copyVal="${q.totalPointsPossible}">Point Value: <span>${q.totalPointsPossible}</span></pre>
               ${q.text ? `<pre copyVal="${q.text}">Text: <span>${q.text}</span></pre>` : ''}
           `
 
