@@ -52,10 +52,11 @@ export default function Skills() {
 										target='_blank'
 										className={`skill ${skill.link && 'show-tooltip'}`}
 										tooltip-text={`Learn more about ${skill.name}`}
+										aria-label={`Learn more about ${skill.name}`}
 									>
 										<div className='skill-images unselectable'>
 											<img className='skill-perspective' src={`/images/skills/${skill.name.toLowerCase()}.svg`} alt={`${skill.name} logo`} />
-											<img className='skill-perspective desktop' src={`/images/skills/${skill.name.toLowerCase()}.svg`} />
+											<img className='skill-perspective desktop' src={`/images/skills/${skill.name.toLowerCase()}.svg`} alt='' aria-hidden='true'/>
 										</div>
 										<div className='skill-name'>{skill.name}</div>
 									</a>
