@@ -1067,22 +1067,6 @@
       });
   }
 
-	function waitForElm(selector) {
-		return new Promise((resolve) => {
-			if (document.querySelector(selector)) {
-				return resolve(document.querySelector(selector))
-			}
-			const observer = new MutationObserver((mutations) => {
-				if (document.querySelector(selector)) {
-					observer.disconnect()
-					resolve(document.querySelector(selector))
-				}
-			})
-			observer.observe(document.body, { childList: true, subtree: true })
-		})
-	}
-
-
   window.av_createIssueForm = window.av_createIssueForm || createIssueForm
   window.av_lessonData = window.av_lessonData || {}
 	window.av_lastPathname = window.av_lastPathname || ''
@@ -1090,6 +1074,11 @@
   if (!window.av_interval) {
     window.av_interval = setInterval(() => {
       checkURLChange()
+    }, 100)
+  } else {
+    setTimeout(() => {
+      const script = document.querySelector('script[src*="devReview.js"]:last-of-type')
+      script.parentNode.removeChild(script)
     }, 100)
   }
 
