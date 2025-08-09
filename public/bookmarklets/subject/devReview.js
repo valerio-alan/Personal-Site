@@ -1071,6 +1071,9 @@
   window.av_lessonData = window.av_lessonData || {}
 	window.av_lastPathname = window.av_lastPathname || ''
 
+  await checkURLChange()
+  showIssueForm()
+
   if (!window.av_interval) {
     window.av_interval = setInterval(() => {
       checkURLChange()
@@ -1081,7 +1084,4 @@
       script.parentNode.removeChild(script)
     }, 100)
   }
-
-  await checkURLChange()
-  showIssueForm()
 })()
