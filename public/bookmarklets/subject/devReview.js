@@ -1,4 +1,12 @@
 (async function () {
+  if (!window.location.hostname.includes('subject.com')) {
+    setTimeout(() => {
+      const script = document.querySelector('script[src*="devReview.js"]:last-of-type')
+      script.parentNode.removeChild(script)
+    }, 1)
+    return
+  }
+
   function showTemporaryAlert(message) {
 		const alertDiv = document.createElement('div')
 		alertDiv.innerHTML = message
