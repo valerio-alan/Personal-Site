@@ -7,6 +7,8 @@
     return
   }
 
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwopIMjZIhRcOsS2hoMVcJThS_Bd2ml2wF2np24rJECjgtYsLLbBimbiskrnRHoVCgc/exec'
+
   function showTemporaryAlert(message) {
 		const alertDiv = document.createElement('div')
 		alertDiv.innerHTML = message
@@ -435,8 +437,13 @@
       .av-parent-check span { display: none; }
       .av-check input[type="checkbox"] { accent-color: var(--chakra-colors-\\$primary-button); }
       .av-notes { min-height: 80px; resize: vertical; padding: var(--chakra-space-2) var(--chakra-space-2-5); border-radius: var(--chakra-radii-md); border: 1px solid var(--chakra-colors-\\$subtle-border); background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); }
-      .av-actions { margin-top: var(--chakra-space-3-5); }
+      .av-actions { display: flex; justify-content: space-between; margin-top: var(--chakra-space-3-5); }
+      .av-actions button, .av-actions a { transition-property: var(--chakra-transition-property-common); transition-duration: var(--chakra-transition-duration-normal); }
       .av-submit { padding: var(--chakra-space-2) var(--chakra-space-3); border-radius: var(--chakra-radii-md); background: var(--chakra-colors-\\$primary-button); color: var(--chakra-colors-\\$primary-button-text); cursor: pointer; }
+      .av-open { margin-left: auto; text-decoration: none; padding: var(--chakra-space-2) var(--chakra-space-3); border-radius: var(--chakra-radii-md); background: var(--chakra-colors-\\$text-01); color: var(--chakra-colors-\\$bg-01); cursor: pointer; }
+      .av-open[disabled] { opacity: 0.5; cursor: wait; }
+      .av-open[disabled]:hover { background: var(--chakra-colors-\\$text-01); color: var(--chakra-colors-\\$bg-01); }
+      .av-open:not([disabled]):hover { background: var(--chakra-colors-\\$hover-primary); color: var(--chakra-colors-\\$primary-button-text); }
       .av-submit:hover { background: var(--chakra-colors-\\$hover-primary); }
       .av-submit[disabled] { opacity: 0.5; cursor: not-allowed; }
       .av-hover-preview { position: fixed; top: 0; left: 0; display: none; pointer-events: none; background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); border: 1px solid var(--chakra-colors-\\$subtle-border); border-radius: var(--chakra-radii-lg); box-shadow: var(--chakra-shadows-dark-lg); padding: var(--chakra-space-2-5); max-width: 480px; max-height: 60vh; overflow: auto; z-index: 9002; font-size: var(--chakra-fontSizes-md); transition: opacity 120ms ease-out; opacity: 0; will-change: left, top, opacity; }
@@ -862,8 +869,14 @@
     submitBtn.textContent = 'Submit Issue'
     submitBtn.className = 'av-submit'
     submitBtn.disabled = true
+    submitBtn.style.display = 'none'
+    const openBtn = document.createElement('a')
+    openBtn.textContent = 'Loading Issue Sheet...'
+    openBtn.className = 'av-open'
+    openBtn.href = '#'
+    openBtn.setAttribute('disabled', true)
     actions.appendChild(submitBtn)
-    actions.style.display = 'none'
+    actions.appendChild(openBtn)
     container.appendChild(actions)
 
     let lastIssuesList = []
@@ -887,7 +900,7 @@
         issueRow.style.display = 'none'
         linkRow.style.display = 'none'
         notesRow.style.display = 'none'
-        actions.style.display = 'none'
+        submitBtn.style.display = 'none'
         submitBtn.disabled = true
         return
       }
@@ -905,7 +918,7 @@
       // Reset notes/actions visibility until a concrete issue is chosen
       linkRow.style.display = 'none'
       notesRow.style.display = 'none'
-      actions.style.display = 'none'
+      submitBtn.style.display = 'none'
       submitBtn.disabled = true
       notes.required = true
       if (list.length === 0) {
@@ -927,7 +940,7 @@
       if (!issueSelect.value) return
       linkRow.style.display = 'flex'
       notesRow.style.display = 'flex'
-      actions.style.display = 'flex'
+      submitBtn.style.display = 'flex'
     })
 
     // Keep submit disabled until notes provided when required
@@ -973,8 +986,6 @@
   }
 
   function handleIssueSubmit(payload) {
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwopIMjZIhRcOsS2hoMVcJThS_Bd2ml2wF2np24rJECjgtYsLLbBimbiskrnRHoVCgc/exec'
-
     const params = new URLSearchParams()
     params.set('lessonId', payload.lessonId || '')
     params.set('lessonTitle', payload.lessonTitle || '')
@@ -1000,7 +1011,7 @@
 
     // Submit via GET; show success or retry prompt based on network outcome
     try {
-      fetch(url, { method: 'GET', mode: 'no-cors', keepalive: true })
+      fetch(url)
         .then(() => {
           showTemporaryAlert('Issue submitted')
         })
@@ -1014,20 +1025,75 @@
     }
   }
 
+  function enableOpenButton() {
+    const lesson = currLesson()
+    const openBtn = document.querySelector('.av-open')
+    if (!lesson || !openBtn || !openBtn.hasAttribute('disabled')) return
+    openBtn.textContent = 'Loading Issue Sheet...'
+
+    // check sessionStorage before making request
+    if (sessionStorage.getItem(`${lesson.courseId}-URL`)) {
+      openBtn.href = sessionStorage.getItem(`${lesson.courseId}-URL`)
+      openBtn.target = '_blank'
+      openBtn.textContent = 'Open Issue Sheet'
+      openBtn.removeAttribute('disabled')
+      return
+    }
+
+    const params = new URLSearchParams()
+
+    params.set('getSheet', true)
+    params.set('courseId', lesson.courseId || '')
+    params.set('courseTitle', lesson.courseTitle || '')
+    params.set('courseSubject', lesson.courseSubject || '')
+
+    const url = `${WEB_APP_URL}?${params.toString()}`
+
+    try {
+      fetch(url)
+        .then((res) => { return res.json() })
+        .then((data) => {
+          console.log(data)
+          openBtn.href = data.data
+          openBtn.target = '_blank'
+          openBtn.textContent = 'Open Issue Sheet'
+          openBtn.removeAttribute('disabled')
+          sessionStorage.setItem(`${lesson.courseId}-URL`, data.data)
+        })
+        .catch((err) => {
+          console.warn('Issue Sheet Request Failed:', err)
+          openBtn.textContent = 'Error :('
+        })
+    } catch (err) {
+      console.warn('Issue Sheet Request Exception:', err)
+      openBtn.textContent = 'Error :('
+    }
+  }
+
+  function disableOpenButton() {
+    const openBtn = document.querySelector('.av-open')
+    if (!openBtn) return
+    openBtn.href = '#'
+    openBtn.target = ''
+    openBtn.setAttribute('disabled', true)
+  }
+
   function removeIssueForm() {
+    disableOpenButton()
     resumeChakraModals()
     document.querySelector('.av-issue-container')?.remove()
     document.querySelector('.av-issue-overlay')?.remove()
   }
 
   function showIssueForm() {
+    suspendChakraModals()
     if (document.querySelector('.av-issue-container')) {
       document.querySelector('.av-issue-container')?.style?.setProperty('display', 'initial')
       document.querySelector('.av-issue-overlay')?.style?.setProperty('display', 'initial')
     } else {
       createIssueForm()
+      enableOpenButton()
     }
-    suspendChakraModals()
   }
 
   function hideIssueForm() {
