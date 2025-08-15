@@ -921,17 +921,11 @@
     }
 
     function updateIssueOptions() {
-      issueSelect.innerHTML = ''
-      const ph = document.createElement('option')
-      ph.value = ''
-      ph.textContent = 'Select an issue...'
-      ph.disabled = true
-      ph.selected = true
-      issueSelect.appendChild(ph)
 
       const selected = getSelectedItems()
       const categories = Array.from(new Set(selected.map((s) => s.category)))
       if (selected.length === 0) {
+        lastIssuesList = []
         // Hide downstream sections when nothing is selected
         issueRow.style.display = 'none'
         linkRow.style.display = 'none'
@@ -941,28 +935,43 @@
         return
       }
       const list = categories.length ? filterIssuesByCategories(categories) : []
+      console.log(list)
+      if (JSON.stringify(lastIssuesList) == JSON.stringify(list)) return
+
       lastIssuesList = list
+
+      const currVal = issueSelect.value
+      const selectedOption = issueSelect.querySelector(`option[value="${currVal}"]`).textContent || ''
+
+      issueSelect.innerHTML = ''
+      const ph = document.createElement('option')
+      ph.value = ''
+      ph.textContent = 'Select an issue...'
+      ph.disabled = true
+      ph.selected = true
+      issueSelect.appendChild(ph)
+
+      var alreadySelected = false
+
       list.forEach((it, idx) => {
         const opt = document.createElement('option')
         opt.value = String(idx)
         opt.textContent = it.title
+        if (selectedOption && selectedOption === it.title) {
+          opt.selected = true
+          alreadySelected = true
+        }
         issueSelect.appendChild(opt)
       })
 
       issueRow.style.display = 'flex'
       issueSelect.disabled = list.length === 0
-      // Reset notes/actions visibility until a concrete issue is chosen
-      linkRow.style.display = 'none'
-      notesRow.style.display = 'none'
-      submitBtn.style.display = 'none'
-      submitBtn.disabled = true
-      notes.required = true
-      if (list.length === 0) {
-        const none = document.createElement('option')
-        none.value = ''
-        none.textContent = 'No matching issues for this selection'
-        none.disabled = true
-        issueSelect.appendChild(none)
+      
+      if (!alreadySelected) {
+        linkRow.style.display = 'none'
+        notesRow.style.display = 'none'
+        submitBtn.style.display = 'none'
+        submitBtn.disabled = true
       }
     }
 
