@@ -427,7 +427,7 @@
     }
     
     style.textContent = `
-      .av-issue-overlay { position: fixed; inset: 0; background: var(--chakra-colors-\\$modal-overlay); opacity: 0.6; z-index: 9000; pointer-events: auto; }
+      .av-issue-overlay { position: fixed; inset: 0; background: var(--chakra-colors-blackAlpha-600); opacity: 1; z-index: 9000; pointer-events: auto; }
       .av-issue-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9001; box-shadow: var(--chakra-shadows-dark-lg); border: 1px solid var(--chakra-colors-\\$subtle-border); background: var(--chakra-colors-\\$bg-01); color: var(--chakra-colors-\\$text-01); font-family: var(--chakra-fonts-body); width: 720px; max-width: calc(100vw - var(--chakra-space-5) * 2); max-height: calc(100vh - var(--chakra-space-5) * 2); overflow: auto; font-size: var(--chakra-fontSizes-md); padding: var(--chakra-space-4); border-radius: var(--chakra-radii-xl); pointer-events: auto; overscroll-behavior: contain; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
       .av-section-title { font-weight: 600; margin: 0 0 var(--chakra-space-2); }
       .av-lesson-title { font-weight: 400; color: var(--chakra-colors-\\$text-03); }
@@ -467,7 +467,7 @@
       .av-open:not([disabled]):hover { background: var(--chakra-colors-\\$hover-primary); color: var(--chakra-colors-\\$primary-button-text); }
       .av-submit:hover { background: var(--chakra-colors-\\$hover-primary); }
       .av-submit[disabled] { opacity: 0.5; cursor: not-allowed; }
-      .av-hover-preview { position: fixed; top: 0; left: 0; display: none; pointer-events: none; background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); border: 1px solid var(--chakra-colors-\\$subtle-border); border-radius: var(--chakra-radii-lg); box-shadow: var(--chakra-shadows-dark-lg); padding: var(--chakra-space-2-5); max-width: 480px; max-height: 60vh; overflow: auto; z-index: 9002; font-size: var(--chakra-fontSizes-md); transition: opacity 120ms ease-out; opacity: 0; will-change: left, top, opacity; }
+      .av-hover-preview { position: fixed; top: 0; left: 0; display: none; pointer-events: none; background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); border: 1px solid var(--chakra-colors-\\$subtle-border); border-radius: var(--chakra-radii-lg); box-shadow: var(--chakra-shadows-dark-lg); padding: var(--chakra-space-2-5); max-width: 480px; max-height: 60vh; overflow: hidden; z-index: 9002; font-size: var(--chakra-fontSizes-md); transition: opacity 120ms ease-out; opacity: 0; will-change: left, top, opacity; }
       .av-preview-img { display: block; max-width: 175px; height: auto; border-radius: var(--chakra-radii-md); }
       .av-correct { color: var(--chakra-colors-\\$text-green); }  
       .av-group-header { display: flex; align-items: center; gap: var(--chakra-space-2); }
@@ -941,7 +941,6 @@
         return
       }
       const list = categories.length ? filterIssuesByCategories(categories) : []
-      console.log(list)
       if (JSON.stringify(lastIssuesList) == JSON.stringify(list)) return
 
       lastIssuesList = list
@@ -1104,7 +1103,6 @@
       fetch(url)
         .then((res) => { return res.json() })
         .then((data) => {
-          console.log(data)
           openBtn.href = data.data
           openBtn.target = '_blank'
           openBtn.textContent = 'Open Issue Sheet'
