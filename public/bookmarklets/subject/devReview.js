@@ -215,6 +215,14 @@
 
   const issues = [
     {
+      title: "Missing Topic",
+      categories: ['course']
+    },
+    {
+      title: "Missing Task",
+      categories: ['course']
+    },
+    {
       title: "Formatting - Student-Blocking",
       exclude: ['video']
     },
@@ -224,10 +232,10 @@
     },
     {
       title: "Incorrect Question",
-      categories: ['q', 'qc', 'qsup']
+      categories: ['task', 'q', 'qc', 'qsup']
     },
     {
-      title: "Incorrect Answers",
+      title: "Incorrect Answer",
       categories: ['q', 'ac']
     },
     {
@@ -236,7 +244,7 @@
     },
     {
       title: "Incorrect Points",
-      categories: ['q', 'qc', 'ac']
+      categories: ['task', 'q', 'qc', 'ac']
     },
     {
       title: "Missing Question",
@@ -252,11 +260,11 @@
     },
     {
       title: "Missing Image/PDF",
-      categories: ['task', 'pdf', 'directions', 'q', 'qc', 'ac', 'qsup']
+      categories: ['course', 'task', 'pdf', 'directions', 'q', 'qc', 'ac', 'qsup']
     },
     {
       title: "Wrong Image/PDF",
-      categories: ['task', 'pdf', 'directions', 'q', 'qc', 'ac', 'qsup']
+      categories: ['course', 'task', 'pdf', 'directions', 'q', 'qc', 'ac', 'qsup']
     },
     {
       title: "PDF/Image Issue",
@@ -266,11 +274,15 @@
       title: "Missing Information - Student-Blocking"
     },
     {
-      title: "Missing Information - Not Student-Blocking"
+      title: "Missing Information - Not Blocking"
     },
     {
-      title: "Video - Not uploaded",
-      categories: ['task', 'video']
+      title: "Text issue (Typo / Small change needed)",
+      exclude: ['video', 'pdf']
+    },
+    {
+      title: "Video - Missing",
+      categories: ['course', 'task', 'video']
     },
     {
       title: "Video - Wrong Video",
@@ -286,11 +298,11 @@
     },
     {
       title: "Drag and Drop Issue",
-      categories: ['q', 'qc', 'ac']
+      categories: ['course', 'q', 'qc', 'ac']
     },
     {
       title: "Needs to be on a new page",
-      exclude: ['directions']
+      exclude: ['course', 'directions']
     },
     {
       title: "Grouping Issue"
@@ -305,7 +317,7 @@
     },
     {
       title: "Wrong Topic Title",
-      categories: ['task']
+      categories: ['course', 'task']
     },
     {
       title: "Wrong Video Title",
@@ -333,6 +345,9 @@
 
   function getIssueAreas(lesson) {
     var areas = []
+
+    areas.push({name: 'Overall Course', location: 'Course', id: "N/A", category: 'course', preview: lesson.courseTitle})
+    areas.push({name: 'Overall Chapter', location: 'Topic/Chapter', id: lesson.chapterId, category: 'course', preview: lesson.chapterTitle})
 
     areas.push({name: 'Overall Task', location: 'Overall Task', id: lesson.id, category: 'task'})
 
@@ -413,9 +428,10 @@
       .av-lesson-title { font-weight: 400; color: var(--chakra-colors-\\$text-03); }
       .av-row { display: flex; flex-direction: column; gap: var(--chakra-space-1-5); margin-top: var(--chakra-space-2-5); }
       .av-row-label, .av-note, .av-note-row { font-size: 13px; color: var(--chakra-colors-\\$text-02); }
+      .av-row-label { display: flex; }
+      .av-row-label:has(+ [required])::after { content: '*'; color: var(--chakra-colors-\\$error); font-size: 1.5em; font-weight: 600; margin-left: 0.25em; margin-bottom: -0.5em; }
       .av-note-row { display: flex; flex-direction: column; }
-      .av-note { display: flex; gap: 0.5em; margin-bottom: -0.5em; }
-      .av-note:last-of-type { margin-bottom: -1em; }
+      .av-note { display: flex; gap: 0.5em; line-height: 1; margin-top: 0.5em; }
       .av-note::before { content: '*'; color: var(--chakra-colors-\\$error); font-size: 1.5em; font-weight: 600; }
       .av-select { padding: var(--chakra-space-2) var(--chakra-space-2-5); border-radius: var(--chakra-radii-md); border: 1px solid var(--chakra-colors-\\$subtle-border); background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); outline: none; }
       .av-input { padding: var(--chakra-space-2) var(--chakra-space-2-5); border-radius: var(--chakra-radii-md); border: 1px solid var(--chakra-colors-\\$subtle-border); background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); outline: none; }
@@ -527,8 +543,8 @@
         if (excluded) return
         const hasCats = Array.isArray(issue.categories) && issue.categories.length > 0
         if (hasCats) {
-          const includesAny = cats.length === 0 ? true : cats.some((c) => issue.categories.includes(c))
-          if (!includesAny) return
+          const includesAll = cats.length === 0 ? true : cats.every((c) => issue.categories.includes(c))
+          if (!includesAll) return
         }
         const isGlobal = !hasCats
         if (isGlobal) global.push(issue)
@@ -550,8 +566,14 @@
     const areaScroll = document.createElement('div')
     areaScroll.className = 'av-area-panel'
 
+    const courseHeader = document.createElement('div')
+    courseHeader.textContent = 'General'
+    courseHeader.className = 'av-section-header'
+    const courseList = document.createElement('div')
+    courseList.className = 'av-list-grid'
+
     const taskHeader = document.createElement('div')
-    taskHeader.textContent = 'Task Areas'
+    taskHeader.textContent = 'Task / Directions'
     taskHeader.className = 'av-section-header'
     const taskList = document.createElement('div')
     taskList.className = 'av-list-grid'
@@ -665,10 +687,28 @@
     const groupToggles = []
     const groupMeta = []
     const classified = areas.map((a) => {
-      const hasQ = isQuestionish(a) || (Array.isArray(a.subAreas) && a.subAreas.some((sa) => isQuestionish(sa)))
-      return { area: a, isQ: !!hasQ }
+      var list
+      if (a.category == 'course') {
+        if (!courseHeader.parentNode) {
+          areaScroll.appendChild(courseHeader)
+          areaScroll.appendChild(courseList)
+        }
+        list = courseList
+      } else if (a.category.startsWith('q')) {
+        if (!qHeader.parentNode) {
+          areaScroll.appendChild(qHeader)
+          areaScroll.appendChild(qList)
+        }
+        list = qList
+      } else {
+        if (!taskHeader.parentNode) {
+          areaScroll.appendChild(taskHeader)
+          areaScroll.appendChild(taskList)
+        }
+        list = taskList
+      }
+      return { area: a, taskList: list }
     })
-    const anyQuestions = classified.some((c) => c.isQ)
 
     function buildGroup(a, targetList) {
       const group = document.createElement('div')
@@ -700,7 +740,7 @@
       }
 
       // Right-side checkbox for selectable parent
-      const parentKey = a.id != null ? `area:${a.id}` : null
+      const parentKey = a.name != null ? `area:${a.name}` : null
       const parentItem = { name: a.name, id: a.id, location: a.location, category: a.category }
       let rightCheckbox = null
       if (parentKey) {
@@ -733,7 +773,7 @@
       if (hasSubs) {
         subWrap.style.display = 'grid'
         a.subAreas.forEach((sa) => {
-          const key = `sub:${sa.id}`
+          const key = `sub:${sa.name}:${sa.id}`
           const item = { name: sa.name, id: sa.id, location: sa.location, category: sa.category }
           const row = makeCheckbox(sa.name, key, item, 0, false)
           subWrap.appendChild(row)
@@ -782,19 +822,7 @@
       targetList.appendChild(group)
     }
 
-    // Append Task section first
-    const taskAreas = classified.filter((c) => !c.isQ)
-    if (taskAreas.length) {
-      areaScroll.appendChild(taskHeader)
-      taskAreas.forEach((c) => buildGroup(c.area, taskList))
-      areaScroll.appendChild(taskList)
-    }
-    // Append Questions section after, only if present
-    if (anyQuestions) {
-      areaScroll.appendChild(qHeader)
-      classified.filter((c) => c.isQ).forEach((c) => buildGroup(c.area, qList))
-      areaScroll.appendChild(qList)
-    }
+    classified.forEach((c) => buildGroup(c.area, c.taskList))
 
     // Expand/Collapse all control
     let allOpen = false
@@ -860,6 +888,14 @@
     notes.placeholder = 'Additional information, examples, or reproduction steps.'
     notesRow.appendChild(notes)
     notesRow.style.display = 'none'
+    const alertRow = document.createElement('div')
+    alertRow.className = 'av-note-row'
+    notesRow.appendChild(alertRow)
+
+    const alertEl = document.createElement('div')
+    alertEl.className = 'av-note'
+    alertEl.textContent = 'Make sure to only include ONE issue per submission. It\'s okay if the one issue has multiple areas it affects, but if there are multiple issues with those areas, separate the issues into different submissions.'
+    alertRow.appendChild(alertEl)
     container.appendChild(notesRow)
 
     // Submit (hidden until issue chosen)
