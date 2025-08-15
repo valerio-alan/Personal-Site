@@ -925,6 +925,7 @@
       const selected = getSelectedItems()
       const categories = Array.from(new Set(selected.map((s) => s.category)))
       if (selected.length === 0) {
+        issueSelect.innerHTML = ''
         lastIssuesList = []
         // Hide downstream sections when nothing is selected
         issueRow.style.display = 'none'
