@@ -134,16 +134,23 @@
       hasDirections: lesson.assessment?.blocks && lesson.assessment?.blocks?.length > 0,
       pdfs: lesson.assessment?.blocks?.filter((block) => block.type === 'pdf') || [],
       questions,
-      rawData: lesson
+      assessment: lesson.assessment
     }
 
     sortQuestionAnswers(data)
+
+    if (data.hasDirections) {
+      data.assessment.preview = getAreaPreview(data.assessment)
+    }
+
+    data.areas = getIssueAreas(data)
 
     window.av_lessonData[lesson.id] = data
 	}
 
   function sortQuestionAnswers(lesson) {
     var changed = false
+
     lesson?.questions?.forEach((question) => {
       setQuestionPreview(question)
 
@@ -168,8 +175,6 @@
       }
 
     })
-
-    lesson.areas = getIssueAreas(lesson)
 
     return changed
   }
@@ -346,12 +351,12 @@
   function getIssueAreas(lesson) {
     var areas = []
 
-    areas.push({name: 'Overall Course', location: 'Course', id: "N/A", category: 'course', preview: lesson.courseTitle})
-    areas.push({name: 'Overall Chapter', location: 'Topic/Chapter', id: lesson.chapterId, category: 'course', preview: lesson.chapterTitle})
+    areas.push({name: 'Overall Course', location: 'Course', id: "N/A", category: 'course', preview: "Title: " + lesson.courseTitle})
+    areas.push({name: 'Overall Chapter', location: 'Topic/Chapter', id: lesson.chapterId, category: 'course', preview: "Title: " + lesson.chapterTitle})
 
-    areas.push({name: 'Overall Task', location: 'Overall Task', id: lesson.id, category: 'task'})
+    areas.push({name: 'Overall Task', location: 'Overall Task', id: lesson.id, category: 'task', preview: "Title: " + lesson.title})
 
-    if (lesson.hasDirections) areas.push({name: 'Task Directions', location: 'Task Directions', id: lesson.id, category: 'directions'})
+    if (lesson.hasDirections) areas.push({name: 'Task Directions', location: 'Task Directions', id: lesson.id, category: 'directions', preview: lesson.assessment.preview})
 
     if (lesson.pdfs.length === 1) {
       areas.push({name: 'Task Document', location: 'Task Document | ' + lesson.pdfs[0].title, id: lesson.pdfs[0].id, category: 'pdf'})
@@ -842,7 +847,7 @@
 
       const noteEl = document.createElement('div')
       noteEl.className = 'av-note'
-      noteEl.textContent = 'Hover any area in "Questions" to see a rough preview of the content.'
+      noteEl.textContent = 'Hover any area to see a *rough* preview of the content. Useful for differentiating questions and answer choices.'
       noteRow.appendChild(noteEl)
 
       const noteEl2 = document.createElement('div')
