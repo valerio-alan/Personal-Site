@@ -543,7 +543,7 @@
       const global = []
       issues.forEach((issue) => {
         // - It must NOT be excluded by any selected category
-        // - If it lists categories, it must include AT LEAST ONE selected category
+        // - If it lists categories, it must include BOTH selected category
         const excluded = cats.some((c) => issue.exclude && issue.exclude.includes(c))
         if (excluded) return
         const hasCats = Array.isArray(issue.categories) && issue.categories.length > 0
@@ -745,10 +745,10 @@
       }
 
       // Right-side checkbox for selectable parent
-      const parentKey = a.name != null ? `area:${a.name}` : null
+      const parentKey = `area:${a.name}`
       const parentItem = { name: a.name, id: a.id, location: a.location, category: a.category }
       let rightCheckbox = null
-      if (parentKey) {
+      if (a.id) {
         rightCheckbox = makeCheckbox(a.name, parentKey, parentItem, 0, false)
         rightCheckbox.classList.add('av-parent-check')
       }
@@ -1154,24 +1154,21 @@
   }
 
   function suspendChakraModals() {
-    // 1) Disable focus trap
+    // Disable focus trap
     document.querySelectorAll('[data-focus-lock-disabled="false"]')
       .forEach(n => n.setAttribute('data-focus-lock-disabled', 'true'));
   
-    // 2) Hide from a11y
+    // Hide from a11y
     document.querySelectorAll('.chakra-modal__content')
       .forEach(n => n.setAttribute('aria-hidden', 'true'));
   
-    // 3) Stop intercepting input without removing
+    // Stop intercepting input without removing
     document.querySelectorAll('.chakra-portal')
       .forEach(p => {
         p.setAttribute('data-av-suspended', '1');
         p.style.visibility = 'hidden';
         p.style.pointerEvents = 'none';
       });
-  
-    // 4) In case body scroll was locked
-    document.body.style.overflow = '';
   }
   
   function resumeChakraModals() {
