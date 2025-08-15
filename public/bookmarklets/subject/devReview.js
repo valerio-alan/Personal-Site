@@ -201,6 +201,8 @@
         img.src = src
         img.alt = b.title || 'Answer image'
         wrap.appendChild(img)
+      } else if (b.type === 'json') {
+        addJSONEls(b.value, wrap)
       } else if (typeof b.value === 'string') {
         const p = document.createElement('div')
         p.textContent = b.value
@@ -208,6 +210,129 @@
       }
     })
     return wrap.innerHTML
+  }
+
+  function addJSONEls(json, parent) {
+    var data = typeof json === 'string' ? JSON.parse(json) : json
+    var el
+
+    switch (data.type) {
+      case 'doc':
+        el = document.createElement('div')
+        el.className = 'av-json-preview'
+        break
+      case 'heading':
+        if (data?.attrs?.level) {
+          el = document.createElement('p')
+          el.style.fontSize = `${1 / data.attrs.level + 1}em`
+        } else {
+          el = document.createElement('p')
+        }
+        break
+      case 'paragraph':
+        el = document.createElement('p')
+        break
+      case 'text':
+        el = document.createElement('span')
+        break
+      case 'hardBreak':
+        el = document.createElement('br')
+        break
+      case 'bulletList':
+        el = document.createElement('ul')
+        break
+      case 'orderedList':
+        el = document.createElement('ol')
+        el.start = data.attrs.start || 1
+        break
+      case 'listItem':
+        el = document.createElement('li')
+        break
+      case 'blockquote':
+        el = document.createElement('blockquote')
+        break
+      case 'image':
+        el = document.createElement('img')
+        el.src = data.attrs.src || ''
+        el.alt = data.attrs.alt || ''
+        break
+      case 'table':
+        el = document.createElement('table')
+        break
+      case 'tableRow':
+        el = document.createElement('tr')
+        break
+      case 'tableHeader':
+        el = document.createElement('th')
+        break
+      case 'tableCell':
+        el = document.createElement('td')
+        el.colSpan = data.attrs.colspan || 1
+        el.rowSpan = data.attrs.rowspan || 1
+        break
+      case 'math':
+        el = document.createElement('span')
+        if (data?.attrs?.latex && katex) {
+          try {
+            katex.render(data.attrs.latex, el, { throwOnError: true })
+          } catch (e) {
+            el.textContent = `LaTeX: ${data.attrs.latex}`
+          }
+        }
+        break
+      default:
+        el = document.createElement('div')
+    }
+
+    var parentEl
+
+    if (data?.marks) {
+      data.marks.forEach((mark) => {
+        var markEl
+        switch (mark.type) {
+          case 'bold':
+            markEl = document.createElement('strong')
+            break
+          case 'italic':
+            markEl = document.createElement('em')
+            break
+          case 'underline':
+            markEl = document.createElement('u')
+            break
+          case 'code':
+            markEl = document.createElement('code')
+            break
+          case 'strike':
+            markEl = document.createElement('s')
+            break
+          case 'link':
+            markEl = document.createElement('a')
+            markEl.href = mark.attrs.href || '#'
+            markEl.target = '_blank'
+            break
+        }
+        if (markEl) {
+          el.appendChild(markEl)
+          parentEl = markEl
+        }
+      })
+    }
+    
+    if (!parentEl) {
+      parentEl = el
+    }
+
+    if (data?.text) {
+      parentEl.textContent = data.text
+    }
+
+    if (data?.content) {
+      data.content.forEach((child) => {
+        addJSONEls(child, parentEl)
+      })
+    }
+
+    parent.appendChild(el)
   }
 
   function setQuestionPreview(question) {
@@ -468,12 +593,16 @@
       .av-submit:hover { background: var(--chakra-colors-\\$hover-primary); }
       .av-submit[disabled] { opacity: 0.5; cursor: not-allowed; }
       .av-hover-preview { position: fixed; top: 0; left: 0; display: none; pointer-events: none; background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); border: 1px solid var(--chakra-colors-\\$subtle-border); border-radius: var(--chakra-radii-lg); box-shadow: var(--chakra-shadows-dark-lg); padding: var(--chakra-space-2-5); max-width: 480px; max-height: 60vh; overflow: hidden; z-index: 9002; font-size: var(--chakra-fontSizes-md); transition: opacity 120ms ease-out; opacity: 0; will-change: left, top, opacity; }
-      .av-preview-img { display: block; max-width: 175px; height: auto; border-radius: var(--chakra-radii-md); }
+      .av-json-preview img, .av-preview-img { display: block; max-width: 250px; height: auto; border-radius: var(--chakra-radii-md); }
       .av-correct { color: var(--chakra-colors-\\$text-green); }  
       .av-group-header { display: flex; align-items: center; gap: var(--chakra-space-2); }
       .av-caret-btn { margin-left: auto; margin-right: 1px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
       .av-parent-check { flex-shrink: 0; }
       .av-caret-tri { width: 0; height: 0; border-top: 6.5px solid transparent; border-bottom: 6.5px solid transparent; border-left: 11px solid var(--chakra-colors-\\$text-03); transition: transform 120ms ease; transform-origin: 50% 50%; }
+      .av-json-preview { display: flex; flex-direction: column; gap: 1em; }
+      .av-json-preview table { border-collapse: collapse; border: 1px solid var(--chakra-colors-\\$emphasis-border); }
+      .av-json-preview table th, .av-json-preview table td { padding: 0.5em; border: 1px solid var(--chakra-colors-\\$emphasis-border); }
+      .av-json-preview blockquote { margin-inline: 0; padding-left: 1rem; border-left: 4px solid var(--chakra-colors-\\$primary-button); }
     `
 
     const overlay = document.createElement('div')
@@ -670,6 +799,7 @@
       targetEl.addEventListener('mouseenter', () => {
         if (hoverHideTimer) { clearTimeout(hoverHideTimer); hoverHideTimer = null }
         hoverPreview.innerHTML = html
+        console.log('Hover preview content set:', html)
         hoverPreview.style.display = 'block'
         hoverPreview.style.opacity = '0'
         requestAnimationFrame(() => { hoverPreview.style.opacity = '1' })
@@ -1190,6 +1320,21 @@
   window.av_createIssueForm = window.av_createIssueForm || createIssueForm
   window.av_lessonData = window.av_lessonData || {}
 	window.av_lastPathname = window.av_lastPathname || ''
+
+  // Add KaTeX for math rendering
+  if (!window.av_katexAdded) {
+    const link = document.createElement('link');
+    link.rel = "stylesheet";
+    link.href = "https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.css";
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.js";
+    script.defer = true;
+    document.head.appendChild(script);
+
+    window.av_katexAdded = true;
+  }
 
   await checkURLChange()
   showIssueForm()
