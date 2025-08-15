@@ -542,7 +542,6 @@
     }
 
     let style
-    // Ensure styles and modal shell
     if (!document.getElementById('av-issue-form-styles')) {
       style = document.createElement('style')
       style.id = 'av-issue-form-styles'
@@ -573,8 +572,7 @@
       .av-section-header:first-of-type { margin-top: 0; }
       .av-list-grid { display: grid; align-items: start; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--chakra-space-2); }
       .av-group { display: flex; flex-direction: column; gap: var(--chakra-space-1-5); border-radius: var(--chakra-radii-lg); background: var(--chakra-colors-\\$bg-03); overflow: hidden; }
-      .av-group-header { display: flex; align-items: center; justify-content: space-between; padding: var(--chakra-space-2) var(--chakra-space-2-5); overflow: hidden; }
-      .av-group-header--has-subs { cursor: pointer; }
+      .av-group-header { display: flex; align-items: center; justify-content: space-between; padding: var(--chakra-space-2) var(--chakra-space-2-5); overflow: hidden; cursor: pointer; }
       .av-group-header--has-subs:hover { background: var(--chakra-colors-\\$hover-ui); }
       .av-group-left { display: flex; align-items: center; gap: var(--chakra-space-2); flex: 1 1 auto; min-width: 0; }
       .av-name { flex: 1 1 auto; min-width: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
@@ -607,22 +605,12 @@
 
     const overlay = document.createElement('div')
     overlay.className = 'av-issue-overlay'
-    // Close only when the overlay itself is clicked (not children)
     overlay.addEventListener('click', (e) => { if (e.target === overlay) hideIssueForm() })
     document.body.appendChild(overlay)
     const container = document.createElement('div')
     container.className = 'av-issue-container'
-    // Ensure mouse wheel scroll targets the container even if global listeners try to prevent it
-    container.addEventListener('wheel', (e) => {
-      // Only handle if content is scrollable
-      const canScroll = container.scrollHeight > container.clientHeight
-      if (!canScroll) return
-      // Apply scroll and prevent the event from being intercepted higher up
-      container.scrollTop += e.deltaY
-      e.preventDefault()
-      e.stopPropagation()
-    }, { passive: false })
-    // Add a capturing wheel handler as well, in case upstream listeners prevent default in capture phase
+
+    // Something stops wheel events from reaching container in some cases, so we add a capturing listener
     container.addEventListener('wheel', (e) => {
       const canScroll = container.scrollHeight > container.clientHeight
       if (!canScroll) return
@@ -630,14 +618,6 @@
       e.preventDefault()
       e.stopPropagation()
     }, { passive: false, capture: true })
-    // If the cursor is over the overlay (outside the container), forward wheel to the container to keep UX consistent
-    overlay.addEventListener('wheel', (e) => {
-      const canScroll = container.scrollHeight > container.clientHeight
-      if (!canScroll) return
-      container.scrollTop += e.deltaY
-      e.preventDefault()
-      e.stopPropagation()
-    }, { passive: false })
 
     const sectionTitle = document.createElement('h4')
     const sectionTitleText = document.createElement('span')
@@ -671,16 +651,14 @@
       const specific = []
       const global = []
       issues.forEach((issue) => {
-        // - It must NOT be excluded by any selected category
-        // - If it lists categories, it must include BOTH selected category
         const excluded = cats.some((c) => issue.exclude && issue.exclude.includes(c))
         if (excluded) return
-        const hasCats = Array.isArray(issue.categories) && issue.categories.length > 0
-        if (hasCats) {
+        const hasCategories = Array.isArray(issue.categories) && issue.categories.length > 0
+        if (hasCategories) {
           const includesAll = cats.length === 0 ? true : cats.every((c) => issue.categories.includes(c))
           if (!includesAll) return
         }
-        const isGlobal = !hasCats
+        const isGlobal = !hasCategories
         if (isGlobal) global.push(issue)
         else specific.push(issue)
       })
@@ -776,7 +754,6 @@
       return null
     }
 
-    // Global positioner for hover preview
     function positionHoverPreview(e) {
       const offset = 12
       let left = e.clientX + offset
@@ -793,7 +770,6 @@
       hoverPreview.style.top = Math.min(maxTop, Math.max(8, top)) + 'px'
     }
 
-    // Attach a generic hover preview to any element with provided HTML content
     function attachHoverPreview(targetEl, html) {
       if (!targetEl || !html) return
       targetEl.addEventListener('mouseenter', () => {
@@ -804,7 +780,7 @@
         hoverPreview.style.opacity = '0'
         requestAnimationFrame(() => { hoverPreview.style.opacity = '1' })
       })
-      // ensure mousemove listener exists once
+      
       if (!document.body.hasAttribute('av-hover-listener')) {
         document.body.setAttribute('av-hover-listener', 'true')
         document.body.addEventListener('mousemove', positionHoverPreview)
@@ -849,10 +825,8 @@
       const group = document.createElement('div')
       group.className = 'av-group'
 
-      // Determine if this area has subareas
       const hasSubs = Array.isArray(a.subAreas) && a.subAreas.length > 0
 
-      // Header with optional caret (left) and checkbox on the right
       const header = document.createElement('div')
       header.className = 'av-group-header' + (hasSubs ? ' av-group-header--has-subs' : '')
 
@@ -874,10 +848,10 @@
         caretBtn.appendChild(caret)
       }
 
-      // Right-side checkbox for selectable parent
       const parentKey = `area:${a.name}`
       const parentItem = { name: a.name, id: a.id, location: a.location, category: a.category }
       let rightCheckbox = null
+      // Area needs ID to have a checkbox
       if (a.id) {
         rightCheckbox = makeCheckbox(a.name, parentKey, parentItem, 0, false)
         rightCheckbox.classList.add('av-parent-check')
@@ -888,9 +862,7 @@
       if (rightCheckbox) header.appendChild(rightCheckbox)
       group.appendChild(header)
 
-      // If there are no subareas, clicking the header/name should toggle the parent checkbox
       if (!hasSubs && rightCheckbox) {
-        header.style.cursor = 'pointer'
         header.addEventListener('click', (e) => {
           // Avoid double toggling when clicking directly on the checkbox/label
           if (rightCheckbox.contains(e.target)) return
@@ -899,7 +871,6 @@
         })
       }
 
-      // Sub-areas container (grid)
       const subWrap = document.createElement('div')
       subWrap.className = 'av-subwrap'
       subWrap.style.display = hasSubs ? 'grid' : 'none'
@@ -924,7 +895,6 @@
       }
       group.appendChild(subWrap)
 
-      // Attach preview on parent header if area has preview
       if (a && a.preview) {
         attachHoverPreview(header, a.preview)
       }
@@ -1110,9 +1080,6 @@
       }
     }
 
-    // Show issue choices when something is selected
-    // This happens via checkbox change handlers -> updateIssueOptions()
-
     function updateSubmitDisabled() {
       submitBtn.disabled = (notes.value.trim().length === 0)
     }
@@ -1123,7 +1090,6 @@
       submitBtn.style.display = 'flex'
     })
 
-    // Keep submit disabled until notes provided when required
     notes.addEventListener('input', () => {
       updateSubmitDisabled()
     })
@@ -1189,7 +1155,7 @@
     removeIssueForm()
     showTemporaryAlert('Submitting issue...')
 
-    // Submit via GET; show success or retry prompt based on network outcome
+    // Submit via GET; show success or retry prompt based on outcome
     try {
       fetch(url)
         .then(() => {
@@ -1211,7 +1177,7 @@
     if (!lesson || !openBtn || !openBtn.hasAttribute('disabled')) return
     openBtn.textContent = 'Loading Issue Sheet...'
 
-    // check sessionStorage before making request
+    // Check sessionStorage before making request
     if (sessionStorage.getItem(`${lesson.courseId}-URL`)) {
       openBtn.href = sessionStorage.getItem(`${lesson.courseId}-URL`)
       openBtn.target = '_blank'
@@ -1300,7 +1266,7 @@
   }
   
   function resumeChakraModals() {
-    // Restore focus trap (optional – only if you know they were active)
+    // Restore focus trap
     document.querySelectorAll('[data-focus-lock-disabled="true"]')
       .forEach(n => n.setAttribute('data-focus-lock-disabled', 'false'));
   
