@@ -947,7 +947,7 @@
       lastIssuesList = list
 
       const currVal = issueSelect.value
-      const selectedOption = issueSelect.querySelector(`option[value="${currVal}"]`).textContent || ''
+      const selectedOption = issueSelect.querySelector(`option[value="${currVal}"]`)?.textContent || ''
 
       issueSelect.innerHTML = ''
       const ph = document.createElement('option')
