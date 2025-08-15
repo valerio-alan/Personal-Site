@@ -274,7 +274,7 @@
       title: "Missing Information - Student-Blocking"
     },
     {
-      title: "Missing Information - Not Blocking"
+      title: "Missing Information - Not Student-Blocking"
     },
     {
       title: "Text issue (Typo / Small change needed)",
