@@ -68,5 +68,5 @@ export default function Skills() {
 		}
 	}
 
-	return <Section title='Skills'>{skillsEls}</Section>
+	return <Section title='Technology'>{skillsEls}</Section>
 }

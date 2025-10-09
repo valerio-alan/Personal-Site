@@ -41,7 +41,7 @@ body {
 	z-index: 100;
 	font-family: 'Roboto Mono', monospace;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 18px;
 	white-space: nowrap;
 	padding: 6px 9px;
@@ -207,7 +207,7 @@ body {
 	padding-top: 4vh;
 	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 64px;
 	line-height: 54px;
 	color: rgb(var(--off-white));
@@ -377,7 +377,7 @@ body {
 	text-decoration: none;
 	font-family: 'Roboto Mono', monospace;
 	font-size: 28px;
-	font-weight: bold;
+	font-weight: 600;
 	color: rgba(var(--off-white), 0.75);
 	background-color: rgba(var(--accent-back), 0.75);
 	transition: background-color 150ms ease-out, color 150ms ease-out, box-shadow 150ms ease-out, transform 150ms ease-out;
@@ -675,7 +675,7 @@ body {
 	margin-bottom: min(50px, 5vw);
 	text-align: center;
 	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-	font-weight: 600;
+	font-weight: 400;
 	font-size: clamp(25px, 7vw, 60px);
 	color: rgba(var(--off-white), 0.8);
 }
@@ -855,7 +855,7 @@ body {
 	width: 100%;
 	font-family: 'Merriweather', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 24px;
 	text-align: center;
 	background-color: rgba(var(--project-bg-color), 0.8);
@@ -887,7 +887,7 @@ body {
 	padding: 1px 5px;
 	font-family: 'Roboto Mono', monospace;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 16px;
 	line-height: 21px;
 	color: rgb(var(--off-white));
