@@ -479,7 +479,9 @@
     areas.push({name: 'Overall Course', location: 'Course', id: "N/A", category: 'course', preview: "Title: " + lesson.courseTitle})
     areas.push({name: 'Overall Chapter', location: 'Topic/Chapter', id: lesson.chapterId, category: 'course', preview: "Title: " + lesson.chapterTitle})
 
-    areas.push({name: 'Overall Task', location: 'Overall Task', id: lesson.id, category: 'task', preview: "Title: " + lesson.title})
+    areas.push({name: 'Overall Task', location: 'Task', id: lesson.id, category: 'task', preview: "Title: " + lesson.title})
+
+    areas.push({name: 'Guided Notes', location: 'Task', id: lesson.id, category: 'pdf'})
 
     if (lesson.hasDirections) areas.push({name: 'Task Directions', location: 'Task Directions', id: lesson.id, category: 'directions', preview: lesson.assessment.preview})
 
