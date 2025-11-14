@@ -1308,6 +1308,11 @@
     window.av_katexAdded = true;
   }
 
+  if (!window.location.hostname.startsWith('dev.app.subject')) {
+    showTemporaryAlert('Dev Review is only supported on the dev site (dev.app.subject.com)')
+    return
+  }
+  
   await checkURLChange()
   showIssueForm()
 
