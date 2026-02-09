@@ -1155,6 +1155,7 @@
     params.set('issue', payload.issue || '')
     params.set('helpfulLink', payload.helpfulLink || '')
     params.set('notes', payload.notes || '')
+    params.set('reviewer', payload.reviewer || '')
 
     const url = `${WEB_APP_URL}?${params.toString()}`
 
