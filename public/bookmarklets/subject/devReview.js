@@ -1128,7 +1128,8 @@
         areas: selections.map((s) => ({ name: s.name, id: s.id, location: s.location, category: s.category })),
         issue: issueItem.title,
         helpfulLink: helpfulLinkInput.value.trim(),
-        notes: notes.value.trim()
+        notes: notes.value.trim(),
+        reviewer: document.querySelector('[data-testid="user-menu-button"] div[role="img"]')?.getAttribute('aria-label') || 'Unknown'
       }
 
       handleIssueSubmit(payload)
