@@ -55,6 +55,7 @@
 		const currentUrl = window.location.pathname
 		const bearerToken = getBearerToken()
 		const urlSections = currentUrl.split('/')
+		const userId = pendo?.visitorId
 		const courseId = urlSections?.[4]
 		const lessonId = urlSections?.[6]
 
@@ -77,6 +78,18 @@
     if (!lessonData || !lessonData?.data) {
       showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
       return
+    }
+
+    if (userId) {
+      const userResponse = await fetch(`https://dev-services.subject.com/users/users/${userId}`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
+      let userData = await userResponse.json()
+      if (userData && userData?.data) {
+        window.av_reviewerName = `${userData?.data?.profile?.firstName} ${userData?.data?.profile?.lastName}`
+      } else {
+        window.av_reviewerName = 'Unknown'
+      }
+    } else {
+      window.av_reviewerName = 'Unknown'
     }
     structureLessonData(courseData.data, lessonData.data)
 	}
@@ -1129,7 +1142,7 @@
         issue: issueItem.title,
         helpfulLink: helpfulLinkInput.value.trim(),
         notes: notes.value.trim(),
-        reviewer: document.querySelector('[data-testid="user-menu-button"] div[role="img"]')?.getAttribute('aria-label') || 'Unknown'
+        reviewer: window.av_reviewerName
       }
 
       handleIssueSubmit(payload)
