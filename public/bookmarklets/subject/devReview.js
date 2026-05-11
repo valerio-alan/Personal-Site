@@ -971,7 +971,7 @@
 
       const noteEl2 = document.createElement('div')
       noteEl2.className = 'av-note'
-      noteEl2.textContent = 'Answers will be in a random order unless they are visible on the screen before opening this menu.'
+      noteEl2.textContent = 'Answers will usually be in a random order.'
       noteRow.appendChild(noteEl2)
 
       const noteEl3 = document.createElement('div')
