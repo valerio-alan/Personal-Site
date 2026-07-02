@@ -57,13 +57,149 @@
 		}
 	}
 
+  var urlSectionByType = {
+    'dev': {
+      'course': 4,
+      'lesson': 6
+    },
+    'v2': {
+      'course': 2,
+      'rev': 4,
+      'topic': 6,
+      'lesson': 8
+    }
+  }
+
 	async function processLesson() {
+    const urlType = window.location.hostname.startsWith('dev.app.subject') ? 'dev' : 'v2'
+		var userId = null
+    if (urlType === 'dev') {
+      await structureDevLessonData();
+    } else {
+      await structureV2LessonData();
+    }
+	}
+
+  async function structureV2LessonData() {
 		const currentUrl = window.location.pathname
-		const bearerToken = getBearerToken()
+    window.av_reviewerName = document.querySelector('.chakra-avatar div[role="img"]')?.getAttribute('aria-label') || 'Unknown'
+
+    const bearerToken = getBearerToken()
 		const urlSections = currentUrl.split('/')
-		const userId = pendo?.visitorId
-		const courseId = urlSections?.[4]
-		const lessonId = urlSections?.[6]
+		var courseId = urlSections?.[urlSectionByType['v2'].course]
+		var revId = urlSections?.[urlSectionByType['v2'].rev]
+		var topicId = urlSections?.[urlSectionByType['v2'].topic]
+		var lessonId = urlSections?.[urlSectionByType['v2'].lesson]
+
+    window.av_lessonId = lessonId
+
+    if (lessonId in window.av_lessonData) {
+      return
+    }
+
+		if (!bearerToken || !courseId || !lessonId) return
+    const courseResponse = await fetch(`https://services.subject.com/course-management/courses-v2/${courseId}`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
+    const courseData = await courseResponse.json()
+    if (!courseData || !courseData?.data?.subject) {
+      showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
+      console.log('Error fetching course data:', courseData)
+      return
+    }
+
+    var course = courseData?.data || {}
+
+
+    const topicsResponse = await fetch(`https://services.subject.com/course-management/courses-v2/${courseId}/revisions/${revId}/topics`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
+    const topicsData = await topicsResponse.json()
+    if (!topicsData || !topicsData?.data?.topics) {
+      showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
+      console.log('Error fetching topic data:', topicsData)
+      return
+    }
+    
+
+    const lessonResponse = await fetch(`https://services.subject.com/course-management/courses-v2/${courseId}/revisions/${revId}/topics/${topicId}/tasks/${lessonId}`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
+    const lessonData = await lessonResponse.json()
+    if (!lessonData || !lessonData?.data) {
+      showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
+      console.log('Error fetching lesson data:', lessonData)
+      return
+    }
+
+    var lesson = lessonData?.data || {}
+
+    var chapterTitle
+
+    if (topicsData) {
+      var topics = topicsData?.data?.topics || []
+      topics.forEach((topic) => {
+        if (topic.id === topicId) {
+          chapterTitle = topic.title
+        }
+      })
+    }
+
+    var groupCount = 0
+    var questions = lesson?.questions || []
+    questions = questions.map((question, i) => {
+      var num = i + 1
+      if (question.types.includes('split_screen') || question.types.includes('group')) {
+        groupCount++
+        num = groupCount
+      } else {
+        num -= groupCount
+      }
+
+      return {
+        num,
+        id: question.id,
+        type: question.types.join(', '),
+        answers: question?.answers.map((answer) => {
+          return {
+            ...answer,
+            preview: getAreaPreview(answer)
+          }
+        }) || [],
+        blocks: question?.blocks || [],
+        text: question?.text || ''
+      }
+    })
+
+    var data = {
+      id: lesson.id,
+      title: lesson.title,
+      type: lesson.type,
+      courseId: course.id,
+      courseTitle: course.title,
+      courseSubject: course.subject,
+      chapterId: topicId,
+      chapterTitle: chapterTitle,
+      hasDirections: lesson?.blocks && lesson?.blocks?.length > 0,
+      pdfs: lesson?.blocks?.filter((block) => block.type === 'pdf') || [],
+      questions,
+      assessment: lesson
+    }
+
+    sortQuestionAnswers(data)
+
+    if (data.hasDirections) {
+      data.assessment.preview = getAreaPreview(lesson)
+    }
+
+    data.areas = getIssueAreas(data)
+
+    window.av_lessonData[lesson.id] = data
+    console.log(data)
+  }
+
+	async function structureDevLessonData() {
+		const currentUrl = window.location.pathname
+    var userId = pendo?.visitorId
+    
+    const bearerToken = getBearerToken()
+		const urlSections = currentUrl.split('/')
+		var courseId = urlSections?.[urlSectionByType['dev'].course]
+		var lessonId = urlSections?.[urlSectionByType['dev'].lesson]
 
     window.av_lessonId = lessonId
 
@@ -76,15 +212,21 @@
     const courseData = await courseResponse.json()
     if (!courseData || !courseData?.data?.subject) {
       showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
+      console.log('Error fetching course data:', courseData)
       return
     }
+
+    var course = courseData?.data || {}
 
     const lessonResponse = await fetch(`https://dev-services.subject.com/content/courses/${courseId}/lessons/${lessonId}?includeAssessmentQuestions=true`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
     const lessonData = await lessonResponse.json()
     if (!lessonData || !lessonData?.data) {
       showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
+      console.log('Error fetching lesson data:', lessonData)
       return
     }
+
+    var lesson = lessonData?.data || {}
 
     if (userId) {
       const userResponse = await fetch(`https://dev-services.subject.com/users/users/${userId}`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
@@ -96,13 +238,6 @@
       }
     } else {
       window.av_reviewerName = 'Unknown'
-    }
-    structureLessonData(courseData.data, lessonData.data)
-	}
-
-	function structureLessonData(course, lesson) {
-    if (lesson.id in window.av_lessonData) {
-      return
     }
 
     var chapterTitle
@@ -562,7 +697,7 @@
     const lesson = currLesson()
 
     if (!lesson) {
-      showTemporaryAlert('Lesson not loaded yet. Try again in a moment.')
+      showTemporaryAlert('Enter a task or wait for it to load and try again.')
       return
     }
 
@@ -800,7 +935,6 @@
       targetEl.addEventListener('mouseenter', () => {
         if (hoverHideTimer) { clearTimeout(hoverHideTimer); hoverHideTimer = null }
         hoverPreview.innerHTML = html
-        console.log('Hover preview content set:', html)
         hoverPreview.style.display = 'block'
         hoverPreview.style.opacity = '0'
         requestAnimationFrame(() => { hoverPreview.style.opacity = '1' })
@@ -1329,8 +1463,8 @@
     window.av_katexAdded = true;
   }
 
-  if (!window.location.hostname.startsWith('dev.app.subject')) {
-    showTemporaryAlert('Dev Review is only supported on the dev site (dev.app.subject.com)')
+  if (!window.location.hostname.startsWith('dev.app.subject') && !window.location.href.split('//')?.[1].startsWith('courses.subject.com/courses-v2')) {
+    showTemporaryAlert('Dev Review is only supported on the dev site (dev.app.subject.com) and CCP v2 (courses.subject.com/courses-v2)')
     return
   }
   
