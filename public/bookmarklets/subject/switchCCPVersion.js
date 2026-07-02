@@ -19,14 +19,20 @@
 			alertDiv.style.transition = 'all 0.25s ease-out'
 			alertDiv.style.transform = 'translateX(-50%) translateY(-150%)'
 		}
-		alertDiv.style.backgroundColor = 'var(--chakra-colors-\\$bg-02)'
+    if (window.location.hostname.includes('subject.com')) {
+		  alertDiv.style.backgroundColor = 'var(--chakra-colors-\\$bg-02)'
+		  alertDiv.style.border = '1px solid var(--chakra-colors-\\$subtle-border)'
+		  alertDiv.style.color = 'var(--chakra-colors-\\$text-01)'
+    } else {
+      alertDiv.style.backgroundColor = '#212226'
+		  alertDiv.style.border = '1px solid #303236'
+		  alertDiv.style.color = '#FCFDFF'
+    }
 		alertDiv.style.textAlign = 'center'
-		alertDiv.style.color = 'var(--chakra-colors-\\$text-01)'
 		alertDiv.style.padding = '10px 20px'
 		alertDiv.style.borderRadius = '5px'
 		alertDiv.style.fontSize = '16px'
 		alertDiv.style.zIndex = '9999'
-		alertDiv.style.border = '1px solid var(--chakra-colors-\\$subtle-border)'
 		document.body.appendChild(alertDiv)
 		if (!instant) {
 			setTimeout(() => {
