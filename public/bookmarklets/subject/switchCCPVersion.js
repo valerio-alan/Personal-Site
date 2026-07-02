@@ -7,14 +7,18 @@
     return
   }
   
-  function showTemporaryAlert(message) {
+  function showTemporaryAlert(message, instant = false) {
 		const alertDiv = document.createElement('div')
 		alertDiv.innerHTML = message
 		alertDiv.style.position = 'fixed'
 		alertDiv.style.top = '20px'
 		alertDiv.style.left = '50%'
-		alertDiv.style.transition = 'all 0.25s ease-out'
-		alertDiv.style.transform = 'translateX(-50%) translateY(-150%)'
+		if (instant) {
+			alertDiv.style.transform = 'translateX(-50%) translateY(0%)'
+		} else {
+			alertDiv.style.transition = 'all 0.25s ease-out'
+			alertDiv.style.transform = 'translateX(-50%) translateY(-150%)'
+		}
 		alertDiv.style.backgroundColor = 'var(--chakra-colors-\\$bg-02)'
 		alertDiv.style.textAlign = 'center'
 		alertDiv.style.color = 'var(--chakra-colors-\\$text-01)'
@@ -24,9 +28,11 @@
 		alertDiv.style.zIndex = '9999'
 		alertDiv.style.border = '1px solid var(--chakra-colors-\\$subtle-border)'
 		document.body.appendChild(alertDiv)
-		setTimeout(() => {
-			alertDiv.style.transform = 'translate(-50%) translateY(0%)'
-		}, 0)
+		if (!instant) {
+			setTimeout(() => {
+				alertDiv.style.transform = 'translate(-50%) translateY(0%)'
+			}, 1)
+		}
 		setTimeout(() => {
 			alertDiv.remove()
 		}, 2000)
@@ -46,24 +52,33 @@
 		const urlSections = currentUrl.split('/')
 		const courseId = urlSections?.[2]
 		if (currentUrl.startsWith('/courses-v2/')) {
-			showTemporaryAlert(courseId.toString());
+			showTemporaryAlert("Switching to v1...", true);
+			window.location.href = `/courses/${courseId}`
 			return
 		}
 
 		const bearerToken = getBearerToken()
 
-		if (!bearerToken || !courseId || !lessonId) return
-    const courseResponse = await fetch(`https://dev-services.subject.com/content/courses/${courseId}`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
-    const courseData = await courseResponse.json()
-    if (!courseData || !courseData?.data?.subject) {
+		if (!bearerToken || !courseId) {
       showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
       return
     }
+
+    const courseResponse = await fetch(`https://services.subject.com/course-management/courses-v2/${courseId}`, { method: 'GET', headers: { authorization: `Bearer ${bearerToken}` } })
+    const courseData = await courseResponse.json()
+		var revisionId = courseData?.data?.revisionId
+    if (!courseData || !revisionId) {
+      showTemporaryAlert('Something went wrong<br>Please refresh the page and try again')
+      return
+    }
+
+		showTemporaryAlert("Switching to v2...", true);
+		window.location.href = `/courses-v2/${courseId}/revisions/${revisionId}`
 	}
 
 	await switchCCPs()
 	setTimeout(() => {
-		const script = document.querySelector('script[src*="devReview.js"]:last-of-type')
+		const script = document.querySelector('script[src*="switchCCPVersion.js"]:last-of-type')
 		script.parentNode.removeChild(script)
-	}, 1)
+	}, 0)
 })()

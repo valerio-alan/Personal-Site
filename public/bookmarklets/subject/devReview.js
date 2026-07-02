@@ -28,7 +28,7 @@
 		document.body.appendChild(alertDiv)
 		setTimeout(() => {
 			alertDiv.style.transform = 'translate(-50%) translateY(0%)'
-		}, 0)
+		}, 1)
 		setTimeout(() => {
 			alertDiv.remove()
 		}, 2000)
