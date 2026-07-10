@@ -122,7 +122,8 @@
 		revSelectorWrapper.style.height = '100dvh'
 		revSelectorWrapper.style.justifyContent = 'center'
 		revSelectorWrapper.style.alignItems = 'center'
-		revSelectorWrapper.style.backgroundColor = '#1a1b1f7c'
+		revSelectorWrapper.style.backgroundColor = '#1a1b1fbb'
+		revSelectorWrapper.style.backdropFilter = 'blur(5px)'
 		revSelectorWrapper.style.zIndex = '9999'
 		revSelectorWrapper.addEventListener('click', (e) => {
 			if (e.target === revSelectorWrapper) {
