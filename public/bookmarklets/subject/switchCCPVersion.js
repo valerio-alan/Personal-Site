@@ -1,5 +1,5 @@
 (async function () {
-  if (!window.location.hostname.includes('subject.com')) {
+  if (!window.location.hostname.includes('courses.subject.com')) {
     setTimeout(() => {
       const script = document.querySelector('script[src*="devReview.js"]:last-of-type')
       script.parentNode.removeChild(script)
