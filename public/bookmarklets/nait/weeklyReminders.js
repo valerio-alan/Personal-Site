@@ -10,6 +10,7 @@
 	const now = new Date();
 	const year = now.getFullYear();
 	const month = now.getMonth() + 1;
+	const monthName = now.toLocaleString('default', {month: 'short'});
 	const day = now.getDate() + 7;
 	const calDataUrl = `https://lms.nait.ca/d2l/le/calendar/6606/home/eventspanepartial?searchInfo=&year=${year}&month=${month}&day=${day}`;
 
@@ -45,12 +46,16 @@
 			let weekDayNum = weekDayNums[weekDayIndex]
 			console.log(weekDayNum)
 
+			let eventClass = elWrapper.querySelector('[class*="calendar-dot-name"]')?.textContent.replace(/ \(\w{3}\.\d{4}\)$/g, '')
+			console.log(eventClass)
+			let eventName = eventEl.querySelector('[class*="event-title"]')?.textContent
+			console.log(eventName)
 			let isAllDay = eventEl.closest('.d2l-le-calendar-week-all-wrapper') != null
 			let eventTime = ''
 			if (isAllDay) {
 				eventTime = "All Day"
 			} else {
-				eventTime = eventEl.parentElement.querySelector('div .d2l-inline').textContent
+				eventTime = eventEl.parentElement.querySelector('div .d2l-inline')?.textContent
 				if (eventTime.includes('MEnds')) {
 					eventTime = eventTime.replace('MEnds', 'M - Ends').replace('Starts', '').replace(' Ends', '')
 				}
