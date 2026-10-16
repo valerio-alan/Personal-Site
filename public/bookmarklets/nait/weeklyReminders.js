@@ -10,8 +10,8 @@
 	const now = new Date();
 	const year = now.getFullYear();
 	const month = now.getMonth() + 1;
-	const monthName = now.toLocaleString('default', {month: 'short'});
 	const day = now.getDate() + 7;
+	const dayOfWeek = now.getDay();
 	const calDataUrl = `https://lms.nait.ca/d2l/le/calendar/6606/home/eventspanepartial?searchInfo=&year=${year}&month=${month}&day=${day}`;
 
 	async function getCalData() {
@@ -36,20 +36,26 @@
 			return weekDayNum
 		})
 		let events = doc.querySelectorAll('a[title]')
-		let weekDayEvents = []
-		for (num in weekDayNums) {
-			weekDayEvents.push([])
-		}
+		let eventData = []
+
 		events.forEach((eventEl) => {
 			let elWrapper = eventEl.closest('td')
 			let weekDayIndex = Array.from(elWrapper.parentElement.querySelectorAll('td')).indexOf(elWrapper)
-			let weekDayNum = weekDayNums[weekDayIndex]
-			console.log(weekDayNum)
+			
+			let data = {}
+
+			let eventDate = new Date(now)
+			eventDate.setDate(eventDate.getDate() - dayOfWeek + weekDayIndex)
+			console.log(eventDate.getDate())
+			let monthName = eventDate.toLocaleString('default', {month: 'long'});
+			data.timestamp = eventDate.getTime()
+			data.month = monthName
+			data.date = eventDate.getDate()
 
 			let eventClass = elWrapper.querySelector('[class*="calendar-dot-name"]')?.textContent.replace(/ \(\w{3}\.\d{4}\)$/g, '')
-			console.log(eventClass)
+			data.className = eventClass
 			let eventName = eventEl.querySelector('[class*="event-title"]')?.textContent
-			console.log(eventName)
+			data.eventName = eventName
 			let isAllDay = eventEl.closest('.d2l-le-calendar-week-all-wrapper') != null
 			let eventTime = ''
 			if (isAllDay) {
@@ -61,11 +67,36 @@
 				}
 				eventTime = eventTime.replaceAll(` ${year}`, '').trim()
 			}
+			data.eventTime = eventTime
 
-			console.log(eventTime)
-
+			eventData.push(data)
 		})
 		
+		let eventsWithAvailability = []
+
+		let i = 0
+		while (i < eventData.length) {
+			let event = eventData[i]
+
+			if (event.eventName.endsWith(' - Available') || event.eventName.endsWith(' - Availability Ends')) {
+				let eventWithoutSuffix = event.eventName.replace(' - Available', '').replace(' - Availability Ends', '')
+				let eventKey = eventWithoutSuffix + event.eventTime
+				if (eventsWithAvailability.includes(eventKey)) {
+					eventData.splice(i, 1)
+					eventsWithAvailability.splice(eventsWithAvailability.indexOf(eventKey), 1)
+					continue
+				} else {
+					event.eventName = eventWithoutSuffix
+					eventsWithAvailability.push(eventKey)
+				}
+			}
+
+			i++
+		}
+
+		eventData.sort((a, b) => a.timestamp - b.timestamp)
+		console.log(eventData)
+		return eventData
 	}
 
 	parseCalHtmlEvents(await getCalData());
