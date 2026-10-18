@@ -9,7 +9,7 @@
 
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwopIMjZIhRcOsS2hoMVcJThS_Bd2ml2wF2np24rJECjgtYsLLbBimbiskrnRHoVCgc/exec";
 
-  function showTemporaryAlert(message) {
+  function showTemporaryAlert(message, dur = 2000) {
     const alertDiv = document.createElement("div");
     alertDiv.innerHTML = message;
     alertDiv.style.position = "fixed";
@@ -37,7 +37,7 @@
     }, 1);
     setTimeout(() => {
       alertDiv.remove();
-    }, 2000);
+    }, dur);
   }
 
   function getBearerToken() {
@@ -67,6 +67,9 @@
       rev: 4,
       topic: 6,
       lesson: 8,
+    },
+    v1: {
+      course: 2,
     },
   };
 
@@ -741,10 +744,11 @@
       .av-actions { display: flex; justify-content: space-between; margin-top: var(--chakra-space-3-5); }
       .av-actions button, .av-actions a { transition-property: var(--chakra-transition-property-common); transition-duration: var(--chakra-transition-duration-normal); }
       .av-submit { padding: var(--chakra-space-2) var(--chakra-space-3); border-radius: var(--chakra-radii-md); background: var(--chakra-colors-\\$primary-button); color: var(--chakra-colors-\\$primary-button-text); cursor: pointer; }
-      .av-open { margin-left: auto; text-decoration: none; padding: var(--chakra-space-2) var(--chakra-space-3); border-radius: var(--chakra-radii-md); background: var(--chakra-colors-\\$text-01); color: var(--chakra-colors-\\$bg-01); cursor: pointer; }
+      .av-open { text-decoration: none; padding: var(--chakra-space-2) var(--chakra-space-3); border-radius: var(--chakra-radii-md); background: var(--chakra-colors-\\$text-01); color: var(--chakra-colors-\\$bg-01); cursor: pointer; }
       .av-open[disabled] { opacity: 0.5; cursor: wait; }
       .av-open[disabled]:hover { background: var(--chakra-colors-\\$text-01); color: var(--chakra-colors-\\$bg-01); }
-      .av-open:not([disabled]):hover { background: var(--chakra-colors-\\$hover-primary); color: var(--chakra-colors-\\$primary-button-text); }
+      .av-open:not([disabled]):hover, .av-dev-link:hover { background: var(--chakra-colors-\\$hover-primary); color: var(--chakra-colors-\\$primary-button-text); }
+      .av-dev-link { margin-left: auto; padding: var(--chakra-space-2) var(--chakra-space-3); border-radius: var(--chakra-radii-md); border: 1px solid var(--chakra-colors-chakra-border-color); color: var(--chakra-colors-\\$text-01); cursor: pointer; }
       .av-submit:hover { background: var(--chakra-colors-\\$hover-primary); }
       .av-submit[disabled] { opacity: 0.5; cursor: not-allowed; }
       .av-hover-preview { position: fixed; top: 0; left: 0; display: none; pointer-events: none; background: var(--chakra-colors-\\$bg-02); color: var(--chakra-colors-\\$text-01); border: 1px solid var(--chakra-colors-\\$subtle-border); border-radius: var(--chakra-radii-lg); box-shadow: var(--chakra-shadows-dark-lg); padding: var(--chakra-space-2-5); max-width: 480px; max-height: 60vh; overflow: hidden; z-index: 9002; font-size: var(--chakra-fontSizes-md); transition: opacity 120ms ease-out; opacity: 0; will-change: left, top, opacity; }
@@ -1175,12 +1179,26 @@
     submitBtn.className = "av-submit";
     submitBtn.disabled = true;
     submitBtn.style.display = "none";
+    actions.appendChild(submitBtn);
     const openBtn = document.createElement("a");
     openBtn.textContent = "Loading Issue Sheet...";
     openBtn.className = "av-open";
     openBtn.href = "#";
     openBtn.setAttribute("disabled", true);
-    actions.appendChild(submitBtn);
+    if (!window.location.hostname.startsWith("dev.app.subject")) {
+      const devCopyBtn = document.createElement("button");
+      devCopyBtn.textContent = "Copy Dev Site URL";
+      devCopyBtn.className = "av-dev-link";
+      devCopyBtn.onclick = () => {
+        navigator.clipboard.writeText(`dev.app.subject.com/courses/${lesson.courseId}`);
+        showTemporaryAlert("Copied to clipboard!");
+      };
+      devCopyBtn.style.marginLeft = "auto";
+      openBtn.style.marginLeft = "var(--chakra-space-3)";
+      actions.appendChild(devCopyBtn);
+    } else {
+      openBtn.style.marginLeft = "auto";
+    }
     actions.appendChild(openBtn);
     container.appendChild(actions);
 
@@ -1466,7 +1484,17 @@
   }
 
   if (!window.location.hostname.startsWith("dev.app.subject") && !window.location.href.split("//")?.[1].startsWith("courses.subject.com/courses-v2")) {
-    showTemporaryAlert("Dev Review is only supported on the dev site (dev.app.subject.com) and CCP v2 (courses.subject.com/courses-v2)");
+    var courseId = window.location.pathname.split("/")?.[urlSectionByType["v1"].course];
+    if (courseId && courseId.length == 21) {
+      showTemporaryAlert(
+        `Dev Review is only supported on the dev site (dev.app.subject.com) or<br/>CCP v2 (courses.subject.com/courses-v2)
+        <br/>
+        <button style="background-color: #fff4; padding: 0.25em 0.5em; border-radius: 0.25em;" onclick="navigator.clipboard.writeText('dev.app.subject.com/courses/${courseId}')">Click here to copy the Dev site link to your clipboard</button>`,
+        5000,
+      );
+    } else {
+      showTemporaryAlert("Dev Review is only supported on the dev site (dev.app.subject.com) or<br/>CCP v2 (courses.subject.com/courses-v2)");
+    }
     return;
   }
 
