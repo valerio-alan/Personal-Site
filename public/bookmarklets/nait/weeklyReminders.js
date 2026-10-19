@@ -10,7 +10,7 @@
 	const now = new Date();
 	const year = now.getFullYear();
 	const month = now.getMonth() + 1;
-	const day = now.getDate() + 7;
+	const day = now.getDate();
 	const dayOfWeek = now.getDay();
 	const calDataUrl = `https://lms.nait.ca/d2l/le/calendar/6606/home/eventspanepartial?searchInfo=&year=${year}&month=${month}&day=${day}`;
 
