@@ -55,7 +55,8 @@
 			data.month = monthName
 			data.date = weekDayNums[weekDayIndex]
 
-			let eventClass = elWrapper.querySelector('[class*="calendar-dot-name"]')?.textContent.replace(/ \(\w{3}\.\d{4}\)$/g, '')
+			let relevantContextEl = Array.from(elWrapper.children)[Array.from(elWrapper.children).indexOf(eventEl) + 1]
+			let eventClass = relevantContextEl.querySelector('[class*="calendar-dot-name"]')?.textContent.replace(/ \(\w{3}\.\d{4}\)$/g, '')
 			data.className = eventClass
 			let eventName = eventEl.querySelector('[class*="event-title"]')?.textContent
 			data.eventName = eventName
@@ -64,7 +65,7 @@
 			if (isAllDay) {
 				eventTime = "All Day"
 			} else {
-				eventTime = eventEl.parentElement.querySelector('div .d2l-inline')?.textContent.trim()
+				eventTime = relevantContextEl.querySelector('div .d2l-inline')?.textContent.trim()
 				if (eventTime.includes('MEnds')) {
 					eventTime = eventTime.replace('MEnds', 'M - Ends').replace('Starts', '').replace(' Ends', '')
 				}
@@ -104,7 +105,7 @@
 	}
 
 	async function sendToDiscord() {
-		let message = ''
+		let message = '# Upcoming Brightspace Events\n'
 		let lastDate = ''
 
 		const eventEls = document.querySelectorAll('.av-event')
