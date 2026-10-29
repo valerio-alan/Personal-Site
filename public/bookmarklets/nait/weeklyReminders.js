@@ -100,7 +100,6 @@
 		}
 
 		eventData.sort((a, b) => a.timestamp - b.timestamp)
-		console.log(eventData)
 		return eventData
 	}
 
