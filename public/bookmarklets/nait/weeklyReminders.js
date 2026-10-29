@@ -103,7 +103,7 @@
 		return eventData
 	}
 
-	function sendToDiscord() {
+	async function sendToDiscord() {
 		let message = ''
 		let lastDate = ''
 
@@ -122,7 +122,16 @@
 			message += `${title}\n`
 			message += `-# ${time}\n`
 		})
-		console.log(message)
+
+		await fetch(webhookUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				content: message
+			})
+		});
 	}
 
 	const now = new Date();
@@ -194,16 +203,45 @@
 				cursor: pointer;
 			}
 
+			.av-event_close {
+				cursor: pointer;
+				position: relative;
+				aspect-ratio: 1/1;
+				height: 100%;
+				transition: transform 0.25s ease;
+			}
+
+			.av-event_close:hover {
+				transform: scale(1.1);
+			}
+
 			.av-popup_title div::before,
 			.av-popup_title div::after {
+				top: calc(var(--spacing) - var(--spacing) * 0.2);
+				height: calc(var(--spacing) * 0.2);
+			}
+
+			.av-event_close::before,
+			.av-event_close::after {
+				top: calc(0.96rem / 2 - 1px);
+				height: 0.075rem;
+				opacity: 0.9;
+			}
+
+			.av-popup_title div::before,
+			.av-popup_title div::after,
+			.av-event_close::before,
+			.av-event_close::after {
 				content: "";
 				position: absolute;
-				top: calc(var(--spacing) - var(--spacing) * 0.2);
 				display: block;
 				width: 100%;
-				height: calc(var(--spacing) * 0.2);
 				background: black;
 				transform: rotate(45deg);
+			}
+				
+			.av-event_close::after {
+				transform: rotate(-45deg);
 			}
 				
 			.av-popup_title div::after {
@@ -325,6 +363,12 @@
 		let eventDetails = document.createElement('div')
 		eventDetails.className = 'av-event_details'
 		eventTop.appendChild(eventDetails)
+		let eventClose = document.createElement('div')
+		eventClose.className = 'av-event_close'
+		eventClose.onclick = () => {
+			eventEl.remove()
+		}
+		eventTop.appendChild(eventClose)
 
 		let eventCourse = document.createElement('span')
 		eventCourse.className = 'av-event_course'
@@ -350,12 +394,13 @@
 		eventEl.appendChild(eventDue)
 	})
 
-	let discordButton = document.createElement('div')
+	let discordButton = document.createElement('btn')
 	discordButton.className = 'av-disc_btn'
 	discordButton.innerText = 'Send to Discord'
-	discordButton.onclick = () => {
-		console.log('test')
-		sendToDiscord()
+	discordButton.onclick = async () => {
+		await sendToDiscord()
+		baseEl.remove()
+		stylesEl.remove()
 	}
 	eventsWrapper.appendChild(discordButton)
 })();
