@@ -349,7 +349,7 @@
 	popup.appendChild(eventsWrapper)
 
 	weekEvents.forEach(evnt => {
-		if (evnt.timestamp <= now.getTime()) {
+		if (evnt.timestamp < now.getTime()) {
 			return
 		}
 
