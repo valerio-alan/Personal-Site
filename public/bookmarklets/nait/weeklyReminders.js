@@ -1,153 +1,153 @@
 (async function () {
-	const webhookUrl = 'https://discord.com/api/webhooks/1560309721939058688/5PGG0FRzKeetz8H9xH31w7NAEWbJwPOtXYOCNIVjtPtNjlylX8nzay70RQc9PytEuks-'
+  if (!window.location.hostname.includes("lms.nait.ca")) {
+    setTimeout(() => {
+      const script = document.querySelector('script[src*="weeklyReminders.js"]:last-of-type');
+      script.parentNode.removeChild(script);
+    }, 1);
+    return;
+  }
 
-	if (!window.location.hostname.includes('lms.nait.ca')) {
-		setTimeout(() => {
-			const script = document.querySelector('script[src*="weeklyReminders.js"]:last-of-type');
-			script.parentNode.removeChild(script);
-		}, 1);
-		return;
-	}
+  const webhookUrl = window.av_discord_url;
 
-	async function getWeekEvents(date) {
-		const year = date.getFullYear();
-		const month = date.getMonth() + 1;
-		const day = date.getDate();
-		const calDataUrl = `https://lms.nait.ca/d2l/le/calendar/6606/home/eventspanepartial?searchInfo=&year=${year}&month=${month}&day=${day}`;
+  async function getWeekEvents(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const calDataUrl = `https://lms.nait.ca/d2l/le/calendar/6606/home/eventspanepartial?searchInfo=&year=${year}&month=${month}&day=${day}`;
 
-		let res = await fetch(calDataUrl);
-		let rawData = await res.text();
-		let data = JSON.parse(rawData.replace('while(1);', ''));
-		let html = data?.Payload?.Html;
-		if (!html) {
-			return null;
-		}
-		
-		return parseCalHtmlEvents(html, date)
-	}
+    let res = await fetch(calDataUrl);
+    let rawData = await res.text();
+    let data = JSON.parse(rawData.replace("while(1);", ""));
+    let html = data?.Payload?.Html;
+    if (!html) {
+      return null;
+    }
 
-	function parseCalHtmlEvents(calHTML, inputDate) {
-		const year = inputDate.getFullYear();
-		const dayOfWeek = inputDate.getDay();
-		let dom = new DOMParser()
-		let doc = dom.parseFromString(calHTML, 'text/html')
-		let dateEls = doc.querySelector('.d2l-offscreen').querySelectorAll('th:not(:first-of-type)')
-		let weekDayNums = Array.from(dateEls).map((el) => {
-			let text = el.textContent
-			let weekDayNum = text.match(/\d+(?=,)/g)[0]
-			return weekDayNum
-		})
-		let events = doc.querySelectorAll('a[title]')
-		let eventData = []
+    return parseCalHtmlEvents(html, date);
+  }
 
-		events.forEach((eventEl) => {
-			let elWrapper = eventEl.closest('td')
-			let weekDayIndex = Array.from(elWrapper.parentElement.querySelectorAll('td')).indexOf(elWrapper)
-			
-			let data = {}
+  function parseCalHtmlEvents(calHTML, inputDate) {
+    const year = inputDate.getFullYear();
+    const dayOfWeek = inputDate.getDay();
+    let dom = new DOMParser();
+    let doc = dom.parseFromString(calHTML, "text/html");
+    let dateEls = doc.querySelector(".d2l-offscreen").querySelectorAll("th:not(:first-of-type)");
+    let weekDayNums = Array.from(dateEls).map((el) => {
+      let text = el.textContent;
+      let weekDayNum = text.match(/\d+(?=,)/g)[0];
+      return weekDayNum;
+    });
+    let events = doc.querySelectorAll("a[title]");
+    let eventData = [];
 
-			let eventDate = new Date(inputDate)
-			eventDate.setDate(eventDate.getDate() - dayOfWeek + weekDayIndex)
-			let WeekName = eventDate.toLocaleString('default', {weekday: 'long'});
-			data.weekday = WeekName
-			let monthName = eventDate.toLocaleString('default', {month: 'long'});
-			data.timestamp = eventDate.getTime()
-			data.month = monthName
-			data.date = weekDayNums[weekDayIndex]
+    events.forEach((eventEl) => {
+      let elWrapper = eventEl.closest("td");
+      let weekDayIndex = Array.from(elWrapper.parentElement.querySelectorAll("td")).indexOf(elWrapper);
 
-			let relevantContextEl = Array.from(elWrapper.children)[Array.from(elWrapper.children).indexOf(eventEl) + 1]
-			let eventClass = relevantContextEl.querySelector('[class*="calendar-dot-name"]')?.textContent.replace(/ \(\w{3}\.\d{4}\)$/g, '')
-			data.className = eventClass
-			let eventName = eventEl.querySelector('[class*="event-title"]')?.textContent
-			data.eventName = eventName
-			let isAllDay = eventEl.closest('.d2l-le-calendar-week-all-wrapper') != null
-			let eventTime = ''
-			if (isAllDay) {
-				eventTime = "All Day"
-			} else {
-				eventTime = relevantContextEl.querySelector('div .d2l-inline')?.textContent.trim()
-				if (eventTime.includes('MEnds')) {
-					eventTime = eventTime.replace('MEnds', 'M - Ends').replace('Starts', '').replace(' Ends', '')
-				}
-				eventTime = eventTime.replaceAll(` ${year}`, '')
-				eventTime = eventTime.replaceAll(monthName, monthName.substring(0,3))
-			}
-			data.eventTime = eventTime.trim()
+      let data = {};
 
-			eventData.push(data)
-		})
-		
-		let eventsWithAvailability = []
+      let eventDate = new Date(inputDate);
+      eventDate.setDate(eventDate.getDate() - dayOfWeek + weekDayIndex);
+      let WeekName = eventDate.toLocaleString("default", { weekday: "long" });
+      data.weekday = WeekName;
+      let monthName = eventDate.toLocaleString("default", { month: "long" });
+      data.timestamp = eventDate.getTime();
+      data.month = monthName;
+      data.date = weekDayNums[weekDayIndex];
 
-		let i = 0
-		while (i < eventData.length) {
-			let event = eventData[i]
+      let relevantContextEl = Array.from(elWrapper.children)[Array.from(elWrapper.children).indexOf(eventEl) + 1];
+      let eventClass = relevantContextEl.querySelector('[class*="calendar-dot-name"]')?.textContent.replace(/ \(\w{3}\.\d{4}\)$/g, "");
+      data.className = eventClass;
+      let eventName = eventEl.querySelector('[class*="event-title"]')?.textContent;
+      data.eventName = eventName;
+      let isAllDay = eventEl.closest(".d2l-le-calendar-week-all-wrapper") != null;
+      let eventTime = "";
+      if (isAllDay) {
+        eventTime = "All Day";
+      } else {
+        eventTime = relevantContextEl.querySelector("div .d2l-inline")?.textContent.trim();
+        if (eventTime.includes("MEnds")) {
+          eventTime = eventTime.replace("MEnds", "M - Ends").replace("Starts", "").replace(" Ends", "");
+        }
+        eventTime = eventTime.replaceAll(` ${year}`, "");
+        eventTime = eventTime.replaceAll(monthName, monthName.substring(0, 3));
+      }
+      data.eventTime = eventTime.trim();
 
-			if (event.eventName.endsWith(' - Available') || event.eventName.endsWith(' - Availability Ends')) {
-				let eventWithoutSuffix = event.eventName.replace(' - Available', '').replace(' - Availability Ends', '')
-				let eventKey = eventWithoutSuffix + event.eventTime
-				if (eventsWithAvailability.includes(eventKey)) {
-					eventData.splice(i, 1)
-					eventsWithAvailability.splice(eventsWithAvailability.indexOf(eventKey), 1)
-					continue
-				} else {
-					event.eventName = eventWithoutSuffix
-					eventsWithAvailability.push(eventKey)
-				}
-			}
+      eventData.push(data);
+    });
 
-			i++
-		}
+    let eventsWithAvailability = [];
 
-		eventData.sort((a, b) => a.timestamp - b.timestamp)
-		return eventData
-	}
+    let i = 0;
+    while (i < eventData.length) {
+      let event = eventData[i];
 
-	async function sendToDiscord() {
-		let message = '# Upcoming Brightspace Events\n'
-		let lastDate = ''
+      if (event.eventName.endsWith(" - Available") || event.eventName.endsWith(" - Availability Ends")) {
+        let eventWithoutSuffix = event.eventName.replace(" - Available", "").replace(" - Availability Ends", "");
+        let eventKey = eventWithoutSuffix + event.eventTime;
+        if (eventsWithAvailability.includes(eventKey)) {
+          eventData.splice(i, 1);
+          eventsWithAvailability.splice(eventsWithAvailability.indexOf(eventKey), 1);
+          continue;
+        } else {
+          event.eventName = eventWithoutSuffix;
+          eventsWithAvailability.push(eventKey);
+        }
+      }
 
-		const eventEls = document.querySelectorAll('.av-event')
-		eventEls.forEach(event => {
-			let date = event.querySelector('.av-event_date').innerText
-			let course = event.querySelector('.av-event_course').innerText
-			let title = event.querySelector('.av-event_title').innerText
-			let time = event.querySelector('.av-event_time').innerText
-			if (lastDate != date) {
-				message += `## ${date}`
-				lastDate = date
-			}
-			message += '\n'
-			message += `-# ${course}\n`
-			message += `${title}\n`
-			message += `-# ${time}\n`
-		})
+      i++;
+    }
 
-		await fetch(webhookUrl, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				content: message
-			})
-		});
-	}
+    eventData.sort((a, b) => a.timestamp - b.timestamp);
+    return eventData;
+  }
 
-	const now = new Date();
+  async function sendToDiscord() {
+    let message = "# Upcoming Brightspace Events\n";
+    let lastDate = "";
 
-	let weekEvents = await getWeekEvents(now)
-	// now.setDate(now.getDate() + 7)
-	// let nextWeek = await getWeekEvents(now)
-	// let twoWeeks = [...weekEvents, ...nextWeek]
-	// console.log(twoWeeks)
+    const eventEls = document.querySelectorAll(".av-event");
+    eventEls.forEach((event) => {
+      let date = event.querySelector(".av-event_date").innerText;
+      let course = event.querySelector(".av-event_course").innerText;
+      let title = event.querySelector(".av-event_title").innerText;
+      let time = event.querySelector(".av-event_time").innerText;
+      if (lastDate != date) {
+        message += `## ${date}`;
+        lastDate = date;
+      }
+      message += "\n";
+      message += `-# ${course}\n`;
+      message += `${title}\n`;
+      message += `-# ${time}\n`;
+    });
 
-	let currentOverlay = document.querySelector('.av-reminder')
-	if (currentOverlay) {
-		currentOverlay.remove()
-	}
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: message,
+      }),
+    });
+  }
 
-	let styles = `
+  const now = new Date();
+
+  let weekEvents = await getWeekEvents(now);
+  // now.setDate(now.getDate() + 7)
+  // let nextWeek = await getWeekEvents(now)
+  // let twoWeeks = [...weekEvents, ...nextWeek]
+  // console.log(twoWeeks)
+
+  let currentOverlay = document.querySelector(".av-reminder");
+  if (currentOverlay) {
+    currentOverlay.remove();
+  }
+
+  let styles = `
 		body:has(.av-reminder) {
 			overflow-y: hidden !important;
 		}
@@ -305,102 +305,102 @@
 				transform: scale(1.1);
 			}
 		}
-	`
+	`;
 
-	let stylesEl = document.createElement('style')
-	stylesEl.innerText = styles
-	document.head.appendChild(stylesEl)
+  let stylesEl = document.createElement("style");
+  stylesEl.innerText = styles;
+  document.head.appendChild(stylesEl);
 
-	let baseEl = document.createElement('div')
-	baseEl.className = 'av-reminder'
-	document.body.appendChild(baseEl)
+  let baseEl = document.createElement("div");
+  baseEl.className = "av-reminder";
+  document.body.appendChild(baseEl);
 
-	let exitBack = document.createElement('div')
-	exitBack.className = 'av-click_to_exit'
-	exitBack.onclick = () => {
-		baseEl.remove()
-		stylesEl.remove()
-	}
-	baseEl.appendChild(exitBack)
+  let exitBack = document.createElement("div");
+  exitBack.className = "av-click_to_exit";
+  exitBack.onclick = () => {
+    baseEl.remove();
+    stylesEl.remove();
+  };
+  baseEl.appendChild(exitBack);
 
-	let popup = document.createElement('div')
-	popup.className = 'av-popup'
-	baseEl.appendChild(popup)
+  let popup = document.createElement("div");
+  popup.className = "av-popup";
+  baseEl.appendChild(popup);
 
-	let popupTitle = document.createElement('div')
-	popupTitle.className = 'av-popup_title'
-	let popupTitleText = document.createElement('span')
-	popupTitleText.innerText = 'Brightspace Discord Reminders'
-	let popupTitleBtn = document.createElement('div')
-	popupTitleBtn.onclick = () => {
-		baseEl.remove()
-		stylesEl.remove()
-	}
-	popupTitle.appendChild(popupTitleText)
-	popupTitle.appendChild(popupTitleBtn)
-	popup.appendChild(popupTitle)
+  let popupTitle = document.createElement("div");
+  popupTitle.className = "av-popup_title";
+  let popupTitleText = document.createElement("span");
+  popupTitleText.innerText = "Brightspace Discord Reminders";
+  let popupTitleBtn = document.createElement("div");
+  popupTitleBtn.onclick = () => {
+    baseEl.remove();
+    stylesEl.remove();
+  };
+  popupTitle.appendChild(popupTitleText);
+  popupTitle.appendChild(popupTitleBtn);
+  popup.appendChild(popupTitle);
 
-	let line = document.createElement('div')
-	line.className = 'av-line'
-	popup.appendChild(line)
+  let line = document.createElement("div");
+  line.className = "av-line";
+  popup.appendChild(line);
 
-	let eventsWrapper = document.createElement('div')
-	eventsWrapper.className = 'av-events'
-	popup.appendChild(eventsWrapper)
+  let eventsWrapper = document.createElement("div");
+  eventsWrapper.className = "av-events";
+  popup.appendChild(eventsWrapper);
 
-	weekEvents.forEach(evnt => {
-		if (evnt.timestamp < now.getTime()) {
-			return
-		}
+  weekEvents.forEach((evnt) => {
+    if (evnt.timestamp < now.getTime()) {
+      return;
+    }
 
-		let eventEl = document.createElement('div')
-		eventEl.className = 'av-event'
-		eventsWrapper.appendChild(eventEl)
+    let eventEl = document.createElement("div");
+    eventEl.className = "av-event";
+    eventsWrapper.appendChild(eventEl);
 
-		let eventTop = document.createElement('div')
-		eventTop.className = 'av-event_top'
-		eventEl.appendChild(eventTop)
-		let eventDetails = document.createElement('div')
-		eventDetails.className = 'av-event_details'
-		eventTop.appendChild(eventDetails)
-		let eventClose = document.createElement('div')
-		eventClose.className = 'av-event_close'
-		eventClose.onclick = () => {
-			eventEl.remove()
-		}
-		eventTop.appendChild(eventClose)
+    let eventTop = document.createElement("div");
+    eventTop.className = "av-event_top";
+    eventEl.appendChild(eventTop);
+    let eventDetails = document.createElement("div");
+    eventDetails.className = "av-event_details";
+    eventTop.appendChild(eventDetails);
+    let eventClose = document.createElement("div");
+    eventClose.className = "av-event_close";
+    eventClose.onclick = () => {
+      eventEl.remove();
+    };
+    eventTop.appendChild(eventClose);
 
-		let eventCourse = document.createElement('span')
-		eventCourse.className = 'av-event_course'
-		eventCourse.innerText = evnt.className
-		let eventDate = document.createElement('span')
-		eventDate.className = 'av-event_date'
-		eventDate.innerText = `${evnt.weekday.substring(0,3)}, ${evnt.month.substring(0,3)} ${evnt.date}`
-		eventCourse.setAttribute('contenteditable', '')
-		eventDate.setAttribute('contenteditable', '')
-		eventDetails.appendChild(eventCourse)
-		eventDetails.appendChild(eventDate)
-		
-		let eventTitle = document.createElement('span')
-		eventTitle.className = 'av-event_title'
-		eventTitle.innerText = evnt.eventName
-		eventTitle.setAttribute('contenteditable', '')
-		eventEl.appendChild(eventTitle)
+    let eventCourse = document.createElement("span");
+    eventCourse.className = "av-event_course";
+    eventCourse.innerText = evnt.className;
+    let eventDate = document.createElement("span");
+    eventDate.className = "av-event_date";
+    eventDate.innerText = `${evnt.weekday.substring(0, 3)}, ${evnt.month.substring(0, 3)} ${evnt.date}`;
+    eventCourse.setAttribute("contenteditable", "");
+    eventDate.setAttribute("contenteditable", "");
+    eventDetails.appendChild(eventCourse);
+    eventDetails.appendChild(eventDate);
 
-		let eventDue = document.createElement('span')
-		eventDue.className = 'av-event_time'
-		eventDue.innerText = evnt.eventTime
-		eventDue.setAttribute('contenteditable', '')
-		eventEl.appendChild(eventDue)
-	})
+    let eventTitle = document.createElement("span");
+    eventTitle.className = "av-event_title";
+    eventTitle.innerText = evnt.eventName;
+    eventTitle.setAttribute("contenteditable", "");
+    eventEl.appendChild(eventTitle);
 
-	let discordButton = document.createElement('btn')
-	discordButton.className = 'av-disc_btn'
-	discordButton.innerText = 'Send to Discord'
-	discordButton.onclick = async () => {
-		await sendToDiscord()
-		baseEl.remove()
-		stylesEl.remove()
-	}
-	eventsWrapper.appendChild(discordButton)
+    let eventDue = document.createElement("span");
+    eventDue.className = "av-event_time";
+    eventDue.innerText = evnt.eventTime;
+    eventDue.setAttribute("contenteditable", "");
+    eventEl.appendChild(eventDue);
+  });
+
+  let discordButton = document.createElement("btn");
+  discordButton.className = "av-disc_btn";
+  discordButton.innerText = "Send to Discord";
+  discordButton.onclick = async () => {
+    await sendToDiscord();
+    baseEl.remove();
+    stylesEl.remove();
+  };
+  eventsWrapper.appendChild(discordButton);
 })();
